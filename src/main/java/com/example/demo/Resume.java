@@ -11,7 +11,7 @@ public class Resume {
     private String name;
     private ArrayList resumeKeywords;
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="user_id")
     public User user;
 

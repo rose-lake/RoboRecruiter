@@ -13,18 +13,19 @@ public class Job {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String jobTitle;
-    private String jobDescription;
-    private String jobPostedDate;
-    private ArrayList jobKeywordList;
-    private ArrayList jobTechnicalQuestions;
+    private String title;
+    private String description;
+    private String postedDate;
+    private ArrayList keywordList;
+    private ArrayList technicalQuestions;
 
-    public Job(String jobTitle, String jobDescription, String jobPostedDate, ArrayList jobKeywordList, ArrayList jobTechnicalQuestions) {
-        this.jobTitle = jobTitle;
-        this.jobDescription = jobDescription;
-        this.jobPostedDate = jobPostedDate;
-        this.jobKeywordList = jobKeywordList;
-        this.jobTechnicalQuestions = jobTechnicalQuestions;
+
+    public Job(String title, String description, String postedDate, ArrayList keywordList, ArrayList technicalQuestions) {
+        this.title = title;
+        this.description = description;
+        this.postedDate = postedDate;
+        this.keywordList = keywordList;
+        this.technicalQuestions = technicalQuestions;
     }
 
     public long getId() {
@@ -35,43 +36,43 @@ public class Job {
         this.id = id;
     }
 
-    public String getJobTitle() {
-        return jobTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getJobDescription() {
-        return jobDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setJobDescription(String jobDescription) {
-        this.jobDescription = jobDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getJobPostedDate() {
-        return jobPostedDate;
+    public String getPostedDate() {
+        return postedDate;
     }
 
-    public void setJobPostedDate(String jobPostedDate) {
-        this.jobPostedDate = jobPostedDate;
+    public void setPostedDate(String postedDate) {
+        this.postedDate = postedDate;
     }
 
-    public ArrayList getJobKeywordList() {
-        return jobKeywordList;
+    public ArrayList getKeywordList() {
+        return keywordList;
     }
 
-    public void setJobKeywordList(ArrayList jobKeywordList) {
-        this.jobKeywordList = jobKeywordList;
+    public void setKeywordList(ArrayList keywordList) {
+        this.keywordList = keywordList;
     }
 
-    public ArrayList getJobTechnicalQuestions() {
-        return jobTechnicalQuestions;
+    public ArrayList getTechnicalQuestions() {
+        return technicalQuestions;
     }
 
-    public void setJobTechnicalQuestions(ArrayList jobTechnicalQuestions) {
-        this.jobTechnicalQuestions = jobTechnicalQuestions;
+    public void setTechnicalQuestions(ArrayList technicalQuestions) {
+        this.technicalQuestions = technicalQuestions;
     }
 }
