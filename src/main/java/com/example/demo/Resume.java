@@ -8,7 +8,7 @@ public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
+    private String name;
     private ArrayList resumeKeywords;
 
     @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
