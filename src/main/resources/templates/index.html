@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th= "http://www.thymeleaf.org">
+<head th:replace="base :: headstuff"></head>
+<body>
+<nav th:replace="base :: navbar"></nav>
+<section class="hero">
+    <div class="hero-inner">
+        <h1>Your job search ends here!</h1>
+        <form class="form form-inline form-hero mx-auto" th:action="@{/search}" method="post">
+            <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
+</section>
+<div class="container col-md-8">
+    <div th:if="${applications.size() == 0}">
+        <h1>There's nothing here.</h1>
+        <p style="text-align: center;">Try a new search or return <a href="/">home</a></p>
+    </div>
+    <div th:each="application : ${applications}">
+        <div th:with="job=${jobRepository.findById(application.jobId).get()}" th:class="card card-list mb-3 animated fadeInUp">
+            <div class="card-horizontal">
+                <div class="card-header col-md-3">
+                    <strong>[[${job.name}]]</strong>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-body">
+                        <p class="card-text" th:text="${job.description}"></p>
+                        <p class="card-text" th:text="${job.author}"></p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card-body">
+                        <p class="card-text"><small th:text="${job.date}" class="text-muted"></small></p>
+                        <p class="card-text"><small th:text="${job.phone}" class="text-muted"></small></p>
+                    </div>
+                </div>
+                <div th:if="${job.url != null and !job.url.equals('')}" class="col-md-2 img-square-wrapper img-download">
+                    <img class="card-img" th:src="${job.url}" alt="Arrival Destination">
+                    <a data-toggle="collapse" th:href="'#collapse_'+${job.id}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <span style="font-size:1.25em; color: #cb52bf;"><i class="fas fa-cog"></i></span>
+                    </a>
+                    <div class="collapse" th:id="'collapse_'+${job.id}">
+                        <div class="card card-body card-menu card-body-collapse">
+                            <a class="nav-link" role="button" th:href="@{/update/{id}(id=${job.id})}"><i class="fas fa-edit"></i></a>
+                            <a class="nav-link" role="button" th:href="@{/show/{id}(id=${job.id})}"><i class="fas fa-search"></i></a>
+                            <a class="nav-link" role="button" th:href="@{/delete/{id}(id=${job.id})}"><i class="fas fa-trash-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${job.url == null or job.url.equals('')}" class="col-md-2 img-square-wrapper img-download">
+                    <a data-toggle="collapse" th:href="'#collapse_'+${job.id}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <span style="font-size:1.25em; color: #cb52bf;"><i class="fas fa-cog"></i></span>
+                    </a>
+                    <div class="collapse" th:id="'collapse_'+${job.id}">
+                        <div class="card card-body card-menu card-body-collapse">
+                            <a class="nav-link" role="button" th:href="@{/update/{id}(id=${job.id})}"><i class="fas fa-edit"></i></a>
+                            <a class="nav-link" role="button" th:href="@{/show/{id}(id=${job.id})}"><i class="fas fa-search"></i></a>
+                            <a class="nav-link" role="button" th:href="@{/delete/{id}(id=${job.id})}"><i class="fas fa-trash-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="base :: footer"></footer>
+</body>
+<th:block th:replace="base :: jslinks"></th:block>
+</html>
