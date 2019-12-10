@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th= "http://www.thymeleaf.org">
+<head th:replace="base :: headstuff"></head>
+<body>
+<nav th:replace="base :: navbar"></nav>
+<section class="hero">
+    <div class="hero-inner">
+        <h1>Your job search ends here!</h1>
+        <form class="form form-inline form-hero mx-auto" th:action="@{/search}" method="post">
+            <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
+</section>
+<div class="container col-md-8">
+    <div th:if="${applications.size() == 0}">
+        <h1>There's nothing here.</h1>
+        <p style="text-align: center;">Try a new search or return <a href="/">home</a></p>
+    </div>
+    <div th:each="application : ${applications}">
+        <div th:with="job=${jobRepository.findById(application.jobId).get()}, interview=${application.interview}" class="card card-list mb-3 animated fadeInUp">
+            <div class="card-horizontal">
+                <div class="card-header col-md-3">
+                    <strong>[[${job.title}]]</strong>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-body">
+                        <p class="card-text" th:text="${resumeRepository.findById(application.resumeId).get().getName()}"></p>
+                        <p class="card-text"><small th:text="${application.dateApplied}" class="text-muted"></small></p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card-body">
+                        <p class="card-text">Status: [[${application.status}]]</p>
+                        <p class="card-text" th:if="${application.status.equals('Accepted')}">Schedule Interview!</p>
+                        <p class="card-text" th:if="${application.status.equals('Interview Scheduled')}">Date: [[${}</p>
+                        <p class="card-text" th:if="${application.status.equals('Take Interview')}">Take Interview!</p>
+                    </div>
+                </div>
+                <div class="col-md-2 img-square-wrapper img-download">
+                    <a data-toggle="collapse" th:href="'#collapse_'+${application.id}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <span style="font-size:1.25em; color: #cb52bf;"><i class="fas fa-cog"></i></span>
+                    </a>
+                    <div class="collapse" th:id="'collapse_'+${application.id}">
+                        <div class="card card-body card-menu card-body-collapse">
+                            <a th:if="${application.status.equals('Accepted')}" class="nav-link" role="button" th:href="@{/scheduleInterview/{id}(id=${application.id})}">Schedule Interview</a>
+                            <a th:if="${application.status.equals('Take Interview')}" class="nav-link" role="button" th:href="@{/interview/{id}(id=${interview.id})}">Take Interview</a>
+                            <a th:if="${application.status.equals('Did Not Schedule') || application.status.equals('Missed Interview')}" class="nav-link" role="button" th:href="@{/appeal/{id}(id=${application.id})}"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="base :: footer"></footer>
+</body>
+<th:block th:replace="base :: jslinks"></th:block>
+</html>

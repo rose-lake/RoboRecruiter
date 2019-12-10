@@ -8,8 +8,13 @@ public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+<<<<<<< HEAD
 
     private ArrayList<String> resumeKeywords;
+=======
+    private String name;
+    private ArrayList resumeKeywords;
+>>>>>>> dd37031cf5e69e63dceb954e92c2ad9a2d263316
 
     @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="user_id")
