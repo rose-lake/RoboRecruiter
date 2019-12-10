@@ -1,10 +1,12 @@
 package com.example.demo;
 
 
+import org.hibernate.annotations.Fetch;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name="User_Data")
@@ -12,6 +14,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    public Set<Resume> resumes;
 
     @Column(name="email", nullable=false)
     private String email;
@@ -109,5 +115,13 @@ public class User {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Resume> getResumes() {
+        return resumes;
+    }
+
+    public void setResumes(Set<Resume> resumes) {
+        this.resumes = resumes;
     }
 }
