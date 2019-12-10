@@ -18,45 +18,34 @@
         <p style="text-align: center;">Try a new search or return <a href="/">home</a></p>
     </div>
     <div th:each="application : ${applications}">
-        <div th:with="job=${jobRepository.findById(application.jobId).get()}" th:class="card card-list mb-3 animated fadeInUp">
+        <div th:with="job=${jobRepository.findById(application.jobId).get()}, interview=${application.interview}" class="card card-list mb-3 animated fadeInUp">
             <div class="card-horizontal">
                 <div class="card-header col-md-3">
-                    <strong>[[${job.name}]]</strong>
+                    <strong>[[${job.title}]]</strong>
                 </div>
                 <div class="col-md-4">
                     <div class="card-body">
-                        <p class="card-text" th:text="${job.description}"></p>
-                        <p class="card-text" th:text="${job.author}"></p>
+                        <p class="card-text" th:text="${resumeRepository.findById(application.resumeId).get().getName()}"></p>
+                        <p class="card-text"><small th:text="${application.dateApplied}" class="text-muted"></small></p>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card-body">
-                        <p class="card-text"><small th:text="${job.date}" class="text-muted"></small></p>
-                        <p class="card-text"><small th:text="${job.phone}" class="text-muted"></small></p>
+                        <p class="card-text">Status: [[${application.status}]]</p>
+                        <p class="card-text" th:if="${application.status.equals('Accepted')}">Schedule Interview!</p>
+                        <p class="card-text" th:if="${application.status.equals('Interview Scheduled')}">Date: [[${}</p>
+                        <p class="card-text" th:if="${application.status.equals('Take Interview')}">Take Interview!</p>
                     </div>
                 </div>
-                <div th:if="${job.url != null and !job.url.equals('')}" class="col-md-2 img-square-wrapper img-download">
-                    <img class="card-img" th:src="${job.url}" alt="Arrival Destination">
-                    <a data-toggle="collapse" th:href="'#collapse_'+${job.id}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <div class="col-md-2 img-square-wrapper img-download">
+                    <a data-toggle="collapse" th:href="'#collapse_'+${application.id}" role="button" aria-expanded="false" aria-controls="collapseExample">
                         <span style="font-size:1.25em; color: #cb52bf;"><i class="fas fa-cog"></i></span>
                     </a>
-                    <div class="collapse" th:id="'collapse_'+${job.id}">
+                    <div class="collapse" th:id="'collapse_'+${application.id}">
                         <div class="card card-body card-menu card-body-collapse">
-                            <a class="nav-link" role="button" th:href="@{/update/{id}(id=${job.id})}"><i class="fas fa-edit"></i></a>
-                            <a class="nav-link" role="button" th:href="@{/show/{id}(id=${job.id})}"><i class="fas fa-search"></i></a>
-                            <a class="nav-link" role="button" th:href="@{/delete/{id}(id=${job.id})}"><i class="fas fa-trash-alt"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div th:if="${job.url == null or job.url.equals('')}" class="col-md-2 img-square-wrapper img-download">
-                    <a data-toggle="collapse" th:href="'#collapse_'+${job.id}" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        <span style="font-size:1.25em; color: #cb52bf;"><i class="fas fa-cog"></i></span>
-                    </a>
-                    <div class="collapse" th:id="'collapse_'+${job.id}">
-                        <div class="card card-body card-menu card-body-collapse">
-                            <a class="nav-link" role="button" th:href="@{/update/{id}(id=${job.id})}"><i class="fas fa-edit"></i></a>
-                            <a class="nav-link" role="button" th:href="@{/show/{id}(id=${job.id})}"><i class="fas fa-search"></i></a>
-                            <a class="nav-link" role="button" th:href="@{/delete/{id}(id=${job.id})}"><i class="fas fa-trash-alt"></i></a>
+                            <a th:if="${application.status.equals('Accepted')}" class="nav-link" role="button" th:href="@{/scheduleInterview/{id}(id=${application.id})}">Schedule Interview</a>
+                            <a th:if="${application.status.equals('Take Interview')}" class="nav-link" role="button" th:href="@{/interview/{id}(id=${interview.id})}">Take Interview</a>
+                            <a th:if="${application.status.equals('Did Not Schedule') || application.status.equals('Missed Interview')}" class="nav-link" role="button" th:href="@{/appeal/{id}(id=${application.id})}"></a>
                         </div>
                     </div>
                 </div>
