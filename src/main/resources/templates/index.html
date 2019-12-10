@@ -18,14 +18,14 @@
         <p style="text-align: center;">Try a new search or return <a href="/">home</a></p>
     </div>
     <div th:each="application : ${applications}">
-        <div th:with="job=${jobRepository.findById(application.jobId).get()}, interview=${application.interview}" class="card card-list mb-3 animated fadeInUp">
+        <div th:with="job=${application.job}, interview=${application.interview}" class="card card-list mb-3 animated fadeInUp">
             <div class="card-horizontal">
                 <div class="card-header col-md-3">
                     <strong>[[${job.title}]]</strong>
                 </div>
                 <div class="col-md-4">
                     <div class="card-body">
-                        <p class="card-text" th:text="${resumeRepository.findById(application.resumeId).get().getName()}"></p>
+                        <p class="card-text" th:text="${application.resume.name}"></p>
                         <p class="card-text"><small th:text="${application.dateApplied}" class="text-muted"></small></p>
                     </div>
                 </div>

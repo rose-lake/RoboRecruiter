@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
 
 @Controller
 public class HomeController {
@@ -53,7 +54,8 @@ public class HomeController {
     }
     @RequestMapping("/")
     public String index(Model model){
-        model.addAttribute("applications");
+        model.addAttribute("applications",applicationRepository.findAll());
+        model.addAttribute("jobs", jobRepository.findAll());
         return "index";
     }
 
@@ -61,9 +63,6 @@ public class HomeController {
     public String login(){
         return "login";
     }
-
-    @Autowired
-    UserRepository userRepository;
 
     @RequestMapping("/addResume")
     public String addResume(Model model){
@@ -73,8 +72,19 @@ public class HomeController {
 
     @PostMapping("/processresume")
     public String processResume(@Valid @ModelAttribute Resume resume, @RequestParam("des") String description){
-        String[] array =
+        String[] array = description.split(",");
+        ArrayList<String> list = new ArrayList<>();
+        for(int i=0; i<array.length; i++){
+            list.add(array[i].trim());
+        }
+        resume.setResumeKeywords(list);
+        resumeRepository.save(resume);
+        return "redirect:/";
     }
 
-
+    @RequestMapping("/joblist")
+    public String joblist(Model model){
+        model.addAttribute("jobs", jobRepository.findAll());
+        return "joblist";
+    }
 }
