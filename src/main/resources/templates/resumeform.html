@@ -15,26 +15,10 @@
                 <label for="name">Resume Name</label>
             </div>
             <div class="form-label-group">
-                <input type="text" class="form-control" id="date" name="date" placeholder="01/01/2020" th:field="*{date}" required autofocus/>
-                <label for="date">Date</label>
-            </div>
-            <div class="form-label-group">
-                <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone" th:field="*{phone}" required autofocus/>
-                <label for="phone">Phone</label>
-            </div>
-            <div class="form-label-group">
-                <textarea type="text" class="form-control" id="des" name="des" placeholder="Description" th:field="*{description}" required autofocus/>
-            </div>
-            <div class="form-group">
-                <div th:if="${job.url != null and !job.url.equals('')}">
-                    <img th:src="${job.url}" style="height: 16rem; width: 30rem"/>
-                </div>
-                <label for="image">Image(Optional, max size: 1MB)</label>
-                <input type="file" class="form-control-file" id="image" name="file" th:src="${job.url}"/>
-                <input type="hidden" th:field="*{id}"/>
+                <textarea type="text" class="form-control" id="des" name="des" placeholder="Skills, separated by a comma" required autofocus/>
+                <label for="des">Skills, separated by a comma</label>
             </div>
             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Submit</button>
-
         </form>
     </div>
 </div>
