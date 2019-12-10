@@ -17,6 +17,9 @@ public class DataLoader implements CommandLineRunner {
     RoleRepository roleRepository;
 
     @Autowired
+    JobRepository jobRepository;
+
+    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     @Override
@@ -33,6 +36,8 @@ public class DataLoader implements CommandLineRunner {
         user=new User("admin@admin.com", "password", "Admin", "User", true, "admin");
         user.setRoles(Arrays.asList(adminRole));
         userRepository.save(user);
+
+        jobRepository.save(new Job("Software Engineering",))
 
     }
 

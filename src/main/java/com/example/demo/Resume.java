@@ -9,11 +9,12 @@ public class Resume {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private ArrayList resumeKeywords;
+    private ArrayList<String> resumeKeywords;
 
     @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="user_id")
     public User user;
+
 
     public long getId() {
         return id;
@@ -23,11 +24,11 @@ public class Resume {
         this.id = id;
     }
 
-    public ArrayList getResumeKeywords() {
+    public ArrayList<String> getResumeKeywords() {
         return resumeKeywords;
     }
 
-    public void setResumeKeywords(ArrayList resumeKeywords) {
+    public void setResumeKeywords(ArrayList<String> resumeKeywords) {
         this.resumeKeywords = resumeKeywords;
     }
 
