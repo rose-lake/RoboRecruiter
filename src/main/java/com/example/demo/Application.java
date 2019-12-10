@@ -14,9 +14,9 @@ public class Application {
     @JoinColumn(name="user_id")
     private User user;
 
-    private long resumeId;
+    private Resume resume;
 
-    private long jobId;
+    private Job job;
 
     private Date dateApplied;
 
@@ -28,10 +28,10 @@ public class Application {
     public Application() {
     }
 
-    public Application(User user, long resumeId, long jobId, Date dateApplied, Interview interview, String status) {
+    public Application(User user, Resume resume, Job job, Date dateApplied, Interview interview, String status) {
         this.user = user;
-        this.resumeId = resumeId;
-        this.jobId = jobId;
+        this.resume = resume;
+        this.job = job;
         this.dateApplied = dateApplied;
         this.interview = interview;
         this.status = status;
@@ -53,20 +53,20 @@ public class Application {
         this.user = user;
     }
 
-    public long getResumeId() {
-        return resumeId;
+    public Resume getResume() {
+        return resume;
     }
 
-    public void setResumeId(long resumeId) {
-        this.resumeId = resumeId;
+    public void setResume(Resume resume) {
+        this.resume = resume;
     }
 
-    public long getJobId() {
-        return jobId;
+    public Job getJob() {
+        return job;
     }
 
-    public void setJobId(long jobId) {
-        this.jobId = jobId;
+    public void setJob(Job job) {
+        this.job = job;
     }
 
     public Date getDateApplied() {
