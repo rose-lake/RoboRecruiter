@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 
 @Entity
@@ -8,18 +9,26 @@ public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-<<<<<<< HEAD
 
-    private ArrayList<String> resumeKeywords;
-=======
+    @Size(min=3)
     private String name;
-    private ArrayList resumeKeywords;
->>>>>>> dd37031cf5e69e63dceb954e92c2ad9a2d263316
+
+    @Column(columnDefinition = "VARCHAR(4096)")
+    @Size(min=10)
+    private String content;
 
     @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="user_id")
-    public User user;
+    private User user;
 
+    public Resume() {
+    }
+
+    public Resume(@Size(min = 3) String name, @Size(min = 10) String content, User user) {
+        this.name = name;
+        this.content = content;
+        this.user = user;
+    }
 
     public long getId() {
         return id;
@@ -29,12 +38,20 @@ public class Resume {
         this.id = id;
     }
 
-    public ArrayList<String> getResumeKeywords() {
-        return resumeKeywords;
+    public String getName() {
+        return name;
     }
 
-    public void setResumeKeywords(ArrayList<String> resumeKeywords) {
-        this.resumeKeywords = resumeKeywords;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public User getUser() {
