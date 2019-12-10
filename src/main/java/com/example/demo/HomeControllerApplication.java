@@ -25,12 +25,16 @@ public class HomeControllerApplication {
     @GetMapping("/applytojob/{id}")
     public String applyToJob(@PathVariable("id") long id, Model model){
 
-        // Job job = jobRepository.findById(id).get();
+        // grab currently authenticated user
+        User user = userService.getAuthenticatedUser();
+
+
+        Job job = jobRepository.findById(id).get();
 
         model.addAttribute("application", new Application());
 
         // when PASSING IN to the NEW APPLICATION form, be sure to pass in...
-        //      application.jobId
+        //      application.job
         //      application.user
         // already set!
 
