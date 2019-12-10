@@ -33,7 +33,9 @@
                     <div class="card-body">
                         <p class="card-text">Status: [[${application.status}]]</p>
                         <p class="card-text" th:if="${application.status.equals('Accepted')}">Schedule Interview!</p>
-                        <p class="card-text" th:if="${application.status.equals('Interview Scheduled')}">Date: [[${}</p>
+                        <p class="card-text" th:if="${application.status.equals('Interview Scheduled') or application.status.equals('Take Interview')}">
+                            Date: [[${interview.dateScheduled}]], Time: [[${interview.timeScheduled}]]
+                        </p>
                         <p class="card-text" th:if="${application.status.equals('Take Interview')}">Take Interview!</p>
                     </div>
                 </div>
@@ -45,7 +47,7 @@
                         <div class="card card-body card-menu card-body-collapse">
                             <a th:if="${application.status.equals('Accepted')}" class="nav-link" role="button" th:href="@{/scheduleInterview/{id}(id=${application.id})}">Schedule Interview</a>
                             <a th:if="${application.status.equals('Take Interview')}" class="nav-link" role="button" th:href="@{/interview/{id}(id=${interview.id})}">Take Interview</a>
-                            <a th:if="${application.status.equals('Did Not Schedule') || application.status.equals('Missed Interview')}" class="nav-link" role="button" th:href="@{/appeal/{id}(id=${application.id})}"></a>
+                            <a th:if="${application.status.equals('Did Not Schedule') or application.status.equals('Missed Interview')}" class="nav-link" role="button" th:href="@{/appeal/{id}(id=${application.id})}"></a>
                         </div>
                     </div>
                 </div>

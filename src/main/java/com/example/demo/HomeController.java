@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -17,6 +14,24 @@ public class HomeController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private ResumeRepository resumeRepository;
+
+    @Autowired
+    private JobRepository jobRepository;
+
+    @Autowired
+    private InterviewRepository interviewRepository;
+
+    @Autowired
+    private ApplicationRepository applicationRepository;
 
     @GetMapping("register")
     public String showRegistrationPage(Model model){
@@ -37,7 +52,8 @@ public class HomeController {
         return "index";
     }
     @RequestMapping("/")
-    public String index(){
+    public String index(Model model){
+        model.addAttribute("applications");
         return "index";
     }
 
@@ -49,11 +65,16 @@ public class HomeController {
     @Autowired
     UserRepository userRepository;
 
-    @RequestMapping("/secure")
-    public String secure(Principal principal, Model model){
-        String username = principal.getName();
-        model.addAttribute("user", userRepository.findByUsername(username));
-        return "secure";
+    @RequestMapping("/addResume")
+    public String addResume(Model model){
+        model.addAttribute("resume", new Resume());
+        return "resumeform";
     }
+
+    @PostMapping("/processresume")
+    public String processResume(@Valid @ModelAttribute Resume resume, @RequestParam("des") String description){
+        String[] array =
+    }
+
 
 }
