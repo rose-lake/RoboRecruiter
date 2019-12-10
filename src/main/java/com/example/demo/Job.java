@@ -16,11 +16,11 @@ public class Job {
     private String title;
     private String description;
     private String postedDate;
-    private ArrayList keywordList;
-    private ArrayList technicalQuestions;
+    private ArrayList<String> keywordList;
+    private ArrayList<String> technicalQuestions;
 
 
-    public Job(String title, String description, String postedDate, ArrayList keywordList, ArrayList technicalQuestions) {
+    public Job(String title, String description, String postedDate, ArrayList<String> keywordList, ArrayList<String> technicalQuestions) {
         this.title = title;
         this.description = description;
         this.postedDate = postedDate;
@@ -60,19 +60,19 @@ public class Job {
         this.postedDate = postedDate;
     }
 
-    public ArrayList getKeywordList() {
+    public ArrayList<String> getKeywordList() {
         return keywordList;
     }
 
-    public void setKeywordList(ArrayList keywordList) {
+    public void setKeywordList(ArrayList<String> keywordList) {
         this.keywordList = keywordList;
     }
 
-    public ArrayList getTechnicalQuestions() {
+    public ArrayList<String> getTechnicalQuestions() {
         return technicalQuestions;
     }
 
-    public void setTechnicalQuestions(ArrayList technicalQuestions) {
+    public void setTechnicalQuestions(ArrayList<String> technicalQuestions) {
         this.technicalQuestions = technicalQuestions;
     }
 }

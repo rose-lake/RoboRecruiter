@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 @Component
@@ -15,6 +16,9 @@ public class DataLoader implements CommandLineRunner {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    JobRepository jobRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -33,6 +37,8 @@ public class DataLoader implements CommandLineRunner {
         user=new User("admin@admin.com", "password", "Admin", "User", true, "admin");
         user.setRoles(Arrays.asList(adminRole));
         userRepository.save(user);
+
+        jobRepository.save(new Job("Software Engineering","The Software Engineer position is the core role within the Software Development Group. Members of this role are responsible for creation and maintenance of the majority of company's product code bases.","10/10/2019", new Arrays.asList("Responsive Design", "HTML", "CSS", "JavaScript", "JSON", "REST", "SOAP", "Cloud Configuration Management", "full systems development lifecycle", "API interfaces", "analytical", "communication", "AngularJS"),"")
 
     }
 
