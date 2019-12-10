@@ -28,40 +28,26 @@ public class HomeControllerApplication {
         // grab currently authenticated user
         User user = userService.getAuthenticatedUser();
 
-
+        // grab the job that was passed in
         Job job = jobRepository.findById(id).get();
 
-        model.addAttribute("application", new Application());
-
-        // when PASSING IN to the NEW APPLICATION form, be sure to pass in...
-        //      application.job
-        //      application.user
-        // already set!
-
-        // application object will need ::
-        // resumeId
-        // dateApplied -- java.time.LocalDate
-
-        // processApplication CONTROLLER method ::
-        // status -- "Submitted"
-        // interview [null]
-
-        // 1. create application in the database with all values passed in through the form
-        //      this sets .status="Submitted"
-        // 2. call Application.process()
-        //      this sets .status to EITHER "Rejected" or "Accepted"
-        //
-        // call Application.process()
-
-
-
-
-
-
-        return "redirect:/";
+        // create a new application object with those two bits set
+        // and pass it to the applicationform
+        model.addAttribute("application", new Application(user, job));
+        return "applicationform";
     }
 
 //    @PostMapping("/processapplication/")
+    // application object will need ::
+    // resume, selected via... id? @ParamRequest
+    // dateApplied -- java.time.LocalDate   also @Param?
 
+    // 1. create application in the database with all values passed in through the form
+    //      this sets .status="Submitted"
+    // 2. call Application.process()
+    //      this sets .status to EITHER "Rejected" or "Accepted"
+            // status -- "Submitted"
+            // interview [null]
+//        return "redirect:/";
 
 }

@@ -37,6 +37,12 @@ public class Application {
         this.status = status;
     }
 
+    // constructor for creating the Application object BEFORE sending it into the FORM
+    public Application(User user, Job job) {
+        this.user = user;
+        this.job = job;
+    }
+
     public long getId() {
         return id;
     }
