@@ -13,7 +13,7 @@ public class Resume {
     @Size(min=3)
     private String name;
 
-    @Column(columnDefinition = "VARCHAR(4096)")
+    @Column(columnDefinition = "VARCHAR(4095)")
     @Size(min=10)
     private String content;
 
