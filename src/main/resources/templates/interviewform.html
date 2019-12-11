@@ -9,15 +9,15 @@
             <h1 class="display-4">Schedule Time</h1>
             <h5 class="display-4">Please select an interview time for <span th:text="${application.job.title}"></span> position.</h5>
         </div>
-        <form class="form-signin mx-auto"action="#" th:action="@{/processInterview}" th:object="${application.interview}" method="post" enctype="multipart/form-data">
+        <form class="form-signin mx-auto"action="#" th:action="@{/processInterviewform}" th:object="${application.interview}" method="post" enctype="multipart/form-data">
             <input type="hidden" th:field="*{id}" />
 
             <div class="form-label-group">
-                <input type="date" class="form-control" id="interview-date" name="interview-date" th:field="*{dateScheduled}" th:value="${date1}" th:min="${date1}" th:max="${date1.plusDays(14)}" placeholder="Date" required autofocus/>
+                <input type="date" class="form-control" id="interview-date" name="selected-date" th:field="*{dateScheduled}" th:value="${currentDate}" th:min="${currentDate}" th:max="${currentDate.plusDays(14)}" placeholder="Date" required autofocus/>
                 <label for="interview-date">Select a date</label>
             </div>
             <div class="form-label-group">
-                <input type="time" class="form-control" id="interview-time" name="interview-time" th:field="*{timeScheduled}" th:value="${time1}" placeholder="Time" required autofocus/>
+                <input type="time" class="form-control" id="interview-time" name="selected-time" th:field="*{timeScheduled}" th:value="${currentTime}" placeholder="Time" required autofocus/>
                 <label for="interview-time">Select a time</label>
             </div>
             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Submit</button>

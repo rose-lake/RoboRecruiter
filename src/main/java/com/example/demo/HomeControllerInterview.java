@@ -30,8 +30,9 @@ public class HomeControllerInterview {
     @Autowired
     ResumeRepository resumeRepository;
 
-    @GetMapping("/schedule")
-    public String index(Model model){
+    @GetMapping("/schedule/{id}")
+    public String index(@RequestParam("id") long applicationId,
+            Model model){
 
         //preload Today's Date for Application
         LocalDate today = LocalDate.now();
@@ -42,26 +43,30 @@ public class HomeControllerInterview {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         String timeString = timeNow.format(timeFormatter);
         model.addAttribute("currentTime", timeString);
+
+//        , @ModelAttribute Application application, @ModelAttribute Interview interview, @ModelAttribute Job job
+
+        model.addAttribute("interview", new Interview());
+        model.addAttribute("application", applicationRepository.findById(applicationId).get());
         return "interviewform";
     }
 
     @RequestMapping("/processinterviewform")
-    public String loadFromPage(@RequestParam("date1Form") String date1Str,
-                               @RequestParam("interview-time") String interviewTime,
+    public String loadFromPage(@RequestParam("selected-date") String interviewDate,
+                               @RequestParam("selected-time") String interviewTime,
                                Model model){
 
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate myDate1 = LocalDate.parse(date1Str, dateFormatter);
-        model.addAttribute("date1", myDate1);
+        LocalDate strSelectedDate = LocalDate.parse(interviewDate, dateFormatter);
+        model.addAttribute("interviewDate", strSelectedDate);
 
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         try{
             LocalTime selectedTime = LocalTime.parse(interviewTime, timeFormatter);
-            model.addAttribute("confirmedTime",selectedTime);
+            model.addAttribute("interviewTime",selectedTime);
             return "confirm";
         } catch (DateTimeParseException e) {
-            model.addAttribute("errorMessage", "you must enter a value for the time!");
-
+            model.addAttribute("errorMessage", "Please enter all fields!");
             return "form";
         }
     }
