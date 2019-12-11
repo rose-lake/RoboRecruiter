@@ -10,14 +10,16 @@ public class Role {
     private long id;
 
     @Column(unique=true)
-    private String role;
+    private String name;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Collection<User> users;
-    public Role(){}
 
-    public Role(String role){
-        this.role =role;
+    public Role() {
+    }
+
+    public Role(String name) {
+        this.name = name;
     }
 
     public long getId() {
@@ -28,12 +30,12 @@ public class Role {
         this.id = id;
     }
 
-    public String getRole() {
-        return role;
+    public String getName() {
+        return name;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Collection<User> getUsers() {
