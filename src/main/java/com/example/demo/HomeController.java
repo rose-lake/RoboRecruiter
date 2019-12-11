@@ -7,6 +7,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 
@@ -70,13 +74,15 @@ public class HomeController {
     }
 
     @PostMapping("/processresume")
-    public String processResume(@Valid @ModelAttribute Resume resume, @RequestParam("des") String description){
-        String[] array = description.split(",");
-        ArrayList<String> list = new ArrayList<>();
-        for(int i=0; i<array.length; i++){
-            list.add(array[i].trim());
+    public String processResume(@Valid @ModelAttribute Resume resume, @RequestParam("file") File file) throws IOException {
+        resumeRepository.save(resume);
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String st;
+        StringBuilder key = new StringBuilder();
+        while ((st = br.readLine()) != null) {
+            key.append(st).append(" ");
         }
-        resume.setResumeKeywords(list);
+        resume.setContent(key.toString());
         resumeRepository.save(resume);
         return "redirect:/";
     }
