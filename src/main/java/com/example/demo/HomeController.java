@@ -80,7 +80,18 @@ public class HomeController {
     }
 
     @PostMapping("/processappeal")
-    public String processappeal(@RequestParam("explain") String s) {
+    public String processappeal(@RequestParam("explain") String s, @ModelAttribute("app") long id) {
+        String subject = "Appeal:" + applicationRepository.findById(id).get().getStatus();
+
+        EmailService mailer = new EmailService();
+
+        try {
+            mailer.sendPlainTextEmail(subject, s);
+            System.out.println("Email sent.");
+        } catch (Exception ex) {
+            System.out.println("Failed to sent email.");
+            ex.printStackTrace();
+        }
         return "redirect:/";
     }
 
