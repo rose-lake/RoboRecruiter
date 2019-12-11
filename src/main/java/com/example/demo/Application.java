@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -14,11 +15,11 @@ public class Application {
     @JoinColumn(name="user_id")
     private User user;
 
-    private Resume resume;
+    private long resumeId;
 
-    private Job job;
+    private long jobId;
 
-    private Date dateApplied;
+    private LocalDate dateApplied;
 
     @OneToOne(mappedBy = "application", fetch=FetchType.LAZY)
     private Interview interview;
@@ -28,19 +29,21 @@ public class Application {
     public Application() {
     }
 
-    public Application(User user, Resume resume, Job job, Date dateApplied, Interview interview, String status) {
+    public Application(User user, long resumeId, long jobId, LocalDate dateApplied, Interview interview, String status) {
         this.user = user;
-        this.resume = resume;
-        this.job = job;
+        this.resumeId = resumeId;
+        this.jobId = jobId;
         this.dateApplied = dateApplied;
         this.interview = interview;
         this.status = status;
     }
 
     // constructor for creating the Application object BEFORE sending it into the FORM
-    public Application(User user, Job job) {
+    // already on the back end you know and set user, job, and dateApplied (to today)
+    public Application(User user, long jobId, LocalDate dateApplied) {
         this.user = user;
-        this.job = job;
+        this.jobId = jobId;
+        this.dateApplied = dateApplied;
     }
 
     public long getId() {
@@ -59,27 +62,25 @@ public class Application {
         this.user = user;
     }
 
-    public Resume getResume() {
-        return resume;
+    public long getResume() {
+        return resumeId;
     }
 
-    public void setResume(Resume resume) {
-        this.resume = resume;
+    public void setResume(long resumeId) { this.resumeId = resumeId; }
+
+    public long getJob() {
+        return jobId;
     }
 
-    public Job getJob() {
-        return job;
+    public void setJob(long jobId) {
+        this.jobId = jobId;
     }
 
-    public void setJob(Job job) {
-        this.job = job;
-    }
-
-    public Date getDateApplied() {
+    public LocalDate getDateApplied() {
         return dateApplied;
     }
 
-    public void setDateApplied(Date dateApplied) {
+    public void setDateApplied(LocalDate dateApplied) {
         this.dateApplied = dateApplied;
     }
 

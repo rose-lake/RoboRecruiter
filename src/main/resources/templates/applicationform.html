@@ -5,34 +5,64 @@
 <nav th:replace="base :: navbar"></nav>
 <div class="container">
     <div class="jumbotron col-md-6 mx-auto" style="margin-top: 20px; padding-top: 2rem">
+
+        <!-- INTRO HEADER -->
         <div class="mx-auto">
-            <h1 class="display-4">Apply</h1>
+            <h1 class="display-4">Applying to <span th:text="${application.job.title}"></span></h1>
         </div>
-        <form class="form-signin mx-auto"action="#" th:action="@{/processapplication}" th:object="${application}" method="post" enctype="multipart/form-data">
+
+        <form class="form-signin mx-auto"
+              action="#"
+              th:action="@{/processapplication}"
+              th:object="${application}"
+              method="post">
+
+            <!-- id :: set automatically -->
             <input type="hidden" th:field="*{id}" />
+
+            <!-- user :: set on back end -->
+            <input type="hidden" th:field="*{user}" />
+
+            <!-- job :: set on back end -->
+            <input type="hidden" th:field="*{job}" />
+
+            <!-- date :: DISPLAY ONLY :: set on back end -->
+            <input type = "hidden" th:field="*{dateApplied}" />
+            <h3>
+                Application Date:
+                <span th:text="${#temporals.format(${application.dateApplied}, 'MM-yyyy')}"></span>
+            </h3>
+
+            <!-- resume :: SELECT field :: select by id -->
+            <!-- department :: single SELECT field -->
             <div class="form-label-group">
-                <input type="text" class="form-control" id="name" name="name" th:field="*{name}" placeholder="Resume Name" required autofocus/>
-                <label for="name">Resume Name</label>
+
+                <label for="selectResumeId" class="">Select Resume</label>
+
+                <!-- *** IMPORTANT :: the name of the select tag below SHOULD NOT overlap with the name of the th:field, -->
+                <!-- *** if it does, this will cause unwanted extra comma before our selection!... ahhhhh... -->
+
+                <select required id="selectResumeId" name="selectResumeId"
+                        class="">
+                    <option selected value="">Select resume...</option>
+                    <option th:each="resume : ${allResumes}"
+                            th:value="${resume.getName()}"
+                            th:inline="text"
+                            th:selected="(${user.department.name}==${department.name})">[[${department.name}]]: [[${department.description}]]
+                    </option>
+                </select>
+                <span th:if="${#fields.hasErrors('department')}" th:errors="*{department}"></span>
+                <!-- NOTE: this is NOT an INPUT field... info is grabbed via RequestParam "selectDept" whose value is a department's name -->
+
             </div>
-            <div class="form-label-group">
-                <input type="text" class="form-control" id="date" name="date" placeholder="01/01/2020" th:field="*{date}" required autofocus/>
-                <label for="date">Date</label>
-            </div>
-            <div class="form-label-group">
-                <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone" th:field="*{phone}" required autofocus/>
-                <label for="phone">Phone</label>
-            </div>
-            <div class="form-label-group">
-                <textarea type="text" class="form-control" id="des" name="des" placeholder="Description" th:field="*{description}" required autofocus/>
-            </div>
-            <div class="form-group">
-                <div th:if="${job.url != null and !job.url.equals('')}">
-                    <img th:src="${job.url}" style="height: 16rem; width: 30rem"/>
-                </div>
-                <label for="image">Image(Optional, max size: 1MB)</label>
-                <input type="file" class="form-control-file" id="image" name="file" th:src="${job.url}"/>
-                <input type="hidden" th:field="*{id}"/>
-            </div>
+
+            <!-- interview :: HIDDEN :: not set yet -->
+            <input type="hidden" th:field="*{interview}" />
+
+            <!-- status :: HIDDEN :: not set yet -->
+            <input type="hidden" th:field="*{status}" />
+
+            <!-- submit button -->
             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Submit</button>
 
         </form>
