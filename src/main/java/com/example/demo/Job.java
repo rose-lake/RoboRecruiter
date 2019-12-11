@@ -25,6 +25,8 @@ public class Job {
     @Column(columnDefinition = "VARBINARY(1023)")
     private ArrayList<String> technicalQuestions;
 
+    public Job() {
+    }
 
     public Job(String title, String description, LocalDate postedDate, ArrayList<String> keywordList, ArrayList<String> technicalQuestions) {
         this.title = title;

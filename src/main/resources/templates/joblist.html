@@ -1,28 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="en" xmlns:th= "http://www.thymeleaf.org">
+<head th:replace="base :: headstuff"></head>
 <body>
+<nav th:replace="base :: navbar"></nav>
 <div class="container col-md-8">
     <div th:each="job : ${jobs}" class="card card-list mb-3 animated fadeInUp">
         <div class="card-horizontal">
             <div class="card-header col-md-3">
                 <strong>[[${job.title}]]</strong>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <div class="card-body">
                     <p class="card-text" th:text="${job.description}"></p>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="card-body">
                     <p class="card-text"><small th:text="${job.postedDate}" class="text-muted"></small></p>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card-body">
+                    <a class="card-text" th:href="@{/applytojob/{id}(id=${job.id})}"></a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<footer th:replace="base :: footer"></footer>
 </body>
+<th:block th:replace="base :: jslinks"></th:block>
 </html>
