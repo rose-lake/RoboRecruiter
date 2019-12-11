@@ -4,24 +4,24 @@
 <body>
 <nav th:replace="base :: navbar"></nav>
 <div class="container col-md-8">
-    <div th:each="job : ${jobs}" class="card card-list mb-3 animated fadeInUp">
+    <div th:each="resume : ${resumes}" class="card card-list mb-3 animated fadeInUp">
         <div class="card-horizontal">
             <div class="card-header col-md-3">
-                <strong>[[${job.title}]]</strong>
+                <strong>[[${resume.name}]]</strong>
             </div>
             <div class="col-md-5">
                 <div class="card-body">
-                    <p class="card-text" th:text="${job.description}"></p>
+                    <p class="card-text" th:text="${resume.content}"></p>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="card-body">
-                    <p class="card-text"><small th:text="${job.postedDate}" class="text-muted"></small></p>
+                    <p class="card-text">Id: <small th:text="${resume.id}" class="text-muted"></small></p>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="card-body">
-                    <a class="card-text" th:href="@{/applytojob/{id}(id=${job.id})}">Apply</a>
+                    <a class="card-text" th:href="@{/deleteresume/{id}(id=${resume.id})}">Delete</a>
                 </div>
             </div>
         </div>

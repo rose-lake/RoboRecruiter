@@ -4,7 +4,7 @@
 
 Hm... If we have _keyword pairs_ that significantly ups the complexity of our "matching" logic. So probably best to stick to _single keywords_ for this first implementation.
 
-## MultipartFile?  --> can use just File as in
+## MultipartFile?  --> can use just File, maybe...
 we are using `org.springframework.web.multipart.MultipartFile`
 whose details are at :
 https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html

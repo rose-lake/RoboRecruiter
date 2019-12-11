@@ -62,17 +62,19 @@ public class Application {
         this.user = user;
     }
 
-    public long getResume() {
+    public long getResumeId() {
         return resumeId;
     }
 
-    public void setResume(long resumeId) { this.resumeId = resumeId; }
+    public void setResumeId(long resumeId) {
+        this.resumeId = resumeId;
+    }
 
-    public long getJob() {
+    public long getJobId() {
         return jobId;
     }
 
-    public void setJob(long jobId) {
+    public void setJobId(long jobId) {
         this.jobId = jobId;
     }
 

@@ -8,17 +8,35 @@
         <div class="mx-auto">
             <h1 class="display-4">Add a Resume</h1>
         </div>
-        <form class="form-signin mx-auto"action="#" th:action="@{/processresume}" th:object="${resume}" method="post" enctype="multipart/form-data">
+
+        <form class="form-signin mx-auto" action="#"
+              th:action="@{/processresume}" th:object="${resume}"
+              method="post" enctype="multipart/form-data">
+
+            <!-- id -->
             <input type="hidden" th:field="*{id}" />
+
+            <!-- name -->
             <div class="form-label-group">
-                <input type="text" class="form-control" id="name" name="name" th:field="*{name}" placeholder="Resume Name" required autofocus/>
+                <input type="text" required autofocus
+                       class="form-control"
+                       id="name" name="name"
+                       th:field="*{name}"
+                       placeholder="Resume Name" />
                 <label for="name">Resume Name</label>
             </div>
+
+            <!-- input FILE -->
             <div class="form-label-group">
-                <textarea type="text" class="form-control" id="des" name="des" placeholder="Skills, separated by a comma" required autofocus/>
-                <label for="des">Skills, separated by a comma</label>
+                <input type="file" required
+                       id="file" name="file"
+                       class="form-control-file">
+                <label for="file">Upload Resume as text (.txt) file, only</label>
             </div>
+
+            <!-- submit -->
             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Submit</button>
+
         </form>
     </div>
 </div>

@@ -75,7 +75,7 @@ public class DataLoader implements CommandLineRunner {
                         "to ensure our end result is the start of a new and engaging online presence for their business.",
                 LocalDate.of(2019, 10, 11),
                 new ArrayList<>(Arrays.asList("HTML5", "CSS3", "LESS", "SASS", "AngularJS", "Angular", "Git", "AWS",
-                        "Pyhton", "D3", "Agile/Scrum", "cyber security", "multitask")),
+                        "Python", "D3", "Agile/Scrum", "cyber security", "multitask")),
                 new ArrayList<>(Arrays.asList("What is Functional programming",
                         "What is the difference between classical inheritance and prototypal inheritance",
                         "What are the pros and cons of functional programming vs object-oriented programming?"))));

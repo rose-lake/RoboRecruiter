@@ -5,14 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.security.Principal;
-import java.util.ArrayList;
+import java.io.InputStreamReader;
 
 @Controller
 public class HomeController {
@@ -39,7 +38,7 @@ public class HomeController {
     private ApplicationRepository applicationRepository;
 
     @GetMapping("register")
-    public String showRegistrationPage(Model model){
+    public String showRegistrationPage(Model model) {
         model.addAttribute("user", new User());
         return "registration";
     }
@@ -49,35 +48,88 @@ public class HomeController {
         model.addAttribute("user", user);
         if (result.hasErrors()) {
             return "registration";
-        } else
-        {
+        } else {
             userService.saveUser(user);
             model.addAttribute("message", "User Account Created");
         }
         return "index";
     }
+
     @RequestMapping("/")
-    public String index(Model model){
-        new EmailService("smtp.mailtrap.io", 25, "c453e71d4d93a3", "aacac8fce692f2", "Hello");
-        model.addAttribute("applications",applicationRepository.findAll());
+    public String index(Model model) {
+//        new EmailService("smtp.mailtrap.io", 25, "c453e71d4d93a3", "aacac8fce692f2", "Hello");
+        model.addAttribute("applications", applicationRepository.findAll());
         return "index";
     }
 
     @RequestMapping("/login")
-    public String login(){
+    public String login() {
         return "login";
     }
 
-    @RequestMapping("/addResume")
-    public String addResume(Model model){
+    @RequestMapping("/addresume")
+    public String addResume(Model model) {
         model.addAttribute("resume", new Resume());
         return "resumeform";
     }
 
+    @RequestMapping("/resumelist")
+    public String resumeList(Model model) {
+        model.addAttribute("resumes", resumeRepository.findAll());
+        return "resumelist";
+    }
+
+    @RequestMapping("/deleteresume/{id}")
+    public String deleteResume(@PathVariable("id") long id, Model model){
+
+        Resume deleteResume = resumeRepository.findById(id).get();
+        System.out.println("DELETING RESUME with id = " + deleteResume.getId() + " and name = " + deleteResume.getName());
+
+        // UN-HOOK resume from user
+        User user = deleteResume.getUser();
+        user.deleteResumeById(id);
+        userRepository.save(user);
+
+        // UN-HOOK user from resume ?
+        // maybe not...
+        // deleteResume.setUser(null);
+
+        // delete resume from our repository
+        resumeRepository.deleteById(id);
+
+        return "redirect:/";
+
+    }
+
     @PostMapping("/processresume")
-    public String processResume(@Valid @ModelAttribute Resume resume, @RequestParam("file") File file) throws IOException {
+    public String processResume(@Valid @ModelAttribute Resume resume,
+                                BindingResult result,
+                                @RequestParam("file") MultipartFile file)
+            throws IOException {
+
+        if (result.hasErrors()) {
+            System.out.println("*** BINDING result had errors ***");
+            System.out.println(result.getAllErrors().toString());
+            return "resumeform";
+        }
+
+        if (file.isEmpty()) {
+            System.out.println("*** FILE was EMPTY!");
+            return "resumeform";
+        }
+
+        if (!file.getContentType().equalsIgnoreCase("text/plain")){
+            System.out.println("*** FILE was NOT of type 'text/plain'");
+            return "resumeform";
+        }
+
+        // if we get here, there were no binding errors and the file was not empty
+
+        // save NAME :: was passed in with the form
         resumeRepository.save(resume);
-        BufferedReader br = new BufferedReader(new FileReader(file));
+
+        // save CONTENT :: read in the TEXT file and save it as STRING
+        BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()));
         String st;
         StringBuilder key = new StringBuilder();
         while ((st = br.readLine()) != null) {
@@ -85,23 +137,40 @@ public class HomeController {
         }
         resume.setContent(key.toString());
         resumeRepository.save(resume);
+
+        // make USER - RESUME LINK
+        // add the resume to user
+        User currentUser = userService.getAuthenticatedUser();
+        currentUser.addResume(resume);
+        userRepository.save(currentUser);
+        // add the user to resume
+        resume.setUser(currentUser);
+        resumeRepository.save(resume);
+
+        // test code ::
+        System.out.println("*********************** CONTENT of just saved resume :: " +
+                "\n\tID = " + resume.getId() +
+                "\n\tResume's USER's FIRST NAME = " + resume.getUser().getFirstName() +
+                "\n\tNAME = " + resume.getName() +
+                "\n\tCONTENT = " + resume.getContent());
+
         return "redirect:/";
     }
 
     @RequestMapping("/joblist")
-    public String joblist(Model model){
+    public String joblist(Model model) {
         model.addAttribute("jobs", jobRepository.findAll());
         return "joblist";
     }
 
     @RequestMapping("/appeal/{id}")
-    public String appeal(Model model, @PathVariable("id") long id){
+    public String appeal(Model model, @PathVariable("id") long id) {
         model.addAttribute("application", applicationRepository.findById(id));
         return "appealform";
     }
 
     @PostMapping("/processappeal")
-    public String processappeal(@RequestParam("explain") String s){
+    public String processappeal(@RequestParam("explain") String s) {
         return "redirect:/";
     }
 

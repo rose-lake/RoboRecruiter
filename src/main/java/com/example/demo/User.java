@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,8 +17,7 @@ public class User {
     private long id;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-
-    public Set<Resume> resumes;
+    public List<Resume> resumes;
 
     @Column(name="email", nullable=false)
     private String email;
@@ -114,11 +114,34 @@ public class User {
         this.roles = roles;
     }
 
-    public Set<Resume> getResumes() {
+    public List<Resume> getResumes() {
         return resumes;
     }
 
-    public void setResumes(Set<Resume> resumes) {
+    public void setResumes(List<Resume> resumes) {
         this.resumes = resumes;
     }
+
+    public void addResume(Resume resume) { this.resumes.add(resume); }
+
+    public void deleteResumeById(long resumeId) {
+        int deleteIndex = -1;
+        boolean found = false;
+        for (Resume r : resumes) {
+            if(r.getId() == resumeId){
+                deleteIndex = resumes.indexOf(r);
+                found = true;
+                System.out.println("found resume with id = " + resumeId + " at index = " + deleteIndex + " in user with name = " + firstName);
+                break;
+            }
+        }
+        if (found && deleteIndex > -1){
+            System.out.println("DELETING resume from user");
+            resumes.remove(deleteIndex);
+        }
+        else {
+            System.out.println("DELETE FAILED :: did not delete resume with id " + resumeId + " from user with name = " + firstName);
+        }
+    }
+
 }

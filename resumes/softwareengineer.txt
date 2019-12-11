@@ -1,0 +1,3 @@
+"Responsive Design", "HTML", "CSS", "JavaScript", "JSON", "REST", "SOAP",
+        "Cloud Configuration Management", "full systems development lifecycle", "API interfaces",
+        "analytical", "communication", "AngularJS"
