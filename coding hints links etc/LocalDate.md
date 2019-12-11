@@ -1,3 +1,18 @@
+# links
+https://www.baeldung.com/dates-in-thymeleaf
+
+# how to initialize simply
+.of(int year, int month, int dayOfMonth)
+Obtains an instance of LocalDate from a year, month and day.
+
+# question:
+do we need to add the dependency? (see link above)
+<dependency>
+    <groupId>org.thymeleaf.extras</groupId>
+    <artifactId>thymeleaf-extras-java8time</artifactId>
+    <version>3.0.1.RELEASE</version>
+</dependency>
+
 # what we need
 
 ## Date

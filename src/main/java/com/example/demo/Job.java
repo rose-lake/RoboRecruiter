@@ -1,9 +1,8 @@
 package com.example.demo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Entity
@@ -14,13 +13,20 @@ public class Job {
     private long id;
 
     private String title;
+
+    @Column(columnDefinition = "VARCHAR(1023)")
     private String description;
-    private String postedDate;
+
+    private LocalDate postedDate;
+
+    @Column(columnDefinition = "VARBINARY(1023)")
     private ArrayList<String> keywordList;
+
+    @Column(columnDefinition = "VARBINARY(1023)")
     private ArrayList<String> technicalQuestions;
 
 
-    public Job(String title, String description, String postedDate, ArrayList<String> keywordList, ArrayList<String> technicalQuestions) {
+    public Job(String title, String description, LocalDate postedDate, ArrayList<String> keywordList, ArrayList<String> technicalQuestions) {
         this.title = title;
         this.description = description;
         this.postedDate = postedDate;
@@ -52,11 +58,11 @@ public class Job {
         this.description = description;
     }
 
-    public String getPostedDate() {
+    public LocalDate getPostedDate() {
         return postedDate;
     }
 
-    public void setPostedDate(String postedDate) {
+    public void setPostedDate(LocalDate postedDate) {
         this.postedDate = postedDate;
     }
 
