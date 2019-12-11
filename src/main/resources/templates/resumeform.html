@@ -5,6 +5,7 @@
 <nav th:replace="base :: navbar"></nav>
 <div class="container">
     <div class="jumbotron col-md-6 mx-auto" style="margin-top: 20px; padding-top: 2rem">
+
         <div class="mx-auto">
             <h1 class="display-4">Add a Resume</h1>
         </div>
@@ -24,6 +25,11 @@
                        th:field="*{name}"
                        placeholder="Resume Name" />
                 <label for="name">Resume Name</label>
+            </div>
+
+            <!-- this is where we say the file type can only be 'text/plain' ! -->
+            <div th:if="${fileTypeMessage}!=null" class="alert alert-info mx-auto mt-3" role="alert">
+                <span th:text="${fileTypeMessage}"></span>
             </div>
 
             <!-- input FILE -->

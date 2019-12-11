@@ -4,6 +4,13 @@
 <body>
 <nav th:replace="base :: navbar"></nav>
 <div class="container col-md-8">
+
+    <!-- this is where we say :: Successfully deleted Resume 'resume name ' ! -->
+    <div th:if="${infoMessage}!=null" class="alert alert-info mx-auto mt-3 w-50" role="alert">
+        <span th:text="${infoMessage}"></span>
+    </div>
+
+    <!-- list of resume cards -->
     <div th:each="resume : ${resumes}" class="card card-list mb-3 animated fadeInUp">
         <div class="card-horizontal">
             <div class="card-header col-md-3">

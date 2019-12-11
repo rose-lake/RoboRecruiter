@@ -67,6 +67,27 @@ public class HomeController {
         return "login";
     }
 
+    @RequestMapping("/joblist")
+    public String joblist(Model model) {
+        model.addAttribute("jobs", jobRepository.findAll());
+        return "joblist";
+    }
+
+    @RequestMapping("/appeal/{id}")
+    public String appeal(Model model, @PathVariable("id") long id) {
+        model.addAttribute("application", applicationRepository.findById(id));
+        return "appealform";
+    }
+
+    @PostMapping("/processappeal")
+    public String processappeal(@RequestParam("explain") String s) {
+        return "redirect:/";
+    }
+
+
+    //************************************
+    // RESUME :: add, list, delete
+    //************************************
     @RequestMapping("/addresume")
     public String addResume(Model model) {
         model.addAttribute("resume", new Resume());
@@ -83,28 +104,28 @@ public class HomeController {
     public String deleteResume(@PathVariable("id") long id, Model model){
 
         Resume deleteResume = resumeRepository.findById(id).get();
-        System.out.println("DELETING RESUME with id = " + deleteResume.getId() + " and name = " + deleteResume.getName());
+        String deleteResumeName = deleteResume.getName();
+        System.out.println("DELETING RESUME with id = " + deleteResume.getId() + " and name = " + deleteResumeName);
 
         // UN-HOOK resume from user
         User user = deleteResume.getUser();
         user.deleteResumeById(id);
         userRepository.save(user);
 
-        // UN-HOOK user from resume ?
-        // maybe not...
-        // deleteResume.setUser(null);
-
         // delete resume from our repository
         resumeRepository.deleteById(id);
 
-        return "redirect:/";
+        model.addAttribute("infoMessage", "Successfully deleted resume '" + deleteResumeName + "' !");
+        model.addAttribute("resumes", resumeRepository.findAll());
+        return "resumelist";
 
     }
 
     @PostMapping("/processresume")
     public String processResume(@Valid @ModelAttribute Resume resume,
                                 BindingResult result,
-                                @RequestParam("file") MultipartFile file)
+                                @RequestParam("file") MultipartFile file,
+                                Model model)
             throws IOException {
 
         if (result.hasErrors()) {
@@ -120,6 +141,7 @@ public class HomeController {
 
         if (!file.getContentType().equalsIgnoreCase("text/plain")){
             System.out.println("*** FILE was NOT of type 'text/plain'");
+            model.addAttribute("fileTypeMessage","Your file type must be 'text/plain'!");
             return "resumeform";
         }
 
@@ -157,21 +179,5 @@ public class HomeController {
         return "redirect:/";
     }
 
-    @RequestMapping("/joblist")
-    public String joblist(Model model) {
-        model.addAttribute("jobs", jobRepository.findAll());
-        return "joblist";
-    }
-
-    @RequestMapping("/appeal/{id}")
-    public String appeal(Model model, @PathVariable("id") long id) {
-        model.addAttribute("application", applicationRepository.findById(id));
-        return "appealform";
-    }
-
-    @PostMapping("/processappeal")
-    public String processappeal(@RequestParam("explain") String s) {
-        return "redirect:/";
-    }
 
 }

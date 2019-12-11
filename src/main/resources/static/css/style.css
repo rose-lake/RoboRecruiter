@@ -57,7 +57,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
-    overflow: hidden;
+    overflow: scroll;
     background-color: #fff;
     font-family: 'Montserrat', sans-serif;
 }
