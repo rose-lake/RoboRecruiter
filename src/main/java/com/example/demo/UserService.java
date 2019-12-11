@@ -37,15 +37,41 @@ public class UserService {
     }
 
     public void saveUser(User user){
-        user.setRoles(Arrays.asList(roleRepository.findByRole("USER")));
+
+        // set user's Role to USER
+        user.setRoles(Arrays.asList(roleRepository.findByName("USER")));
+
+        // ensure user is active/enabled
         user.setEnabled(true);
+
+        // encrypt password
+        passwordEncoder = new BCryptPasswordEncoder();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         userRepository.save(user);
+
     }
 
+    //***********************************************************
+    // possibly may need a saveExistingUser method, later
+    // this would be for processing a form which edits the user,
+    //                      including the whole password mess...
+    //***********************************************************
+
     public void saveAdmin(User user){
-        user.setRoles(Arrays.asList(roleRepository.findByRole("AMDIN")));
+
+        // set user's Role to ADMIN
+        user.setRoles(Arrays.asList(roleRepository.findByName("ADMIN")));
+
+        // ensure user is active/enabled
         user.setEnabled(true);
+
+        // encrypt password
+        passwordEncoder = new BCryptPasswordEncoder();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         userRepository.save(user);
+
     }
 
     // this returns the currently logged-in user... so cool!...

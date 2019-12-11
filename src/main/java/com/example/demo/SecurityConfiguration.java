@@ -31,6 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public UserDetailsService userDetailsServiceBean() throws Exception {
         return new SSUserDetailsService(userRepository);
     }
+
     @Override
     public void configure(WebSecurity security){
         security.ignoring().antMatchers("/css/**","/images/**","/js/**", "/resources/**");

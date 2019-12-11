@@ -34,8 +34,8 @@ public class DataLoader implements CommandLineRunner {
         //*******************************************
         roleRepository.save(new Role("USER"));
         roleRepository.save(new Role("ADMIN"));
-        Role adminRole = roleRepository.findByRole("ADMIN");
-        Role userRole = roleRepository.findByRole("USER");
+        Role adminRole = roleRepository.findByName("ADMIN");
+        Role userRole = roleRepository.findByName("USER");
 
         //*******************************************
         // Making Users :: for Security Layer

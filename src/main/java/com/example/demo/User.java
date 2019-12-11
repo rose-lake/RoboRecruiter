@@ -72,10 +72,7 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        this.password = passwordEncoder.encode(password);
-    }
+    public void setPassword(String password) { this.password = password; }
 
     public String getFirstName() {
         return firstName;
