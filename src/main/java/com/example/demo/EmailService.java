@@ -1,71 +1,73 @@
 package com.example.demo;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import java.io.File;
+import java.util.Date;
 import java.util.Properties;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 public class EmailService {
+    public void sendPlainTextEmail(String subject, String message) throws AddressException,
+            MessagingException {
+        String host = "smtp.gmail.com";
+        String port = "587";
+        String mailFrom = "yusuf090798@gmail.com";
+        String password = "blastoise";
+        String mailTo = "yusufreyazuddin@gmail.com";
+        // sets SMTP server properties
+        Properties properties = new Properties();
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.port", port);
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
 
-    private String host = "";
-    private int port = 0;
-    private String username = "";
-    private String password = "";
-    private String content = "";
+        // creates a new session with an authenticator
+        Authenticator auth = new Authenticator() {
+            public PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(mailFrom, password);
+            }
+        };
 
-    public EmailService(String host, int port, String username, String password, String content) {
-        this.host = host;
-        this.port = port;
-        this.username = username;
-        this.password = password;
-        this.content = content;
-        sendMail();
+        Session session = Session.getInstance(properties, auth);
+
+        // creates a new e-mail message
+        Message msg = new MimeMessage(session);
+
+        msg.setFrom(new InternetAddress(mailFrom));
+        InternetAddress[] toAddresses = { new InternetAddress(mailTo) };
+        msg.setRecipients(Message.RecipientType.TO, toAddresses);
+        msg.setSubject(subject);
+        msg.setSentDate(new Date());
+        // set plain text message
+        msg.setText(message);
+
+        // sends the e-mail
+        Transport.send(msg);
+
     }
 
-    private void sendMail() {
+    public static void main(String[] args) {
 
-        Properties prop = new Properties();
-        prop.put("mail.smtp.auth", true);
-        prop.put("mail.smtp.starttls.enable", "true");
-        prop.put("mail.smtp.host", host);
-        prop.put("mail.smtp.port", port);
-        prop.put("mail.smtp.ssl.trust", host);
+        // outgoing message information
+        String subject = "Hello my friend";
+        String message = "Hi guy, Hope you are doing well. Duke.";
 
-        Session session = Session.getInstance(prop, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-        });
+        EmailService mailer = new EmailService();
 
         try {
-
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("yusuf090798@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("yusuf090798@gmail.com"));
-            message.setSubject("Mail Subject");
-
-
-
-            MimeBodyPart mimeBodyPart = new MimeBodyPart();
-            mimeBodyPart.setContent(content, "text/html");
-
-            MimeBodyPart attachmentBodyPart = new MimeBodyPart();
-            attachmentBodyPart.attachFile(new File("pom.xml"));
-
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(mimeBodyPart);
-            multipart.addBodyPart(attachmentBodyPart);
-
-            message.setContent(multipart);
-
-            Transport.send(message);
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            mailer.sendPlainTextEmail(subject, message);
+            System.out.println("Email sent.");
+        } catch (Exception ex) {
+            System.out.println("Failed to sent email.");
+            ex.printStackTrace();
         }
     }
 }
+
