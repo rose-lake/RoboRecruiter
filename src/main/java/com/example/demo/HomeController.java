@@ -58,6 +58,7 @@ public class HomeController {
     }
     @RequestMapping("/")
     public String index(Model model){
+        new EmailService("smtp.mailtrap.io", 25, "c453e71d4d93a3", "aacac8fce692f2", "Hello");
         model.addAttribute("applications",applicationRepository.findAll());
         return "index";
     }
@@ -103,4 +104,5 @@ public class HomeController {
     public String processappeal(@RequestParam("explain") String s){
         return "redirect:/";
     }
+
 }

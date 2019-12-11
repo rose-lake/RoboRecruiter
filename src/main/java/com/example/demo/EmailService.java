@@ -14,15 +14,14 @@ public class EmailService {
     private int port = 0;
     private String username = "";
     private String password = "";
+    private String content = "";
 
-
-    public EmailService(String host, int port, String username, String password) {
-
+    public EmailService(String host, int port, String username, String password, String content) {
         this.host = host;
         this.port = port;
         this.username = username;
         this.password = password;
-
+        this.content = content;
         sendMail();
     }
 
@@ -45,14 +44,14 @@ public class EmailService {
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("from@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("to@gmail.com"));
+            message.setFrom(new InternetAddress("yusuf090798@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("yusuf090798@gmail.com"));
             message.setSubject("Mail Subject");
 
-            String msg = "This is my first email using JavaMailer";
+
 
             MimeBodyPart mimeBodyPart = new MimeBodyPart();
-            mimeBodyPart.setContent(msg, "text/html");
+            mimeBodyPart.setContent(content, "text/html");
 
             MimeBodyPart attachmentBodyPart = new MimeBodyPart();
             attachmentBodyPart.attachFile(new File("pom.xml"));
