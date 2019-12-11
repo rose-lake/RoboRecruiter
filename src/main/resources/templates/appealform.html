@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th ="http://www.thymeleaf.org">
+<head th:replace="base :: headstuff"></head>
+<body>
+<nav th:replace="base :: navbar"></nav>
+<div class="container">
+    <div class="jumbotron col-md-6 mx-auto" style="margin-top: 20px; padding-top: 2rem">
+        <div class="mx-auto">
+            <h1 class="display-4">Request an Appeal</h1>
+        </div>
+        <form class="form-signin mx-auto"action="#" th:action="@{/processappeal}" method="post" enctype="multipart/form-data">
+            <input type="hidden" th:field="${application.id}" />
+            <h3>Reason for appeal: [[${application.status}]]</h3>
+            <div class="form-label-group">
+                <textarea type="text" class="form-control" id="explain" name="explain" placeholder="Explanation for Appeal" required autofocus/>
+                <label for="explain">Explanation for Appeal</label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+<footer th:replace="base :: footer"></footer>
+</body>
+<th:block th:replace="base :: jslinks"></th:block>
+</html>

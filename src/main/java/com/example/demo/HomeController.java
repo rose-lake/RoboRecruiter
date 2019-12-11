@@ -92,4 +92,15 @@ public class HomeController {
         model.addAttribute("jobs", jobRepository.findAll());
         return "joblist";
     }
+
+    @RequestMapping("/appeal/{id}")
+    public String appeal(Model model, @PathVariable("id") long id){
+        model.addAttribute("application", applicationRepository.findById(id));
+        return "appealform";
+    }
+
+    @PostMapping("/processappeal")
+    public String processappeal(@RequestParam("explain") String s){
+        return "redirect:/";
+    }
 }
