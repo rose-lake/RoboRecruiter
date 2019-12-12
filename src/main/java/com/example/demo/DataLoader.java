@@ -85,9 +85,8 @@ public class DataLoader implements CommandLineRunner {
                         "assets, assisting in the planning, design and implementation of company data interfaces and " +
                         "data management components.",
                 LocalDate.of(2019, 10, 12),
-                new ArrayList<>(Arrays.asList("database coding”, “performance tuning”, “troubleshooting”, " +
-                        "“ETL Technologies”, “C”, “C++”, “Python”, “Java”, “PostgreSQL”, “Oracle SQL”, “NoSQL”, " +
-                        "“Scylla”, “Apache Cassandra”, “Redis”, “analytical")),
+                new ArrayList<>(Arrays.asList("database coding", "performance tuning", "troubleshooting","ETL Technologies",
+                        "C", "C++", "Python", "Java", "PostgreSQL", "Oracle SQL", "NoSQL", "Scylla", "Apache Cassandra", "Redis", "analytical")),
                 new ArrayList<>(Arrays.asList("What are DMVs?"," How are transactions used?",
                         "What are DBCC commands?"))));
 
@@ -95,8 +94,8 @@ public class DataLoader implements CommandLineRunner {
                 "We're looking for a developer who is passionate about building high quality Android apps. " +
                         "The ideal candidate will work closely with other developers to bring designs to life.",
                 LocalDate.of(2019, 10, 13),
-                new ArrayList<>(Arrays.asList("Java”,”Kotlin”, “Android Studio”, “Objective-C”, “Swift”, “XCode”, " +
-                        "“mobile product development”, “Visual Studio App Center ")),
+                new ArrayList<>(Arrays.asList("Java","Kotlin", "Android Studio", "Objective-C", "Swift", "XCode",
+                        "mobile product development", "visual Studio App Center")),
                 new ArrayList<>(Arrays.asList("What’s the difference between an implicit and an explicit intent?",
                         " When should you use a Fragment, rather than an Activity?",
                         " What is a ThreadPool? And is it more effective than using several separate Threads?"))));
