@@ -43,6 +43,20 @@ public class HomeControllerRoot {
         LocalDate dateToday = LocalDate.now();
         LocalTime timeNow = LocalTime.now();
 
+        System.out.println("\n\n**** top of index method ****\n");
+        System.out.println("links fetched from repository (there should be NONE)... ");
+        if(links == null) {
+            System.out.println("links was null");
+        } else
+        {
+            System.out.println("links not null, links = " + links.toString());
+            int counter = 1;
+            for(Link link : links) {
+                System.out.println("inside TEST for loop!");
+                System.out.println("\tlink #" + counter + " = " + link.toString());
+            }
+        }
+
         for (Link link : links) {
 
             if (link.getStatus().equalsIgnoreCase("Accepted")) {
@@ -90,6 +104,7 @@ public class HomeControllerRoot {
 
         }
 
+        System.out.println("bottom of index method. adding links to model. links = " + links.toString());
         model.addAttribute("links", linkRepository.findAll());
         return "index";
     }
