@@ -14,7 +14,7 @@
 
             <!--example-->
             <!--<p th:text="${link.user.firstName}"></p>-->
-            <input type="hidden" th:field="*{}" />
+            <input type="hidden" th:field="*{link}" />
 
             <div class="form-label-group">
                 <input type="date" class="form-control" id="interview-date" name="selected-date" th:field="*{dateScheduled}" th:value="${currentDate}" th:min="${currentDate}" th:max="${currentDate.plusDays(14)}" placeholder="Date" required autofocus/>
