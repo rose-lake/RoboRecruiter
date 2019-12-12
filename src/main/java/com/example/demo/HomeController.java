@@ -65,6 +65,11 @@ public class HomeController {
         return "login";
     }
 
+    @PostMapping("/search")
+    public String search(@RequestParam("search") String s, Model model) {
+        model.addAttribute("jobs", jobRepository.findByDescriptionContainingIgnoreCaseOrTitleContainingIgnoreCase(s,s));
+        return "joblist";
+    }
     @RequestMapping("/joblist")
     public String joblist(Model model) {
         model.addAttribute("jobs", jobRepository.findAll());
