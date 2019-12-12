@@ -19,8 +19,8 @@
 
             <!-- id :: set automatically -->
             <input type="hidden" th:field="*{id}"/>
-            <h3>Id: <span th:value="*{id}"></span></h3>
-            <h3>Id: <span th:value="${link.id}"></span></h3>
+            <h3>Id: <span th:text="*{id}"></span></h3>
+            <h3>Id: <span th:text="${link.id}"></span></h3>
 
             <!-- dateApplied :: DISPLAY ONLY :: set on back end -->
             <div class="form-group">
