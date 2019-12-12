@@ -4,7 +4,8 @@
 
 Hm... If we have _keyword pairs_ that significantly ups the complexity of our "matching" logic. So probably best to stick to _single keywords_ for this first implementation.
 
-## MultipartFile?  --> can use just File, maybe...
+## MultipartFile?  
+--> can we use just File? no, this didn't work
 we are using `org.springframework.web.multipart.MultipartFile`
 whose details are at :
 https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html
@@ -51,7 +52,7 @@ try (BufferedReader reader =
 
 ## from Baeldung, re: SpringBoot configuration
 
-If we want to control the maximum file upload size, we can edit our application.properties:
+If we want to control the maximum file upload size, we can edit our link.properties:
 spring.servlet.multipart.max-file-size=128KB
 spring.servlet.multipart.max-request-size=128KB
 

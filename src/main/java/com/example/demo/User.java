@@ -12,13 +12,30 @@ import java.util.Set;
 @Entity
 @Table(name="User_Data")
 public class User {
+
+    //*******
+    // ID
+    //*******
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    public List<Resume> resumes;
+    //*********
+    // OBJECTS
+    //*********
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(joinColumns = @JoinColumn(name="user_id"),inverseJoinColumns = @JoinColumn(name="role_id"))
+    private Collection<Role> roles;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Resume> resumes;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Link> links;
+
+    //********
+    // FIELDS
+    //********
     @Column(name="email", nullable=false)
     private String email;
 
@@ -37,12 +54,12 @@ public class User {
     @Column(name="username")
     private String username;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(joinColumns = @JoinColumn(name="user_id"),inverseJoinColumns = @JoinColumn(name="role_id"))
-    private Collection<Role> roles;
-
+    //**************
+    // CONSTRUCTORS
+    //**************
     public User(){}
 
+    // CUSTOM constructor for use in the DATA LOADER
     public User(String email, String password, String firstName, String lastName, boolean enabled, String username){
         this.setEmail(email);
         this.setPassword(password);
@@ -52,6 +69,9 @@ public class User {
         this.setUsername(username);
     }
 
+    //*****************
+    // GETTER / SETTER
+    //*****************
     public long getId() {
         return id;
     }
@@ -106,6 +126,9 @@ public class User {
         this.username = username;
     }
 
+    //*****************
+    // OBJECT METHODS + custom object methods
+    //*****************
     public Collection<Role> getRoles() {
         return roles;
     }
@@ -113,6 +136,12 @@ public class User {
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
+
+    public List<Link> getLinks() { return links; }
+
+    public void setLinks(List<Link> links) { this.links = links; }
+
+    public void addLink(Link link) { this.links.add(link); }
 
     public List<Resume> getResumes() {
         return resumes;

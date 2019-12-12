@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th ="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="base :: headstuff"></head>
 <body>
 <nav th:replace="base :: navbar"></nav>
@@ -13,34 +13,40 @@
 
         <form class="form-signin mx-auto"
               action="#"
-              th:action="@{/processapplication}"
-              th:object="${application}"
-              method="post">
+              th:action="@{/processlink}"
+              th:object="${link}"
+              method="POST">
 
             <!-- id :: set automatically -->
-            <input type="hidden" th:field="*{id}" />
-
-            <!-- user OBJECT :: set on back end -->
-            <input type="hidden" th:field="*{user}" />
-
-            <!-- jobId :: set on back end -->
-            <input type="hidden" th:field="*{jobId}" />
+            <input type="hidden" th:field="*{id}"/>
+            <h3>Id: <span th:value="*{id}"></span></h3>
+            <h3>Id: <span th:value="${link.id}"></span></h3>
 
             <!-- dateApplied :: DISPLAY ONLY :: set on back end -->
-            <input type = "hidden" th:field="*{dateApplied}" />
-            <h3>
-                Application Date:
-                <span th:text="${#temporals.format(${application.dateApplied}, 'dd-MM-yyyy')}"></span>
-            </h3>
+            <div class="form-group">
+                <input type="hidden" th:field="*{dateApplied}"/>
+                <h3>
+                    Application Date: <span th:text="${link.dateApplied}"></span>
+                    <!--<span th:text="${#temporals.format(${link.dateApplied}, 'dd-MM-yyyy')}"></span>-->
+                </h3>
+            </div>
 
-            <!-- resume :: SELECT field :: select by id -->
+            <!-- user OBJECT :: set on back end -->
+            <input type="hidden" th:field="*{user}"/>
+<!--            <h3>Username: <span th:text="*{user.id}"></span></h3>-->
+<!--            <h3>Username: <span th:text="${link.user.id}"></span></h3>-->
+
+            <!-- job OBJECT :: set on back end -->
+            <input type="hidden" th:field="*{job}"/>
+
+
+            <!-- resume OBJECT :: SELECT field :: here, we select a resume id and then go set it on the back end -->
             <!-- department :: single SELECT field -->
-            <div class="form-label-group">
-
-                <label for="selectResumeId" class="">Select Resume</label>
+            <div class="form-group">
+                <label for="selectedResumeId" class="">Select Resume</label>
                 <!-- *** IMPORTANT :: the name of the select tag below SHOULD NOT overlap with the name of the th:field, -->
                 <!-- *** if it does, this will cause unwanted extra comma before our selection!... ahhhhh... -->
-                <select required id="selectResumeId" name="selectResumeId"
+                <select required id="selectedResumeId" name="selectedResumeId"
                         class="">
                     <option selected value="">Select resume...</option>
                     <option th:each="resume : ${allResumes}"

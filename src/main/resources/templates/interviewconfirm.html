@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<p>
+    Your interview date is <span th:text="${#temporals.format(interview.dateScheduled), 'MM-dd-yyyy')}"></span>.
+</p>
+
+<p>
+    Your interview time is <span th:text="${#temporals.format(interview.timeScheduled), 'hh:mm a')}"></span>.
+</p>
+</body>
+</html>
