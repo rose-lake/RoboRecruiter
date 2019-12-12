@@ -7,40 +7,52 @@ import java.time.LocalTime;
 @Entity
 public class Interview {
 
+    //*******
+    // ID
+    //*******
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    //*********
+    // OBJECT
+    //*********
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "application_id")
-    private Application application;
+    @JoinColumn(name = "link_id")
+    private Link link;
 
+    //********
+    // FIELDS
+    //********
     private LocalDate dateScheduled;
 
-    private LocalTime timeScheduled;
+    private LocalTime timeWindowStart;
 
+    private LocalTime timeWindowEnd;
+
+
+    //**************
+    // CONSTRUCTORS
+    //**************
     public Interview() {}
 
-    public Interview(Application application, LocalDate dateScheduled, LocalTime timeScheduled) {
-        this.application = application;
+    // fully overloaded
+    public Interview(Link link, LocalDate dateScheduled, LocalTime timeWindowStart, LocalTime timeWindowEnd) {
+        this.link = link;
         this.dateScheduled = dateScheduled;
-        this.timeScheduled = timeScheduled;
+        this.timeWindowStart = timeWindowStart;
+        this.timeWindowEnd = timeWindowEnd;
     }
 
+    //*****************
+    // GETTER / SETTER
+    //*****************
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Application getApplication() {
-        return application;
-    }
-
-    public void setApplication(Application application) {
-        this.application = application;
     }
 
     public LocalDate getDateScheduled() {
@@ -51,11 +63,31 @@ public class Interview {
         this.dateScheduled = dateScheduled;
     }
 
-    public LocalTime getTimeScheduled() {
-        return timeScheduled;
+    public LocalTime getTimeWindowStart() {
+        return timeWindowStart;
     }
 
-    public void setTimeScheduled(LocalTime timeScheduled) {
-        this.timeScheduled = timeScheduled;
+    public void setTimeWindowStart(LocalTime timeWindowStart) {
+        this.timeWindowStart = timeWindowStart;
     }
+
+    public LocalTime getTimeWindowEnd() {
+        return timeWindowEnd;
+    }
+
+    public void setTimeWindowEnd(LocalTime timeWindowEnd) {
+        this.timeWindowEnd = timeWindowEnd;
+    }
+
+    //*****************
+    // OBJECT METHOD
+    //*****************
+    public Link getLink() {
+        return link;
+    }
+
+    public void setLink(Link link) {
+        this.link = link;
+    }
+
 }

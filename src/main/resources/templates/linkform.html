@@ -13,34 +13,34 @@
 
         <form class="form-signin mx-auto"
               action="#"
-              th:action="@{/processapplication}"
-              th:object="${application}"
+              th:action="@{/processlink}"
+              th:object="${link}"
               method="POST">
 
             <!-- id :: set automatically -->
             <input type="hidden" th:field="*{id}"/>
             <h3>Id: <span th:value="*{id}"></span></h3>
-            <h3>Id: <span th:value="${application.id}"></span></h3>
-
-            <!-- user OBJECT :: set on back end -->
-            <input type="hidden" th:field="*{user}"/>
-<!--            <h3>Username: <span th:text="*{user.id}"></span></h3>-->
-<!--            <h3>Username: <span th:text="${application.user.id}"></span></h3>-->
-
-            <!-- jobId :: set on back end -->
-            <input type="hidden" th:field="*{jobId}"/>
-
+            <h3>Id: <span th:value="${link.id}"></span></h3>
 
             <!-- dateApplied :: DISPLAY ONLY :: set on back end -->
             <div class="form-group">
                 <input type="hidden" th:field="*{dateApplied}"/>
                 <h3>
-                    Application Date: <span th:text="${dateApplied}"></span>
-                    <!--<span th:text="${#temporals.format(${application.dateApplied}, 'dd-MM-yyyy')}"></span>-->
+                    Application Date: <span th:text="${link.dateApplied}"></span>
+                    <!--<span th:text="${#temporals.format(${link.dateApplied}, 'dd-MM-yyyy')}"></span>-->
                 </h3>
             </div>
 
-            <!-- resume :: SELECT field :: select by id -->
+            <!-- user OBJECT :: set on back end -->
+            <input type="hidden" th:field="*{user}"/>
+<!--            <h3>Username: <span th:text="*{user.id}"></span></h3>-->
+<!--            <h3>Username: <span th:text="${link.user.id}"></span></h3>-->
+
+            <!-- job OBJECT :: set on back end -->
+            <input type="hidden" th:field="*{job}"/>
+
+
+            <!-- resume OBJECT :: SELECT field :: here, we select a resume id and then go set it on the back end -->
             <!-- department :: single SELECT field -->
             <div class="form-group">
                 <label for="selectedResumeId" class="">Select Resume</label>

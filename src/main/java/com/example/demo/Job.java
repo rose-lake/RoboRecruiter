@@ -1,23 +1,35 @@
 package com.example.demo;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 
 public class Job {
+    //*******
+    // ID
+    //*******
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    //*********
+    // OBJECT
+    //*********
+    @OneToMany(mappedBy = "job", fetch = FetchType.LAZY)
+    private List<Link> links;
+
+    //********
+    // FIELDS
+    //********
     private String title;
+
+    private LocalDate postedDate;
 
     @Column(columnDefinition = "VARCHAR(1023)")
     private String description;
-
-    private LocalDate postedDate;
 
     @Column(columnDefinition = "VARBINARY(1023)")
     private ArrayList<String> keywordList;
@@ -25,9 +37,13 @@ public class Job {
     @Column(columnDefinition = "VARBINARY(1023)")
     private ArrayList<String> technicalQuestions;
 
+    //**************
+    // CONSTRUCTORS
+    //**************
     public Job() {
     }
 
+    // custom constructor for DATA LOADER (does not include LINK object)
     public Job(String title, String description, LocalDate postedDate, ArrayList<String> keywordList, ArrayList<String> technicalQuestions) {
         this.title = title;
         this.description = description;
@@ -36,6 +52,9 @@ public class Job {
         this.technicalQuestions = technicalQuestions;
     }
 
+    //*****************
+    // GETTER / SETTER
+    //*****************
     public long getId() {
         return id;
     }
@@ -83,4 +102,16 @@ public class Job {
     public void setTechnicalQuestions(ArrayList<String> technicalQuestions) {
         this.technicalQuestions = technicalQuestions;
     }
+
+    //*****************
+    // OBJECT METHOD
+    //*****************
+    public List<Link> getLinks() {
+        return links;
+    }
+
+    public void setLinks(List<Link> links) {
+        this.links = links;
+    }
+
 }

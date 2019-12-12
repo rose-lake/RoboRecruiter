@@ -52,7 +52,7 @@ try (BufferedReader reader =
 
 ## from Baeldung, re: SpringBoot configuration
 
-If we want to control the maximum file upload size, we can edit our application.properties:
+If we want to control the maximum file upload size, we can edit our link.properties:
 spring.servlet.multipart.max-file-size=128KB
 spring.servlet.multipart.max-request-size=128KB
 
