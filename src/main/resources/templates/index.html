@@ -13,7 +13,10 @@
     </div>
 </section>
 <div class="container col-md-8">
-    <div th:if="${applications.size() == 0}">
+    <div th:if="${applications}==null">
+        <h1>No applications to display</h1>
+    </div>
+    <div th:if="${applications.size()} == 0">
         <h1>There's nothing here.</h1>
         <p style="text-align: center;">Try a new search or return <a href="/">home</a></p>
     </div>

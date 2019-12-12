@@ -17,7 +17,7 @@ public class User {
     private long id;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    public List<Resume> resumes;
+    private List<Resume> resumes;
 
     @Column(name="email", nullable=false)
     private String email;
