@@ -72,6 +72,9 @@ public class HomeControllerInterview {
         LocalTime selectedTime = LocalTime.parse(time, timeFormatter);
         interview.setTimeWindowStart(selectedTime);
         interviewRepository.save(interview);
+        Link link = linkRepository.findById(interview.getLink().getId()).get();
+        link.setStatus("Interview Scheduled");
+        linkRepository.save(link);
         return "redirect:/";
     }
 
