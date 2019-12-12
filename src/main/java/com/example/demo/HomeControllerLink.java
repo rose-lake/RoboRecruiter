@@ -44,20 +44,20 @@ public class HomeControllerLink {
         // grab today's date
         LocalDate today = LocalDate.now();
 
-        // hook up LINK with USER and JOB ::
-        Link formLink = new Link(user, job, today);
-        linkRepository.save(formLink);
+//        // hook up LINK with USER and JOB ::
+//        Link formLink = new Link(user, job, today);
+//        linkRepository.save(formLink);
+//
+//        user.addLink(formLink);
+//        userRepository.save(user);
+//
+//        job.addLink(formLink);
+//        jobRepository.save(job);
+//
+//        // possibly need to save link to linkRepository again?
+//        linkRepository.save(formLink);
 
-        user.addLink(formLink);
-        userRepository.save(user);
-
-        job.addLink(formLink);
-        jobRepository.save(job);
-
-        // possibly need to save link to linkRepository again?
-        linkRepository.save(formLink);
-
-        model.addAttribute("link", formLink);
+        model.addAttribute("link", new Link(user, job, today));
         return "linkform";
 
     }
@@ -80,6 +80,22 @@ public class HomeControllerLink {
             System.out.println("*** could not find RESUME with id " + selectedResumeId + " in the resumeRepository");
             return "linkform";
         }
+
+        // save what came in from the form
+        linkRepository.save(link);
+
+        // 0. hook LINK + USER
+        User user = link.getUser();
+        user.addLink(link);
+        userRepository.save(user);
+
+        // 0. hook LINK + JOB
+        Job job = link.getJob();
+        job.addLink(link);
+        jobRepository.save(job);
+
+        // possibly need to save link to linkRepository again?
+        linkRepository.save(link);
 
         // 1. hook LINK + RESUME
         Resume selectedResume = resumeRepository.findById(selectedResumeId).get();
@@ -107,7 +123,7 @@ public class HomeControllerLink {
 
         ArrayList<String> keywords = jobFromLink.getKeywordList();
         System.out.println("******* got KEYWORD LIST from jobFromLink = " + keywords.toString());
-        
+
         // set the 80% goal based on job's number of keywords
         int keywordCount = keywords.size();
         int passCount = (keywordCount * 8) / 10;
