@@ -56,15 +56,23 @@ public class HomeControllerInterview {
         link.setInterview(interview);
         linkRepository.save(link);
 
-        model.addAttribute("interview", new Interview(link));
+        model.addAttribute("interview", interview);
         return "scheduleinterview";
     }
 
     @RequestMapping("/processinterviewform")
     public String loadFromPage(@ModelAttribute Interview interview,
-                               Model model) {
-        model.addAttribute("interview", interview);
-        return "interviewconfirm";
+                               @RequestParam("selected-date") String date,
+                               @RequestParam("selected-time") String time) {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate myDate1 = LocalDate.parse(date, dateFormatter);
+        interview.setDateScheduled(myDate1);
+
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime selectedTime = LocalTime.parse(time, timeFormatter);
+        interview.setTimeWindowStart(selectedTime);
+        interviewRepository.save(interview);
+        return "redirect:/";
     }
 
     @RequestMapping("/takeinterview/{id}")

@@ -20,16 +20,13 @@
 
             <div class="form-label-group">
                 <input type="date" class="form-control" id="interview-date" name="selected-date"
-                       th:field="*{dateScheduled}"
-                       th:value="${currentDate}"
-                       th:min="${currentDate}" th:max="${currentDate.plusDays(14)}"
+                       th:min="${currentDate}" th:max="*{link.getDateApplied().plusDays(14)}"
                        placeholder="Date" required autofocus/>
                 <label for="interview-date">Select a date</label>
             </div>
             <div class="form-label-group">
                 <input type="time" class="form-control" id="interview-time" name="selected-time"
-                       th:field="*{timeWindowStart}"
-                       th:value="${currentTime}" placeholder="Time"
+                        placeholder="Time"
                        required autofocus/>
                 <label for="interview-time">Select a time</label>
             </div>
