@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @Controller
 public class HomeControllerLink {
@@ -101,9 +102,12 @@ public class HomeControllerLink {
 
         // 2. process the LINK :: set link.status to EITHER "Rejected" OR "Accepted"
         // use resume and job objects inside the link
-        Job job = link.getJob();
-        ArrayList<String> keywords = job.getKeywordList();
+        Job jobFromLink = link.getJob();
+        System.out.println("******* got job out from link, ID = " + jobFromLink.getId());
 
+        ArrayList<String> keywords = jobFromLink.getKeywordList();
+        System.out.println("******* got KEYWORD LIST from jobFromLink = " + keywords.toString());
+        
         // set the 80% goal based on job's number of keywords
         int keywordCount = keywords.size();
         int passCount = (keywordCount * 8) / 10;
