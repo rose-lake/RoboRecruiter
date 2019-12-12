@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="base :: headstuff"></head>
+<head th:replace="base :: headstuff">
+    <title id="headTitle">Home</title>
+</head>
 <body>
 <nav th:replace="base :: navbar"></nav>
 <section class="hero">
@@ -60,6 +62,7 @@
     </div>
 </div>
 <footer th:replace="base :: footer"></footer>
+<div th:replace="base :: jslinks"></div>
 </body>
-<th:block th:replace="base :: jslinks"></th:block>
+<!--<th:block th:replace="base :: jslinks"></th:block>-->
 </html>

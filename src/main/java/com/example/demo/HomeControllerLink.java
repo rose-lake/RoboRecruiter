@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @Controller
 public class HomeControllerLink {
@@ -100,12 +101,36 @@ public class HomeControllerLink {
 
         // 2. process the LINK :: set link.status to EITHER "Rejected" OR "Accepted"
         // use resume and job objects inside the link
-        Job selectedJob = link.getJob();
+        Job job = link.getJob();
+        ArrayList<String> keywords = job.getKeywordList();
 
         // set the 80% goal based on job's number of keywords
-        // do the matching logic
-        // set link.status to either "Rejected" or "Accepted"
+        int keywordCount = keywords.size();
+        int passCount = (keywordCount * 8) / 10;
+        System.out.println("keywordCount :: " + keywordCount +
+                "\npassCount :: " + passCount);
 
+        // do the matching logic
+        String content = link.getResume().getContent();
+        int matchCount = 0;
+        for(String keyword : keywords){
+            if (content.contains(keyword)){
+                matchCount++;
+            }
+        }
+        System.out.println("matchCount :: " + matchCount);
+
+        // set link.status to either "Rejected" or "Accepted"
+        if(matchCount >= passCount){
+            System.out.println("matchCount >= passCount :: " + matchCount + " >= " + passCount +
+                    "\nset status to 'Accepted'");
+            link.setStatus("Accepted");
+        }
+        else {
+            System.out.println("matchCount < passCount :: "  + matchCount + " < " + passCount +
+                    "\nset status to 'Rejected'");
+            link.setStatus("Rejected");
+        }
 
         linkRepository.save(link);
         return "redirect:/";

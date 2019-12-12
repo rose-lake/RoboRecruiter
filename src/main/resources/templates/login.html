@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="base :: headstuff"></head>
+<head th:replace="base :: headstuff">
+    <title id="headTitle">Login</title>
+</head>
 <body>
 <div class="container">
     <h1 class="justify-content-center">Welcome to Yusuf's List</h1>
@@ -28,6 +30,6 @@
     </div>
 </div>
 <footer th:replace="base :: footer"></footer>
+<div th:replace="base :: jslinks"></div>
 </body>
-<th:block th:replace="base :: jslinks"></th:block>
 </html>
