@@ -7,12 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 @Controller
 public class HomeControllerInterview {
@@ -54,7 +52,7 @@ public class HomeControllerInterview {
         linkRepository.save(link);
 
         model.addAttribute("interview", new Interview(link));
-        return "interviewform";
+        return "scheduleinterview";
     }
 
     @RequestMapping("/processinterviewform")

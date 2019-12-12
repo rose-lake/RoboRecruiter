@@ -88,7 +88,7 @@ public class EmailService {
             // Now set the actual message
             messageBodyPart.setText(message);
 
-            // Create a multipar message
+            // Create a multipart message
             Multipart multipart = new MimeMultipart();
 
             // Set text message part

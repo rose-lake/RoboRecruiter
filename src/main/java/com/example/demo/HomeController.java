@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import sun.awt.image.IntegerInterleavedRaster;
 
 import javax.validation.Valid;
 import java.io.BufferedReader;
@@ -92,6 +93,17 @@ public class HomeController {
             ex.printStackTrace();
         }
         return "redirect:/";
+    }
+
+    @RequestMapping("/takeinterview/{id}")
+    public String takeInterview(@PathVariable("id") long id, Model model){
+        QAWrapper list = new QAWrapper();
+        Interview interview = interviewRepository.findById(id).get();
+        Job job = interview.getLink().getJob();
+        for (String s : job.getTechnicalQuestions()){
+            list.addQA(new QuestionAnswer(s));
+        }
+        for (String s : interview.getBehavorialQuestions())
     }
 
 
