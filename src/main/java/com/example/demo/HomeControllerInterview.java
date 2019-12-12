@@ -3,10 +3,7 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -31,8 +28,8 @@ public class HomeControllerInterview {
     ResumeRepository resumeRepository;
 
     @GetMapping("/schedule/{id}")
-    public String index(@RequestParam("id") long applicationId,
-            Model model){
+    public String index(@PathVariable("id") long applicationId,
+                        Model model) {
 
         //preload Today's Date for Application
         LocalDate today = LocalDate.now();
@@ -50,23 +47,10 @@ public class HomeControllerInterview {
     }
 
     @RequestMapping("/processinterviewform")
-    public String loadFromPage(@RequestParam("selected-date") String interviewDate,
-                               @RequestParam("selected-time") String interviewTime,
-                               Model model){
-
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate strSelectedDate = LocalDate.parse(interviewDate, dateFormatter);
-        model.addAttribute("interviewDate", strSelectedDate);
-
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-        try{
-            LocalTime selectedTime = LocalTime.parse(interviewTime, timeFormatter);
-            model.addAttribute("interviewTime",selectedTime);
-            return "confirm";
-        } catch (DateTimeParseException e) {
-            model.addAttribute("errorMessage", "Please enter all fields!");
-            return "form";
-        }
+    public String loadFromPage(@ModelAttribute Interview interview,
+                               Model model) {
+        model.addAttribute("interview", interview);
+        return "interviewconfirm";
     }
 
 }

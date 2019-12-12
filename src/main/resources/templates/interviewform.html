@@ -10,7 +10,7 @@
             <h5 class="display-4">Please select an interview time for <span th:text="${application.job.title}"></span> position.</h5>
         </div>
         <form class="form-signin mx-auto"action="#" th:action="@{/processInterviewform}" th:object="${interview}" method="post" enctype="multipart/form-data">
-            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{application.id}" />
 
             <div class="form-label-group">
                 <input type="date" class="form-control" id="interview-date" name="selected-date" th:field="*{dateScheduled}" th:value="${currentDate}" th:min="${currentDate}" th:max="${currentDate.plusDays(14)}" placeholder="Date" required autofocus/>
