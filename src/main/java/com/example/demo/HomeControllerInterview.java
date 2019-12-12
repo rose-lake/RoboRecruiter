@@ -44,8 +44,6 @@ public class HomeControllerInterview {
         String timeString = timeNow.format(timeFormatter);
         model.addAttribute("currentTime", timeString);
 
-//        , @ModelAttribute Application application, @ModelAttribute Interview interview, @ModelAttribute Job job
-
         model.addAttribute("interview", new Interview());
         model.addAttribute("application", applicationRepository.findById(applicationId).get());
         return "interviewform";
