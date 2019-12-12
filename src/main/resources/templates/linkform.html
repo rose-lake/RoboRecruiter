@@ -2,6 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="base :: headstuff">
     <title id="headTitle">Apply</title>
+
+    <style>
+        body {padding-bottom: 70px;
+            background: url(https://i.pinimg.com/originals/3c/83/3d/3c833dcc56accc946404165c7d764e47.jpg) fixed center no-repeat;}
+
+        .jumbotron{
+            background: url(https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Minimalist-Crumpled-Paper-Simple-Background-Image.jpg)}
+
+    </style>
 </head>
 <body>
 <nav th:replace="base :: navbar"></nav>
@@ -10,7 +19,7 @@
 
         <!-- INTRO HEADER -->
         <div class="mx-auto">
-            <h1 class="display-4">Applying to <span th:text="${job.title}"></span></h1>
+            <h1 class="display-5">Applying to <br/><span th:text="${job.title}"></span></h1>
         </div>
 
         <form class="form-signin mx-auto"
@@ -21,16 +30,16 @@
 
             <!-- id :: set automatically -->
             <input type="hidden" th:field="*{id}"/>
-            <h3>Id: <span th:text="*{id}"></span></h3>
-            <h3>Id: <span th:text="${link.id}"></span></h3>
+<!--            <h3>Id: <span th:text="*{id}"></span></h3>-->
+<!--            <h3>Id: <span th:text="${link.id}"></span></h3>-->
 
             <!-- dateApplied :: DISPLAY ONLY :: set on back end -->
             <div class="form-group">
                 <input type="hidden" th:field="*{dateApplied}"/>
-                <h3>
+                <h6>
                     Application Date: <span th:text="${link.dateApplied}"></span>
                     <!--<span th:text="${#temporals.format(${link.dateApplied}, 'dd-MM-yyyy')}"></span>-->
-                </h3>
+                </h6>
             </div>
 
             <!-- user OBJECT :: set on back end -->
