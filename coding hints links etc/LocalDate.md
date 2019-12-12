@@ -30,22 +30,27 @@ do we need to add the dependency? (see link above)
 # if Application.status == "Accepted"
 
 # check if we have MISSED the SCHEDULING WINDOW
-- if LocalDate.now().isAfter(Interview.dateScheduled)
-- set Application.status = "Did Not Schedule Interview"
+√ if LocalDate.now().isAfter(link.dateApplied.plusDays(14))
+√ set Link.status = "Did Not Schedule"
 
 
 # if Application.status == "Interview Scheduled"
 
 ## check if we are IN the INTERVIEW WINDOW
-- if LocalDate.now() == Interview.dateScheduled
-- if LocalTime.now().isBefore(Interview.timeWindowEnd)
-- if LocalTime.now().isAfter(Interview.timeWindowStart)
-- set Application.status = "Take Interview"
+√ if LocalDate.now() == Interview.dateScheduled
+    √ if LocalTime.now().isBefore(Interview.timeWindowEnd) || .equals(windowEnd)
+        √ if LocalTime.now().isAfter(Interview.timeWindowStart) || .equals(windowStart)
+            √ set Application.status = *"Take Interview"*
+    √ ELSE, we've missed the interview.
+        √ set Application.status = *"Missed Interview"*
+√ else if localDate.now() is AFTER interview scheduled date
+    √ set link.status = *"Missed Interview"*
+
 
 ## check if we are PAST the INTERVIEW WINDOW
 - if LocalDate.now() == Interview.dateScheduled
 - use the ELSE clause of the `if LocalTime.now().isBefore(Interview.timeWindowEnd)`, above... meaning, we are therefore exactly equal to or after the end of the Interview Window... meaning we've missed the interview.
-- set Application.status = "Missed Interview"
+- set Application.status = *"Missed Interview"*
 
 
 # Documentation

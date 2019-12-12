@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Controller
 public class HomeControllerRoot {
@@ -32,9 +35,61 @@ public class HomeControllerRoot {
     RoleRepository roleRepository;
     @Autowired
     ResumeRepository resumeRepository;
-    
+
     @RequestMapping("/")
     public String index(Model model) {
+
+        Iterable<Link> links = linkRepository.findAll();
+        LocalDate dateToday = LocalDate.now();
+        LocalTime timeNow = LocalTime.now();
+
+        for (Link link : links) {
+
+            if (link.getStatus().equalsIgnoreCase("Accepted")) {
+
+                // interview object only gets created when you schedule
+                if (link.getInterview() != null) {
+                    // set status ACCEPTED --> DID NOT SCHEDULE
+                    if (dateToday.isAfter(link.getDateApplied().plusDays(14))) {
+                        link.setStatus("Did Not Schedule");
+                        linkRepository.save(link);
+                    }
+                }
+
+            } else if (link.getStatus().equalsIgnoreCase("Interview Scheduled")) {
+
+                Interview interview = link.getInterview();
+
+                // if today is the day!
+                if (dateToday.equals(interview.getDateScheduled())) {
+
+                    // set status INTERVIEW SCHEDULED --> TAKE INTERVIEW
+                    if (timeNow.isBefore(interview.getTimeWindowEnd())
+                            || timeNow.equals(interview.getTimeWindowEnd())) {
+
+                        if (timeNow.isAfter(interview.getTimeWindowStart())
+                                || timeNow.equals(interview.getTimeWindowStart())) {
+                            link.setStatus("Take Interview");
+                            linkRepository.save(link);
+                        }
+                    }
+                    // set status INTERVIEW SCHEDULED --> MISSED INTERVIEW
+                    else {
+                        link.setStatus("Missed Interview");
+                        linkRepository.save(link);
+                    }
+
+                }
+                // or, if we are AFTER the day!
+                else if (dateToday.isAfter(interview.getDateScheduled())) {
+                    // set status INTERVIEW SCHEDULED --> MISSED INTERVIEW
+                    link.setStatus("Missed Interview");
+                    linkRepository.save(link);
+                }
+            }
+
+        }
+
         model.addAttribute("links", linkRepository.findAll());
         return "index";
     }
