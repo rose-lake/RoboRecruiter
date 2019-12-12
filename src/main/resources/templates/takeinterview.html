@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th ="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="base :: headstuff"></head>
 <body>
 <nav th:replace="base :: navbar"></nav>
@@ -8,8 +8,12 @@
         <div class="mx-auto">
             <h1 class="display-4">Interview Questions</h1>
         </div>
-        <form class="form-signin mx-auto"action="#" th:action="@{/processtakeinterview}" method="post" enctype="multipart/form-data">
-
+        <form class="form-signin mx-auto" action="#" th:action="@{/processtakeinterview}" th:object="${list}"
+              method="post">
+            <div class="form-label-group" th:each="qa, stat: *{list}">
+                <input class="form-control" id="'question_'+*{qa.id}" name="'question_'+*{qa.id}" th:field="*{list[__${stat.index}__].answer}"/>
+                <label for="'question_'+*{qa.id}" th:text="*{list[__${stat.index}__].question}"></label>
+            </div>
         </form>
     </div>
 </div>
