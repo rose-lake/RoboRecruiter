@@ -10,3 +10,6 @@ SEARCH + APPLY ::
 SOLUTION ::
 - add front-end checking code in job list like in index.
 - add back-end null checks, too.
+
+Thursday 12.12.2019 4:21pm
+Once applied for a job and accepted, if schedule the interview on the day of, the app breaks.
