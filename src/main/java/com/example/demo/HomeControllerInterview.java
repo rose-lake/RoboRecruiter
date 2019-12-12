@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -63,6 +67,46 @@ public class HomeControllerInterview {
         return "interviewconfirm";
     }
 
-    //"/takeinterview/{id}"
+    @RequestMapping("/takeinterview/{id}")
+    public String takeInterview(@PathVariable("id") long id, Model model) {
+        QAWrapper list = new QAWrapper();
+        Interview interview = interviewRepository.findById(id).get();
+        Job job = interview.getLink().getJob();
+        for (String s : job.getTechnicalQuestions()) {
+            list.addQA(new QuestionAnswer(s));
+        }
+        for (String s : Interview.getBehavioralQuestions()) {
+            list.addQA(new QuestionAnswer(s));
+        }
+        model.addAttribute("list", list);
+        model.addAttribute("interview", interview);
+        return "takeinterview";
+    }
+
+    @PostMapping("/processtakeinterview")
+    public String processTakeInterview(@ModelAttribute("list") QAWrapper list, @ModelAttribute("interview") Interview interview) throws IOException {
+
+        File file = new File("interview.txt");
+        file.createNewFile();
+        BufferedWriter writer = new BufferedWriter(new FileWriter("interview.txt"));
+        for (QuestionAnswer qa : list.getList()) {
+            writer.write(qa.getQuestion() + "\n");
+            writer.write(qa.getAnswer() + "\n\n");
+        }
+        writer.close();
+
+        String subject = "Interview for " + interview.getLink().getJob().getTitle();
+        String content = "Attached is the interview chat history for a recently conducted interview\n" +
+                "Job title: " + interview.getLink().getJob().getTitle() + "\n" +
+                "Applicant: " + interview.getLink().getUser().getFirstName() + interview.getLink().getUser().getLastName();
+
+        EmailService mailer = new EmailService();
+        try {
+            mailer.sendEmailAttachment(subject, content, file);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return "redirect:/";
+    }
 
 }
