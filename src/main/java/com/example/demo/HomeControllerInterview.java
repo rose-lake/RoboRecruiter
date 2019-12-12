@@ -46,6 +46,7 @@ public class HomeControllerInterview {
         // hook link INTO interview
         Link link = linkRepository.findById(linkId).get();
         Interview interview = new Interview(link);
+        interviewRepository.save(interview);
 
         // hook interview INTO link
         link.setInterview(interview);
