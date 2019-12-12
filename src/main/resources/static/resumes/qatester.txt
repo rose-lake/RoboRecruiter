@@ -1,2 +1,1 @@
-"SDLC", "UFT", "VBScripts", "Agile", "Scrum", "JIRA", "qTest", "SQL",
-        "test strategies", "test plans", "fast-paced", "presentation", "interpersonal", "team player"
+"SDLC", "UFT", "VBScripts", "Agile", "Scrum", "JIRA", "qTest", "SQL", "test strategies", "test plans", "fast-paced", "presentation", "interpersonal", "team player"

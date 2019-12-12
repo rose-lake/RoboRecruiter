@@ -40,11 +40,24 @@ public class Resume {
     public Resume() {
     }
 
-    // CUSTOM constructor for use in DATA LOADER (eventually)... does not include LINKS
-    public Resume(@Size(min = 3) String name, @Size(min = 10) String content, User user) {
+    public Resume(@Size(min = 3) String name, @Size(min = 10) String content) {
         this.name = name;
         this.content = content;
+    }
+
+    // CUSTOM for DATA LOADER
+    public Resume(User user, @Size(min = 3) String name, @Size(min = 10) String content) {
         this.user = user;
+        this.name = name;
+        this.content = content;
+    }
+
+    // fully overloaded for DATA LOADER
+    public Resume(User user, List<Link> links, @Size(min = 3) String name, @Size(min = 10) String content) {
+        this.user = user;
+        this.links = links;
+        this.name = name;
+        this.content = content;
     }
 
     //*****************

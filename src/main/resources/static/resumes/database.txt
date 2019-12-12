@@ -1,0 +1,1 @@
+"database coding", "performance tuning", "troubleshooting","ETL Technologies", "C", "C++", "Python", "Java", "PostgreSQL", "Oracle SQL", "NoSQL", "Scylla", "Apache Cassandra", "Redis", "analytical"

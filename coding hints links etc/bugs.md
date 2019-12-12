@@ -7,6 +7,4 @@ SEARCH + APPLY ::
 3. apply link is ACTIVE
 4. can go apply and hit submit, but then null pointer exception.
 
-SOLUTION ::
-- add front-end checking code in job list like in index.
-- add back-end null checks, too.
+RESOLVED.

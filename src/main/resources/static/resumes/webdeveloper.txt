@@ -1,2 +1,1 @@
-"HTML5", "CSS3", "LESS", "SASS", "AngularJS", "Angular", "Git", "AWS",
-        "Python", "D3", "Agile/Scrum", "cyber security", "multitask"
+"HTML5", "CSS3", "LESS", "SASS", "AngularJS", "Angular", "Git", "AWS", "Python", "D3", "Agile/Scrum", "cyber security", "multitask"

@@ -38,6 +38,8 @@ public class Link {
 
     private String status;
 
+    private String name;
+
     //**************
     // CONSTRUCTORS
     //**************
@@ -45,13 +47,24 @@ public class Link {
     }
 
     // fully overloaded
-    public Link(User user, Resume resume, Job job, Interview interview, LocalDate dateApplied, String status) {
+    public Link(User user, Resume resume, Job job, Interview interview, LocalDate dateApplied, String status, String name) {
         this.user = user;
         this.resume = resume;
         this.job = job;
         this.interview = interview;
         this.dateApplied = dateApplied;
         this.status = status;
+        this.name = name;
+    }
+
+    // CUSTOM for DATA LOADER :: everything EXCEPT INTERVIEW !
+    public Link(User user, Resume resume, Job job, LocalDate dateApplied, String status, String name) {
+        this.user = user;
+        this.resume = resume;
+        this.job = job;
+        this.dateApplied = dateApplied;
+        this.status = status;
+        this.name = name;
     }
 
     // CUSTOM constructor for creating the Application object BEFORE sending it into the FORM
@@ -86,6 +99,14 @@ public class Link {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     //*****************

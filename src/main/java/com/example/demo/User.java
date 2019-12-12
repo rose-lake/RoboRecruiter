@@ -5,6 +5,7 @@ import org.hibernate.annotations.Fetch;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -57,16 +58,19 @@ public class User {
     //**************
     // CONSTRUCTORS
     //**************
-    public User(){}
+    public User(){
+        this.resumes = new ArrayList<>();
+    }
 
     // CUSTOM constructor for use in the DATA LOADER
     public User(String email, String password, String firstName, String lastName, boolean enabled, String username){
-        this.setEmail(email);
-        this.setPassword(password);
-        this.setFirstName(firstName);
-        this.setLastName(lastName);
-        this.setEnabled(enabled);
-        this.setUsername(username);
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.enabled = enabled;
+        this.username = username;
+        this.resumes = new ArrayList<>();
     }
 
     //*****************
