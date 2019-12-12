@@ -9,8 +9,8 @@
             <h1 class="display-4">Request an Appeal</h1>
         </div>
         <form class="form-signin mx-auto"action="#" th:action="@{/processappeal}" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="app" th:field="${application.id}" />
-            <h3>Reason for appeal: [[${application.status}]]</h3>
+            <input type="hidden" name="app" th:field="${link.id}" />
+            <h3>Reason for appeal: [[${link.status}]]</h3>
             <div class="form-label-group">
                 <textarea type="text" class="form-control" id="explain" name="explain" placeholder="Explanation for Appeal" required autofocus/>
                 <label for="explain">Explanation for Appeal</label>

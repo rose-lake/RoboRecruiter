@@ -26,11 +26,17 @@
                     <p class="card-text">Id: <small th:text="${resume.id}" class="text-muted"></small></p>
                 </div>
             </div>
-            <div class="col-md-2">
-                <div class="card-body">
-                    <a class="card-text" th:href="@{/deleteresume/{id}(id=${resume.id})}">Delete</a>
-                </div>
-            </div>
+
+            <!-- do not show DELETE option because it DOES NOT WORK PROPERLY, yet! -->
+            <!-- this can be added after all other requirements are working -->
+            <!-- this should not be called "delete" but ARCHIVE, -->
+            <!-- as you should never actually delete a resume if it was used to apply for a job... -->
+<!--            <div class="col-md-2">-->
+<!--                <div class="card-body">-->
+<!--                    <a class="card-text" th:href="@{/deleteresume/{id}(id=${resume.id})}">Delete</a>-->
+<!--                </div>-->
+<!--            </div>-->
+
         </div>
     </div>
 </div>

@@ -3,7 +3,11 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -19,7 +23,7 @@ public class HomeControllerInterview {
     @Autowired
     JobRepository jobRepository;
     @Autowired
-    ApplicationRepository applicationRepository;
+    LinkRepository linkRepository;
     @Autowired
     InterviewRepository interviewRepository;
     @Autowired
@@ -27,11 +31,11 @@ public class HomeControllerInterview {
     @Autowired
     ResumeRepository resumeRepository;
 
-    @GetMapping("/schedule/{id}")
-    public String index(@PathVariable("id") long applicationId,
+    @GetMapping("/scheduleinterview/{id}")
+    public String index(@PathVariable("id") long linkId,
                         Model model) {
 
-        //preload Today's Date for Application
+        //preload Today's Date
         LocalDate today = LocalDate.now();
         model.addAttribute("currentDate", today);
 
@@ -41,8 +45,15 @@ public class HomeControllerInterview {
         String timeString = timeNow.format(timeFormatter);
         model.addAttribute("currentTime", timeString);
 
-        model.addAttribute("interview", new Interview());
-        model.addAttribute("application", applicationRepository.findById(applicationId).get());
+        // hook link INTO interview
+        Link link = linkRepository.findById(linkId).get();
+        Interview interview = new Interview(link);
+
+        // hook interview INTO link
+        link.setInterview(interview);
+        linkRepository.save(link);
+
+        model.addAttribute("interview", new Interview(link));
         return "interviewform";
     }
 
@@ -52,5 +63,7 @@ public class HomeControllerInterview {
         model.addAttribute("interview", interview);
         return "interviewconfirm";
     }
+
+    //"/takeinterview/{id}"
 
 }

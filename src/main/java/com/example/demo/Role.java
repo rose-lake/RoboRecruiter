@@ -5,16 +5,28 @@ import java.util.Collection;
 
 @Entity
 public class Role {
+    //*******
+    // ID
+    //*******
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(unique=true)
-    private String name;
-
+    //*********
+    // OBJECTS
+    //*********
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Collection<User> users;
 
+    //********
+    // FIELDS
+    //********
+    @Column(unique=true)
+    private String name;
+
+    //**************
+    // CONSTRUCTORS
+    //**************
     public Role() {
     }
 
@@ -22,6 +34,9 @@ public class Role {
         this.name = name;
     }
 
+    //*****************
+    // GETTER / SETTER
+    //*****************
     public long getId() {
         return id;
     }
@@ -38,6 +53,9 @@ public class Role {
         this.name = name;
     }
 
+    //*****************
+    // OBJECT METHOD
+    //*****************
     public Collection<User> getUsers() {
         return users;
     }
@@ -45,4 +63,5 @@ public class Role {
     public void setUsers(Collection<User> users) {
         this.users = users;
     }
+
 }
