@@ -9,7 +9,7 @@
     <div class="jumbotron col-md-6 mx-auto" style="margin-top: 20px; padding-top: 2rem">
         <div class="mx-auto">
             <h1 class="display-4">Schedule Time</h1>
-            <h5 class="display-4">Please select an interview time for <span th:text="${link.job.title}"></span> position.</h5>
+            <h5 class="display-4">Please select an interview time for <span th:text="${interview.link.job.title}"></span> position.</h5>
         </div>
         <form class="form-signin mx-auto"action="#" th:action="@{/processinterviewform}" th:object="${interview}" method="post" enctype="multipart/form-data">
             <input type="hidden" th:field="*{id}" />
@@ -23,7 +23,7 @@
                 <label for="interview-date">Select a date</label>
             </div>
             <div class="form-label-group">
-                <input type="time" class="form-control" id="interview-time" name="selected-time" th:field="*{timeScheduled}" th:value="${currentTime}" placeholder="Time" required autofocus/>
+                <input type="time" class="form-control" id="interview-time" name="selected-time" th:field="*{timeWindowStart}" th:value="${currentTime}" placeholder="Time" required autofocus/>
                 <label for="interview-time">Select a time</label>
             </div>
             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Submit</button>
