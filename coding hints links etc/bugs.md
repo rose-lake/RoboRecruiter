@@ -8,3 +8,6 @@ SEARCH + APPLY ::
 4. can go apply and hit submit, but then null pointer exception.
 
 RESOLVED.
+
+Thursday 12.12.2019 4:21pm
+Once applied for a job and accepted, if schedule the interview on the day of, the app breaks.
