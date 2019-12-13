@@ -71,6 +71,7 @@ public class HomeControllerInterview {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime selectedTime = LocalTime.parse(time, timeFormatter);
         interview.setTimeWindowStart(selectedTime);
+        interview.setTimeWindowEnd(selectedTime.plusMinutes(30));
         interviewRepository.save(interview);
         Link link = linkRepository.findById(interview.getLink().getId()).get();
         link.setStatus("Interview Scheduled");
@@ -94,8 +95,9 @@ public class HomeControllerInterview {
         return "takeinterview";
     }
 
-    @PostMapping("/processtakeinterview")
-    public String processTakeInterview(@ModelAttribute("list") QAWrapper list, @ModelAttribute("interview") Interview interview) throws IOException {
+    @PostMapping("/processtakeinterview/{id}")
+    public String processTakeInterview(@ModelAttribute("list") QAWrapper list, @PathVariable("id") long id) throws IOException {
+        Interview interview = interviewRepository.findById(id).get();
 
         File file = new File("interview.txt");
         file.createNewFile();
