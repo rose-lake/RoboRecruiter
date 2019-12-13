@@ -202,7 +202,7 @@ public class DataLoader implements CommandLineRunner {
         linkRepository.save(androidLateToSchedule);
         androidLateToSchedule = linkRepository.findByNameContains("AndroidLateToSchedule");
 
-        // create one that's missed the interview time (by a whole day!)
+        // create one that's missed the interview time
         Link linkDBMissedInterview = new Link(LocalDate.of(2019, 12, 13),
                 "Interview Scheduled",
                 "linkDBMissedInterview");
@@ -212,7 +212,6 @@ public class DataLoader implements CommandLineRunner {
         linkDBMissedInterview.setJob(jobDatabase);
         linkRepository.save(linkDBMissedInterview);
         linkDBMissedInterview = linkRepository.findByNameContains("linkDBMissedInterview");
-
         Interview databaseInterview = new Interview(LocalDate.of(2019, 12, 13),
                 LocalTime.of(8, 45),
                 LocalTime.of(9, 15));

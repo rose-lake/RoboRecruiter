@@ -24,6 +24,12 @@
                        placeholder="Date" required autofocus/>
                 <label for="interview-date">Select a date</label>
             </div>
+
+            <!-- this is where we say the TIME can only be greater or equal to current time ! -->
+            <div th:if="${timeMessage}!=null" class="alert alert-info mx-auto mt-3" role="alert">
+                <span th:text="${timeMessage}"></span>
+            </div>
+
             <div class="form-label-group">
                 <input type="time" class="form-control" id="interview-time" name="selected-time"
                         placeholder="Time"

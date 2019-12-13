@@ -47,35 +47,67 @@ public class HomeControllerInterview {
         String timeString = timeNow.format(timeFormatter);
         model.addAttribute("currentTime", timeString);
 
-        // hook link INTO interview
+
+//        // this is similar to what we had to MOVE OVER before, when dealing with an "empty link"
+//        // only create the interview on a successfull processing of the interview
+//        // hook link INTO interview
+//        Link link = linkRepository.findById(linkId).get();
+//        Interview interview = new Interview(link);
+//        interviewRepository.save(interview);
+//
+//        // hook interview INTO link
+//        link.setInterview(interview);
+//        linkRepository.save(link);
+
+        // grab the associated LINK, and create our new INTERVIEW with link
         Link link = linkRepository.findById(linkId).get();
-        Interview interview = new Interview(link);
-        interviewRepository.save(interview);
-
-        // hook interview INTO link
-        link.setInterview(interview);
-        linkRepository.save(link);
-
-        model.addAttribute("interview", interview);
+        model.addAttribute("interview", new Interview(link));
         return "scheduleinterview";
     }
 
     @RequestMapping("/processinterviewform")
     public String loadFromPage(@ModelAttribute Interview interview,
                                @RequestParam("selected-date") String date,
-                               @RequestParam("selected-time") String time) {
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate myDate1 = LocalDate.parse(date, dateFormatter);
-        interview.setDateScheduled(myDate1);
+                               @RequestParam("selected-time") String time,
+                               Model model) {
 
+        // set the interview DATE scheduled
+        // do not have to error-check the date because on the FRONT END we only allow them to select dates in the 14-day window
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate selectedDate = LocalDate.parse(date, dateFormatter);
+
+        // set the interview TIME scheduled
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime selectedTime = LocalTime.parse(time, timeFormatter);
+
+        // if they are scheduling for TODAY,
+        // error-check the selectedTime to be sure it's equal to or greater than currentTime
+        // this COULD maybe be done on the FRONT END, but for now we'll handle it this way
+        if (selectedDate.equals(LocalDate.now()) && selectedTime.isBefore(LocalTime.now())) {
+            model.addAttribute("timeMessage", "Please select a time that is after the current time");
+            return "scheduleinterview";
+        }
+
+
+        // if we get to here, the selected time + dates were valid
+        interviewRepository.save(interview);
+
+        // interview should already have the link set to it (pass-through from form)
+        // hook interview INTO link
+        Link link = interview.getLink();
+        link.setInterview(interview);
+        linkRepository.save(link);
+
+        // set the DATE + TIMES
+        interview.setDateScheduled(selectedDate);
         interview.setTimeWindowStart(selectedTime);
         interview.setTimeWindowEnd(selectedTime.plusMinutes(30));
         interviewRepository.save(interview);
-        Link link = linkRepository.findById(interview.getLink().getId()).get();
+
+        // set the LINK status
         link.setStatus("Interview Scheduled");
         linkRepository.save(link);
+
         return "redirect:/";
     }
 
@@ -96,7 +128,10 @@ public class HomeControllerInterview {
     }
 
     @PostMapping("/processtakeinterview/{id}")
-    public String processTakeInterview(@ModelAttribute("list") QAWrapper list, @PathVariable("id") long id) throws IOException {
+    public String processTakeInterview(@ModelAttribute("list") QAWrapper list,
+                                       @PathVariable("id") long id)
+            throws IOException {
+
         Interview interview = interviewRepository.findById(id).get();
 
         File file = new File("interview.txt");
@@ -119,6 +154,12 @@ public class HomeControllerInterview {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
+        // set the LINK status to Pending Offer
+        Link link = interview.getLink();
+        link.setStatus("Pending Offer");
+        linkRepository.save(link);
+
         return "redirect:/";
     }
 
