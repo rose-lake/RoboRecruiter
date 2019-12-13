@@ -1,5 +1,13 @@
+h3 {
+    text-align: center;
+    padding-top: 1em;
+    font-family: 'Josefin Sans', sans-serif;
+}
 .jumbotron{
     background: url(https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Minimalist-Crumpled-Paper-Simple-Background-Image.jpg)
+}
+.list-group-item {
+    font-family: 'Josefin Sans', sans-serif;
 }
 .card-horizontal {
     display: flex;

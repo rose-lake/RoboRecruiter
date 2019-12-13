@@ -1,17 +1,17 @@
 What is Functional programming
-sdf
+sdfsdf
 
 What is the difference between classical inheritance and prototypal inheritance
-sdf
+s
 
 What are the pros and cons of functional programming vs object-oriented programming?
-sdf
+s
 
 Describe a situation in which you met a major obstacle in order to complete a project. How did you deal with it? What steps did you take?
-df
+s
 
 Tell me about a time you had to work on several projects at once. How did you handle this?
-sf
+s
 
 Describe a time when you made a suggestion to improve something on the project that you were working on.
 s

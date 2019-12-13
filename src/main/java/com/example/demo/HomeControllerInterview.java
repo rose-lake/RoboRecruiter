@@ -173,7 +173,7 @@ public class HomeControllerInterview {
         link.setStatus("Pending Offer");
         linkRepository.save(link);
 
-        return "redirect:/";
+        return "interviewconfirm";
     }
 
 }

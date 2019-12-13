@@ -103,6 +103,7 @@ public class HomeControllerRoot {
 
         System.out.println("bottom of index method. adding links to model. links = " + links.toString());
         model.addAttribute("links", linkRepository.findAll());
+        model.addAttribute("user", userService.getAuthenticatedUser());
         return "index";
     }
 
