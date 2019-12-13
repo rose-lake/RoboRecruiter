@@ -90,7 +90,7 @@ public class DataLoader implements CommandLineRunner {
                         "to ensure our end result is the start of a new and engaging online presence for their business.",
                 LocalDate.of(2019, 10, 11),
                 new ArrayList<>(Arrays.asList("HTML5", "CSS3", "LESS", "SASS", "AngularJS", "Angular", "Git", "AWS",
-                        "Python", "D3", "Agile/Scrum", "cyber security", "multitask")),
+                        "Python", "D3", "Agile/Scrum", "cyber security", "multitask", "collaborative", "typing")),
                 new ArrayList<>(Arrays.asList("What is Functional programming",
                         "What is the difference between classical inheritance and prototypal inheritance",
                         "What are the pros and cons of functional programming vs object-oriented programming?"))));
@@ -113,7 +113,7 @@ public class DataLoader implements CommandLineRunner {
                         "The ideal candidate will work closely with other developers to bring designs to life.",
                 LocalDate.of(2019, 10, 13),
                 new ArrayList<>(Arrays.asList("Java","Kotlin", "Android Studio", "Objective-C", "Swift", "XCode",
-                        "mobile product development", "visual Studio App Center")),
+                        "mobile product development", "visual Studio App Center", "typing", "collaborative")),
                 new ArrayList<>(Arrays.asList("What’s the difference between an implicit and an explicit intent?",
                         " When should you use a Fragment, rather than an Activity?",
                         " What is a ThreadPool? And is it more effective than using several separate Threads?"))));
@@ -214,8 +214,10 @@ public class DataLoader implements CommandLineRunner {
         linkDBMissedInterview = linkRepository.findByNameContains("linkDBMissedInterview");
 
         Interview databaseInterview = new Interview(LocalDate.of(2019, 12, 13),
-                LocalTime.of(9, 15),
-                LocalTime.of(9, 45));
+
+                LocalTime.of(8, 45),
+                LocalTime.of(9, 15));
+
         interviewRepository.save(databaseInterview);
         databaseInterview.setLink(linkDBMissedInterview);
         interviewRepository.save(databaseInterview);
