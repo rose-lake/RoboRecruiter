@@ -70,9 +70,11 @@
                                 <div class="card card-body card-menu card-body-collapse">
                                     <a th:if="${link.status.equals('Accepted')}" class="nav-link" role="button"
                                        th:href="@{/scheduleinterview/{id}(id=${link.id})}">Schedule Interview</a>
-                                    <a th:if="${link.status.equals('Take Interview')}" th:target="_blank"
+                                    <a th:if="${link.status.equals('Take Interview')}"
                                        class="nav-link" role="button"
                                        th:href="@{/takeinterview/{id}(id=${interview.id})}">Take Interview</a>
+                                    <!-- commented out ! this makes a new tab -->
+                                    <!--                                    th:target="_blank"-->
                                     <a th:if="${link.status.equals('Did Not Schedule') or link.status.equals('Missed Interview')}"
                                        class="nav-link" role="button"
                                        th:href="@{/appeal/{id}(id=${link.id})}">Appeal</a>

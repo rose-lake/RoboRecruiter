@@ -39,7 +39,7 @@ public class HomeControllerRoot {
 
     @RequestMapping("/")
     public String index(Model model) {
-        
+
         Iterable<Link> links = linkRepository.findAll();
         ArrayList<Link> mylinks = new ArrayList<Link>();
         for (Link link : links) {
