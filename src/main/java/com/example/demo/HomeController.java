@@ -80,8 +80,10 @@ public class HomeController {
 
     @PostMapping("/processappeal/{id}")
     public String processappeal(@RequestParam("explain") String s, @PathVariable("id") long id) {
-        String subject = "Appeal:" + linkRepository.findById(id).get().getStatus();
-
+        Link link = linkRepository.findById(id).get();
+        String subject = "Appeal:" + link.getStatus();
+        link.setStatus("Pending Appeal");
+        linkRepository.save(link);
         EmailService mailer = new EmailService();
 
         try {
