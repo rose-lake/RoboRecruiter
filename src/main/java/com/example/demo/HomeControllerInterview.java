@@ -149,6 +149,7 @@ public class HomeControllerInterview {
 
         File file = new File("interview.txt");
         file.createNewFile();
+
         BufferedWriter writer = new BufferedWriter(new FileWriter("interview.txt"));
         for (QuestionAnswer qa : list.getList()) {
             writer.write(qa.getQuestion() + "\n");
@@ -167,7 +168,6 @@ public class HomeControllerInterview {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
         // set the LINK status to Pending Offer
         Link link = interview.getLink();
         link.setStatus("Pending Offer");
