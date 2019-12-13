@@ -202,23 +202,41 @@ public class DataLoader implements CommandLineRunner {
         linkRepository.save(androidLateToSchedule);
         androidLateToSchedule = linkRepository.findByNameContains("AndroidLateToSchedule");
 
-        // create one that's missed the interview time
-        Link linkDBMissedInterview = new Link(LocalDate.of(2019, 12, 13),
+        // TAKE INTERVIEW test
+        Link linkDB = new Link(LocalDate.of(2019, 12, 13),
                 "Interview Scheduled",
-                "linkDBMissedInterview");
-        linkRepository.save(linkDBMissedInterview);
-        linkDBMissedInterview.setUser(user);
-        linkDBMissedInterview.setResume(database100);
-        linkDBMissedInterview.setJob(jobDatabase);
-        linkRepository.save(linkDBMissedInterview);
-        linkDBMissedInterview = linkRepository.findByNameContains("linkDBMissedInterview");
-        Interview databaseInterview = new Interview(LocalDate.of(2019, 12, 13),
-                LocalTime.of(8, 45),
-                LocalTime.of(9, 15));
-        interviewRepository.save(databaseInterview);
-        databaseInterview.setLink(linkDBMissedInterview);
-        interviewRepository.save(databaseInterview);
-        databaseInterview = interviewRepository.findByLink(linkDBMissedInterview);
+                "linkDB");
+        linkRepository.save(linkDB);
+        linkDB = linkRepository.findByNameContains("linkDB");
+
+        linkDB.setUser(user);
+        userRepository.save(user);
+        linkDB.setResume(database100);
+        resumeRepository.save(database100);
+        linkDB.setJob(jobDatabase);
+        jobRepository.save(jobDatabase);
+        linkRepository.save(linkDB);
+
+        Interview interviewDB = new Interview(LocalDate.of(2019, 12, 13),
+                LocalTime.of(15, 45),
+                LocalTime.of(16, 15));
+        interviewRepository.save(interviewDB);
+        interviewDB.setLink(linkDB);
+        interviewRepository.save(interviewDB);
+
+        interviewDB = interviewRepository.findByLink(linkDB);
+        linkDB.setInterview(interviewDB);
+        linkRepository.save(linkDB);
+
+//        System.out.println("******* at bottom of data loader");
+//        System.out.println("interviewDB's id = " + interviewDB.getId());
+//        Interview interview = interviewRepository.findById(interviewDB.getId()).get();
+//        if (interview != null) {
+//            System.out.println("fetched from repository by id! id = " + interviewDB.getId());
+//        } else
+//        {
+//            System.out.println("result from findById was null!!!!");
+//        }
 
     }
 
