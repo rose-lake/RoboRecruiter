@@ -192,23 +192,34 @@ public class DataLoader implements CommandLineRunner {
         //*******************************************
 
         // create one that's LATE TO SCHEDULE
-        linkRepository.save(new Link(user, android100, jobAndroid,
-                LocalDate.of(2019, 10, 31),
+        Link androidLateToSchedule = new Link(LocalDate.of(2019, 10, 31),
                 "Accepted",
-                "AndroidLateToSchedule"));
-        Link androidLateToSchedule = linkRepository.findByNameContains("AndroidLateToSchedule");
+                "AndroidLateToSchedule");
+        linkRepository.save(androidLateToSchedule);
+        androidLateToSchedule.setUser(user);
+        androidLateToSchedule.setResume(android100);
+        androidLateToSchedule.setJob(jobAndroid);
+        linkRepository.save(androidLateToSchedule);
+        androidLateToSchedule = linkRepository.findByNameContains("AndroidLateToSchedule");
 
         // create one that's missed the interview time (by a whole day!)
-        linkRepository.save(new Link(user, database100, jobDatabase,
-                LocalDate.of(2019, 10, 31),
+        Link linkDBMissedInterview = new Link(LocalDate.of(2019, 12, 10),
                 "Interview Scheduled",
-                "DatabaseMissedInterview"));
-        Link linkDBMissedInterview = linkRepository.findByNameContains("DatabaseMissedInterview");
-        interviewRepository.save(new Interview(linkDBMissedInterview,
-                LocalDate.of(2019, 12, 11),
+                "linkDBMissedInterview");
+        linkRepository.save(linkDBMissedInterview);
+        linkDBMissedInterview.setUser(user);
+        linkDBMissedInterview.setResume(database100);
+        linkDBMissedInterview.setJob(jobDatabase);
+        linkRepository.save(linkDBMissedInterview);
+        linkDBMissedInterview = linkRepository.findByNameContains("linkDBMissedInterview");
+
+        Interview databaseInterview = new Interview(LocalDate.of(2019, 12, 11),
                 LocalTime.of(13, 15),
-                LocalTime.of(13, 45)));
-        Interview databaseInterview = interviewRepository.findByLink(linkDBMissedInterview);
+                LocalTime.of(13, 45));
+        interviewRepository.save(databaseInterview);
+        databaseInterview.setLink(linkDBMissedInterview);
+        interviewRepository.save(databaseInterview);
+        databaseInterview = interviewRepository.findByLink(linkDBMissedInterview);
 
     }
 

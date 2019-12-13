@@ -50,6 +50,13 @@ public class Interview {
         this.link = link;
     }
 
+    // NO LINK
+    public Interview(LocalDate dateScheduled, LocalTime timeWindowStart, LocalTime timeWindowEnd) {
+        this.dateScheduled = dateScheduled;
+        this.timeWindowStart = timeWindowStart;
+        this.timeWindowEnd = timeWindowEnd;
+    }
+
     // fully overloaded
     public Interview(Link link, LocalDate dateScheduled, LocalTime timeWindowStart, LocalTime timeWindowEnd) {
         this.link = link;
