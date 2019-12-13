@@ -192,7 +192,7 @@ public class DataLoader implements CommandLineRunner {
         //*******************************************
 
         // create one that's LATE TO SCHEDULE
-        Link androidLateToSchedule = new Link(LocalDate.of(2019, 10, 31),
+        Link androidLateToSchedule = new Link(LocalDate.of(2019, 12, 10),
                 "Accepted",
                 "AndroidLateToSchedule");
         linkRepository.save(androidLateToSchedule);
