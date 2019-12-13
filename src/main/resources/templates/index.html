@@ -39,9 +39,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="card-body">
-                                <p class="card-text" th:text="${link.resume.name}"></p>
-                                <p class="card-text"><small th:text="${link.dateApplied}"
-                                                            class="text-muted"></small>
+                                <p class="card-text" th:inline="text">Resume: [[${link.resume.name}]]</p>
+                                <p class="card-text"><small th:inline="text" class="text-muted">Date Applied: [[${link.dateApplied}]]</small>
                                 </p>
                             </div>
                         </div>
