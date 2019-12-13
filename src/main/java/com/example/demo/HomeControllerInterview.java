@@ -127,6 +127,7 @@ public class HomeControllerInterview {
     @RequestMapping("/takeinterview/{id}")
     public String takeInterview(@PathVariable("id") long id, Model model) {
         QAWrapper list = new QAWrapper();
+        System.out.println("trying to fetch interview with id = " + id + " from interview repository!");
         Interview interview = interviewRepository.findById(id).get();
         Job job = interview.getLink().getJob();
         for (String s : job.getTechnicalQuestions()) {

@@ -12,6 +12,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -38,24 +39,29 @@ public class HomeControllerRoot {
 
     @RequestMapping("/")
     public String index(Model model) {
-
+        
         Iterable<Link> links = linkRepository.findAll();
+        ArrayList<Link> mylinks = new ArrayList<Link>();
+        for (Link link : links) {
+            mylinks.add(link);
+        }
         LocalDate dateToday = LocalDate.now();
         LocalTime timeNow = LocalTime.now();
 
-        System.out.println("\n\n**** top of index method ****\n");
-        System.out.println("links fetched from repository (there should be NONE)... ");
-        if (links == null) {
-            System.out.println("links was null");
-        } else {
-            System.out.println("links not null, links = " + links.toString());
-            int counter = 1;
-            for (Link link : links) {
-                System.out.println("inside TEST for loop!");
-                System.out.println("\tlink #" + counter + " = " + link.toString());
-            }
-        }
+//        System.out.println("\n\n**** top of index method ****\n");
+//        System.out.println("links fetched from repository (there should be NONE)... ");
+//        if (links == null) {
+//            System.out.println("links was null");
+//        } else {
+//            System.out.println("links not null, links = " + links.toString());
+//            int counter = 1;
+//            for (Link link : links) {
+//                System.out.println("inside TEST for loop!");
+//                System.out.println("\tlink #" + counter + " = " + link.toString());
+//            }
+//        }
 
+        ArrayList<Link> takeInterviewLinks = new ArrayList<>();
         for (Link link : links) {
 
             if (link.getStatus().equalsIgnoreCase("Accepted")) {
@@ -99,10 +105,17 @@ public class HomeControllerRoot {
                 }
             }
 
+            // at the end of the for loop ::
+            // load up all the interviews which are currently up for being taken!
+            if (link.getStatus().equalsIgnoreCase("Take Interview")) {
+                takeInterviewLinks.add(link);
+            }
+
         }
 
-        System.out.println("bottom of index method. adding links to model. links = " + links.toString());
-        model.addAttribute("links", linkRepository.findAll());
+//        System.out.println("bottom of index method. adding links to model. links = " + links.toString());
+        model.addAttribute("links", mylinks);
+        model.addAttribute("takeInterviewLinks", takeInterviewLinks);
         model.addAttribute("user", userService.getAuthenticatedUser());
         return "index";
     }

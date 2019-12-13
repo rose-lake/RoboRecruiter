@@ -30,6 +30,9 @@
             <div th:if="${links}==null">
                 <h1>No links to display</h1>
             </div>
+            <div th:if="${links.size()}==0">
+                <h1>No Applications to display</h1>
+            </div>
             <div th:each="link : ${links}">
                 <div th:with="job=${link.job}, interview=${link.interview}"
                      class="card card-list mb-3 animated fadeInUp">
@@ -82,7 +85,37 @@
         </div>
     </div>
 </div>
-
+<!-- start Modal -->
+<!-- if the modal markup is in the page when it loads, then it will load the modal. -->
+<!-- hence the surrounding th:if -->
+<div th:if="${takeInterviewLinks.size()>0}">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Time To Interview!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    It's time to take your interview for
+                    <div th:each="takeInterviewLink : ${takeInterviewLinks}">
+                        <a th:href="@{/takeinterview/{id}(id=${takeInterviewLink.interview.id})}" >
+                            [[${takeInterviewLink.job.title}]]
+                        </a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end Modal -->
 <footer th:replace="base :: footer"></footer>
 <div th:replace="base :: jslinks"></div>
 </body>
