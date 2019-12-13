@@ -45,13 +45,12 @@ public class HomeControllerRoot {
 
         System.out.println("\n\n**** top of index method ****\n");
         System.out.println("links fetched from repository (there should be NONE)... ");
-        if(links == null) {
+        if (links == null) {
             System.out.println("links was null");
-        } else
-        {
+        } else {
             System.out.println("links not null, links = " + links.toString());
             int counter = 1;
-            for(Link link : links) {
+            for (Link link : links) {
                 System.out.println("inside TEST for loop!");
                 System.out.println("\tlink #" + counter + " = " + link.toString());
             }
@@ -62,12 +61,10 @@ public class HomeControllerRoot {
             if (link.getStatus().equalsIgnoreCase("Accepted")) {
 
                 // interview object only gets created when you schedule
-                if (link.getInterview() != null) {
-                    // set status ACCEPTED --> DID NOT SCHEDULE
-                    if (dateToday.isAfter(link.getDateApplied().plusDays(14))) {
-                        link.setStatus("Did Not Schedule");
-                        linkRepository.save(link);
-                    }
+                // set status ACCEPTED --> DID NOT SCHEDULE
+                if (dateToday.isAfter(link.getDateApplied().plusDays(14))) {
+                    link.setStatus("Did Not Schedule");
+                    linkRepository.save(link);
                 }
 
             } else if (link.getStatus().equalsIgnoreCase("Interview Scheduled")) {
