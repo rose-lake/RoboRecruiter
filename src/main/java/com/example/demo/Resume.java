@@ -102,6 +102,12 @@ public class Resume {
 
     public void setLinks(List<Link> links) { this.links = links; }
 
-    public void addLink(Link link) { this.links.add(link); }
+    public void addLink(Link link) {
+
+        if (this.links == null) {
+            this.links = new ArrayList<>();
+        }
+        this.links.add(link);
+    }
 
 }

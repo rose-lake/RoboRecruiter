@@ -59,7 +59,7 @@ public class User {
     // CONSTRUCTORS
     //**************
     public User(){
-        this.resumes = new ArrayList<>();
+//        this.resumes = new ArrayList<>();
     }
 
     // CUSTOM constructor for use in the DATA LOADER
@@ -70,7 +70,7 @@ public class User {
         this.lastName = lastName;
         this.enabled = enabled;
         this.username = username;
-        this.resumes = new ArrayList<>();
+//        this.resumes = new ArrayList<>();
     }
 
     //*****************
@@ -155,7 +155,13 @@ public class User {
         this.resumes = resumes;
     }
 
-    public void addResume(Resume resume) { this.resumes.add(resume); }
+    public void addResume(Resume resume) {
+
+        if(this.resumes == null) {
+            this.resumes = new ArrayList<>();
+        }
+        this.resumes.add(resume);
+    }
 
     public void deleteResumeById(long resumeId) {
         int deleteIndex = -1;
