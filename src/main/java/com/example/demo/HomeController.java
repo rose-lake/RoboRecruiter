@@ -74,12 +74,12 @@ public class HomeController {
 
     @RequestMapping("/appeal/{id}")
     public String appeal(Model model, @PathVariable("id") long id) {
-        model.addAttribute("link", linkRepository.findById(id));
+        model.addAttribute("link", linkRepository.findById(id).get());
         return "appealform";
     }
 
-    @PostMapping("/processappeal")
-    public String processappeal(@RequestParam("explain") String s, @ModelAttribute("app") long id) {
+    @PostMapping("/processappeal/{id}")
+    public String processappeal(@RequestParam("explain") String s, @PathVariable("id") long id) {
         String subject = "Appeal:" + linkRepository.findById(id).get().getStatus();
 
         EmailService mailer = new EmailService();

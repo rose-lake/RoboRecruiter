@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import java.util.List;
+import java.util.*;
 
 public class QAWrapper {
     private List<QuestionAnswer> list;
@@ -13,6 +13,9 @@ public class QAWrapper {
     }
 
     public void addQA(QuestionAnswer questionAnswer) {
+        if (list == null){
+            this.list = new ArrayList<>();
+        }
         this.list.add(questionAnswer);
     }
 
