@@ -1,5 +1,5 @@
 What is Functional programming
-adsf
+asdf
 
 What is the difference between classical inheritance and prototypal inheritance
 asdf
@@ -11,7 +11,7 @@ Describe a situation in which you met a major obstacle in order to complete a pr
 asdf
 
 Tell me about a time you had to work on several projects at once. How did you handle this?
-asdf
+adsf
 
 Describe a time when you made a suggestion to improve something on the project that you were working on.
 asdf

@@ -65,7 +65,7 @@ public class HomeControllerInterview {
         return "scheduleinterview";
     }
 
-    @RequestMapping("/processinterviewform")
+    @PostMapping("/processinterviewform")
     public String loadFromPage(@ModelAttribute Interview interview,
                                @RequestParam("selected-date") String date,
                                @RequestParam("selected-time") String time,
@@ -84,8 +84,21 @@ public class HomeControllerInterview {
         // error-check the selectedTime to be sure it's equal to or greater than currentTime
         // this COULD maybe be done on the FRONT END, but for now we'll handle it this way
         if (selectedDate.equals(LocalDate.now()) && selectedTime.isBefore(LocalTime.now())) {
+
+            //preload Today's Date
+            LocalDate today = LocalDate.now();
+            model.addAttribute("currentDate", today);
+
+            //preload Today's Time for Interview
+            LocalTime timeNow = LocalTime.now();
+            timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+            String timeString = timeNow.format(timeFormatter);
+            model.addAttribute("currentTime", timeString);
+
             model.addAttribute("timeMessage", "Please select a time that is after the current time");
+
             return "scheduleinterview";
+            
         }
 
 
