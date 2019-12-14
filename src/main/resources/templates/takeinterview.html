@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="base :: headstuff"></head>
+<head th:replace="base :: headstuff">
+    <title id="headTitle">Take Interview</title>
+</head>
 <body>
 <nav th:replace="base :: navbar"></nav>
 <div class="container">
@@ -8,12 +10,16 @@
         <div class="mx-auto">
             <h1 class="display-4">Interview Questions</h1>
         </div>
-        <form class="form-signin mx-auto" action="#" th:action="@{/processtakeinterview}" th:object="${list}"
+        <form class="form-signin mx-auto" action="#" th:action="@{/processtakeinterview/{id}(id=${interview.id})}" th:object="${list}"
               method="post">
             <div class="form-label-group" th:each="qa, stat: *{list}">
-                <input class="form-control" id="'question_'+*{qa.id}" name="'question_'+*{qa.id}" th:field="*{list[__${stat.index}__].answer}"/>
-                <label for="'question_'+*{qa.id}" th:text="*{list[__${stat.index}__].question}"></label>
+                <input type="hidden" name="app" th:field="*{list[__${stat.index}__].question}" />
+                <textarea type="text" class="form-control" id="'question_'+*{qa.id}" name="'question_'+*{qa.id}" th:field="*{list[__${stat.index}__].answer}"
+                          th:placeholder="*{list[__${stat.index}__].question}" required autofocus></textarea>
+<!--                <input class="form-control" id="'question_'+*{qa.id}" name="'question_'+*{qa.id}" th:field="*{list[__${stat.index}__].answer}"/>-->
+<!--                <label for="'question_'+*{qa.id}" th:text="*{list[__${stat.index}__].question}"></label>-->
             </div>
+            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Submit</button>
         </form>
     </div>
 </div>

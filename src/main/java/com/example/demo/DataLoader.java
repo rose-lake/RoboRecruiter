@@ -202,9 +202,10 @@ public class DataLoader implements CommandLineRunner {
         linkRepository.save(androidLateToSchedule);
         androidLateToSchedule = linkRepository.findByNameContains("AndroidLateToSchedule");
 
-        // create one that's missed the interview time (by a whole day!)
-        Link linkDBMissedInterview = new Link(LocalDate.of(2019, 12, 13),
+        // TAKE INTERVIEW test
+        Link linkDB = new Link(LocalDate.of(2019, 12, 13),
                 "Interview Scheduled",
+<<<<<<< HEAD
                 "linkDBMissedInterview");
         linkRepository.save(linkDBMissedInterview);
         linkDBMissedInterview.setUser(user);
@@ -222,6 +223,40 @@ public class DataLoader implements CommandLineRunner {
         databaseInterview.setLink(linkDBMissedInterview);
         interviewRepository.save(databaseInterview);
         databaseInterview = interviewRepository.findByLink(linkDBMissedInterview);
+=======
+                "linkDB");
+        linkRepository.save(linkDB);
+        linkDB = linkRepository.findByNameContains("linkDB");
+
+        linkDB.setUser(user);
+        userRepository.save(user);
+        linkDB.setResume(database100);
+        resumeRepository.save(database100);
+        linkDB.setJob(jobDatabase);
+        jobRepository.save(jobDatabase);
+        linkRepository.save(linkDB);
+
+        Interview interviewDB = new Interview(LocalDate.of(2019, 12, 13),
+                LocalTime.of(16, 15),
+                LocalTime.of(16, 45));
+        interviewRepository.save(interviewDB);
+        interviewDB.setLink(linkDB);
+        interviewRepository.save(interviewDB);
+
+        interviewDB = interviewRepository.findByLink(linkDB);
+        linkDB.setInterview(interviewDB);
+        linkRepository.save(linkDB);
+
+//        System.out.println("******* at bottom of data loader");
+//        System.out.println("interviewDB's id = " + interviewDB.getId());
+//        Interview interview = interviewRepository.findById(interviewDB.getId()).get();
+//        if (interview != null) {
+//            System.out.println("fetched from repository by id! id = " + interviewDB.getId());
+//        } else
+//        {
+//            System.out.println("result from findById was null!!!!");
+//        }
+>>>>>>> f724dd0eb5c46513ef1ddd89105440e7e77f4c86
 
     }
 

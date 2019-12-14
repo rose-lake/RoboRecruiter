@@ -9,51 +9,77 @@
     <div class="hero-inner">
         <h1>Your job search ends here!</h1>
         <form class="form form-inline form-hero mx-auto" th:action="@{/search}" method="post">
-            <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search for Jobs..." aria-label="Search">
+            <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search for Jobs..."
+                   aria-label="Search">
             <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
         </form>
     </div>
 </section>
-<div class="container col-md-8">
-    <div th:if="${links}==null">
-        <h1>No links to display</h1>
-    </div>
-    <div th:each="link : ${links}">
-        <div th:with="job=${link.job}, interview=${link.interview}" class="card card-list mb-3 animated fadeInUp">
-            <div class="card-horizontal">
-                <div class="card-header col-md-3">
-                    <strong>[[${job.title}]]</strong>
-                </div>
-                <div class="col-md-4">
-                    <div class="card-body">
-                        <p class="card-text" th:text="${link.resume.name}"></p>
-                        <p class="card-text"><small th:text="${link.dateApplied}" class="text-muted"></small></p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card-body">
-                        <p class="card-text">Status: [[${link.status}]]</p>
-                        <p class="card-text" th:if="${link.status.equals('Accepted')}">Schedule Interview!</p>
-                        <p class="card-text"
-                           th:if="${link.status.equals('Interview Scheduled') or link.status.equals('Take Interview')}">
-                            Date: [[${interview.dateScheduled}]], Time: [[${interview.timeWindowStart}]]
-                        </p>
-                        <p class="card-text" th:if="${link.status.equals('Take Interview')}">Take Interview!</p>
-                    </div>
-                </div>
-                <div class="col-md-2 img-square-wrapper img-download">
-                    <a data-toggle="collapse" th:href="'#collapse_'+${link.id}" role="button" aria-expanded="false"
-                       aria-controls="collapseExample">
-                        <span style="font-size:1.25em; color: #cb52bf;"><i class="fas fa-cog"></i></span>
-                    </a>
-                    <div class="collapse" th:id="'collapse_'+${link.id}">
-                        <div class="card card-body card-menu card-body-collapse">
-                            <a th:if="${link.status.equals('Accepted')}" class="nav-link" role="button"
-                               th:href="@{/scheduleinterview/{id}(id=${link.id})}">Schedule Interview</a>
-                            <a th:if="${link.status.equals('Take Interview')}" class="nav-link" role="button"
-                               th:href="@{/takeinterview/{id}(id=${interview.id})}">Take Interview</a>
-                            <a th:if="${link.status.equals('Did Not Schedule') or link.status.equals('Missed Interview')}"
-                               class="nav-link" role="button" th:href="@{/appeal/{id}(id=${link.id})}"></a>
+<div class="container col-md-10">
+    <div class="row">
+        <div class="col-md-2">
+            <h3>My Resumes</h3>
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" th:each="resume: ${user.resumes}" th:text="${resume.name}"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <h1>Applications</h1>
+            <div th:if="${links}==null">
+                <h1>No links to display</h1>
+            </div>
+            <div th:if="${links.size()}==0">
+                <h1>No Applications to display</h1>
+            </div>
+            <div th:each="link : ${links}">
+                <div th:with="job=${link.job}, interview=${link.interview}"
+                     class="card card-list mb-3 animated fadeInUp">
+                    <div class="card-horizontal">
+                        <div class="card-header col-md-3">
+                            <strong>[[${job.title}]]</strong>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-body">
+                                <p class="card-text" th:inline="text">Resume: [[${link.resume.name}]]</p>
+                                <p class="card-text"><small th:inline="text" class="text-muted">Date Applied: [[${link.dateApplied}]]</small>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card-body">
+                                <p class="card-text">Status: [[${link.status}]]</p>
+                                <p class="card-text" th:if="${link.status.equals('Accepted')}">Schedule
+                                    Interview!</p>
+                                <p class="card-text"
+                                   th:if="${link.status.equals('Interview Scheduled') or link.status.equals('Take Interview')}">
+                                    Date: [[${interview.dateScheduled}]], Time: [[${interview.timeWindowStart}]]
+                                </p>
+                                <p class="card-text" th:if="${link.status.equals('Take Interview')}">Take
+                                    Interview!</p>
+                            </div>
+                        </div>
+                        <div class="col-md-2 img-square-wrapper img-download">
+                            <a data-toggle="collapse" th:href="'#collapse_'+${link.id}" role="button"
+                               aria-expanded="false"
+                               aria-controls="collapseExample">
+                                <span style="font-size:1.25em; color: #cb52bf;"><i class="fas fa-cog"></i></span>
+                            </a>
+                            <div class="collapse" th:id="'collapse_'+${link.id}">
+                                <div class="card card-body card-menu card-body-collapse">
+                                    <a th:if="${link.status.equals('Accepted')}" class="nav-link" role="button"
+                                       th:href="@{/scheduleinterview/{id}(id=${link.id})}">Schedule Interview</a>
+                                    <a th:if="${link.status.equals('Take Interview')}"
+                                       class="nav-link" role="button"
+                                       th:href="@{/takeinterview/{id}(id=${interview.id})}">Take Interview</a>
+                                    <!-- commented out ! this makes a new tab -->
+                                    <!--                                    th:target="_blank"-->
+                                    <a th:if="${link.status.equals('Did Not Schedule') or link.status.equals('Missed Interview')}"
+                                       class="nav-link" role="button"
+                                       th:href="@{/appeal/{id}(id=${link.id})}">Appeal</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -61,6 +87,37 @@
         </div>
     </div>
 </div>
+<!-- start Modal -->
+<!-- if the modal markup is in the page when it loads, then it will load the modal. -->
+<!-- hence the surrounding th:if -->
+<div th:if="${takeInterviewLinks.size()>0}">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Time To Interview!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    It's time to take your interview for
+                    <div th:each="takeInterviewLink : ${takeInterviewLinks}">
+                        <a th:href="@{/takeinterview/{id}(id=${takeInterviewLink.interview.id})}" >
+                            [[${takeInterviewLink.job.title}]]
+                        </a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end Modal -->
 <footer th:replace="base :: footer"></footer>
 <div th:replace="base :: jslinks"></div>
 </body>

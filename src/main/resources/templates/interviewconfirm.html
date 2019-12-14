@@ -6,15 +6,15 @@
 <body>
 <nav th:replace="base :: navbar"></nav>
 <main>
-
-    <p>
-        Your interview date is <span th:text="${#temporals.format(interview.dateScheduled)}"></span>
-    </p>
-
-    <p>
-        Your interview time is <span th:text="${#temporals.format(interview.timeWindowStart)}"></span>
-    </p>
-
+    <div class="container">
+        <div class="jumbotron col-md-6 mx-auto" style="margin-top: 20px; padding-top: 2rem">
+            <h3 class="text-center">Thank you for completing the interview.</h3>
+            <p class="text-center">Your responses have been sent to our hiring manager.</p>
+            <h5 class="text-center">
+            <a th:href="@{/}">Return to Home</a>
+            </h5>
+        </div>
+    </div>
 </main>
 <footer th:replace="base :: footer"></footer>
 <div th:replace="base :: jslinks"></div>
