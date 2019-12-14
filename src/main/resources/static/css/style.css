@@ -1,11 +1,14 @@
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
 h3 {
     text-align: center;
     padding-top: 1em;
     font-family: 'Josefin Sans', sans-serif;
 }
-.jumbotron{
-    background: url(https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Minimalist-Crumpled-Paper-Simple-Background-Image.jpg)
-}
+
 .list-group-item {
     font-family: 'Josefin Sans', sans-serif;
 }
@@ -22,7 +25,7 @@ h3 {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-image: url(https://www.getsmarter.com/blog/wp-content/uploads/2017/02/Career-Goals-Job-Search-Emails-Banner-6.jpg);
+    background-image: url(https://sparkgrowth.com/wp-content/uploads/2016/02/sparkgrowth-176583715_colour-dark30.jpg);
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;

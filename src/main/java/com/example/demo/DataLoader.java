@@ -184,7 +184,7 @@ public class DataLoader implements CommandLineRunner {
         // be sure to give them UNIQUE TITLES
         //*******************************************
 
-        // SCHEDULE INTERVIEW
+        // create one that's LATE TO SCHEDULE
         linkRepository.save(new Link(LocalDate.of(2019, 12, 10),
                 "Accepted",
                 "linkAndroid"));
@@ -240,7 +240,6 @@ public class DataLoader implements CommandLineRunner {
         interviewWebDev = interviewRepository.findByLink(linkWebDev);
         linkWebDev.setInterview(interviewWebDev);
         linkRepository.save(linkWebDev);
-
     }
 
 }
