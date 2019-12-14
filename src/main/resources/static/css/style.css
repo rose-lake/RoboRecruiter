@@ -9,8 +9,8 @@ html, body{
     overflow-x: hidden;
 }
 body {
-    background: #cb52bf;
-    background: linear-gradient(to right, #d36ac7, #C23bb6);
+    background: #dcdcdc;
+    /*background: linear-gradient(to right, #d36ac7, #C23bb6);*/
     /*font-family: 'Josefin Sans', sans-serif;*/
 }
 h1, h3 {
