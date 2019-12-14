@@ -43,7 +43,8 @@
                         <div class="col-md-4">
                             <div class="card-body">
                                 <p class="card-text" th:inline="text">Resume: [[${link.resume.name}]]</p>
-                                <p class="card-text"><small th:inline="text" class="text-muted">Date Applied: [[${link.dateApplied}]]</small>
+                                <p class="card-text"><small th:inline="text" class="text-muted">Date Applied:
+                                    [[${link.dateApplied}]]</small>
                                 </p>
                             </div>
                         </div>
@@ -92,26 +93,26 @@
 <!-- hence the surrounding th:if -->
 <div th:if="${takeInterviewLinks.size()>0}">
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="takeInterviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content text-center">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">Time To Interview!</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title mx-auto text-primary" id="takeInterviewModalLabel">Time To Interview!</h5>
                 </div>
                 <div class="modal-body">
-                    It's time to take your interview for
+                    <div class="mb-2">
+                        It's time to take your interview for...
+                    </div>
                     <div th:each="takeInterviewLink : ${takeInterviewLinks}">
-                        <a th:href="@{/takeinterview/{id}(id=${takeInterviewLink.interview.id})}" >
+                        <a class="btn btn-primary my-2"
+                                th:href="@{/takeinterview/{id}(id=${takeInterviewLink.interview.id})}">
                             [[${takeInterviewLink.job.title}]]
                         </a>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-primary mx-auto" data-dismiss="modal">Dismiss</button>
                 </div>
             </div>
         </div>
