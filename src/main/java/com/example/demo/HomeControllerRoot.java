@@ -48,28 +48,15 @@ public class HomeControllerRoot {
         LocalDate dateToday = LocalDate.now();
         LocalTime timeNow = LocalTime.now();
 
-//        System.out.println("\n\n**** top of index method ****\n");
-//        System.out.println("links fetched from repository (there should be NONE)... ");
-//        if (links == null) {
-//            System.out.println("links was null");
-//        } else {
-//            System.out.println("links not null, links = " + links.toString());
-//            int counter = 1;
-//            for (Link link : links) {
-//                System.out.println("inside TEST for loop!");
-//                System.out.println("\tlink #" + counter + " = " + link.toString());
-//            }
-//        }
-
         ArrayList<Link> takeInterviewLinks = new ArrayList<>();
         for (Link link : links) {
 
             if (link.getStatus().equalsIgnoreCase("Accepted")) {
 
                 // interview object only gets created when you schedule
-                // set status ACCEPTED --> DID NOT SCHEDULE
+                // set status ACCEPTED --> DID NOT SCHEDULE INTERVIEW
                 if (dateToday.isAfter(link.getDateApplied().plusDays(14))) {
-                    link.setStatus("Did Not Schedule");
+                    link.setStatus("Did Not Schedule Interview");
                     linkRepository.save(link);
                 }
 
