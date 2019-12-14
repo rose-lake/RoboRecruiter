@@ -5,6 +5,7 @@
 </head>
 <body>
 <nav th:replace="base :: navbar"></nav>
+
 <section class="hero">
     <div class="hero-inner">
         <h1>Your job search ends here!</h1>
@@ -15,21 +16,18 @@
         </form>
     </div>
 </section>
+
 <div class="container col-md-12">
     <div class="row">
-
-        <!-- my resumes list -->
-        <div class="col-md-2">
-            <h3 class="mt-2">My Resumes</h3>
+        <div class="col-md-3">
+            <h3>My Resumes</h3>
             <div class="card">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" th:each="resume: ${user.resumes}" th:text="${resume.name}"></li>
                 </ul>
             </div>
         </div>
-
-        <!-- my applications list -->
-        <div class="col-md-10">
+        <div class="col-md-9">
             <h1>Applications</h1>
             <div th:if="${links}==null">
                 <h1>No links to display</h1>
@@ -41,15 +39,16 @@
                 <div th:with="job=${link.job}, interview=${link.interview}"
                      class="card card-list mb-3 animated fadeInUp">
                     <div class="card-horizontal">
-                        <div class="card-header col-md-3">
-                            <strong>[[${job.title}]]</strong>
+                        <div class="card-header col-md-3 d-flex flex-column justify-content-around">
+                            <h4>[[${job.title}]]</h4>
+                            <h6>Applied<br>[[${link.dateApplied}]]</h6>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card-body">
-                                <p class="card-text" th:inline="text">Resume: [[${link.resume.name}]]</p>
-                                <p class="card-text"><small th:inline="text" class="text-muted">Date Applied: [[${link.dateApplied}]]</small>
-                                </p>
+                        <div class="card-body col-md-4 d-flex flex-column justify-content-around">
+                            <div>
+                                <h4>[[${link.status}]]</h4>
+                                <h6>[[${link.resume.name}]]</h6>
                             </div>
+                            <h6>...status message here...</h6>
                         </div>
                         <div class="col-md-3">
                             <div class="card-body">
@@ -64,76 +63,31 @@
                                     Interview!</p>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="card-body flex-column w-100">
-                        <div class="d-flex justify-content-center align-items-center">
-
-                            <h3 class="card-text text-center" th:inline="text">Status: [[${link.status}]]</h3>
-                            <br>
-
-                            <!-- CASE :: ACCEPTED -->
-                            <h6 th:if="${link.status.equals('Accepted')}"
-                                class="card-text">
-                                Be sure to schedule your interview within two weeks of [[${link.dateApplied}]].
-                            </h6>
-                            <br><br>
-                            <a th:if="${link.status.equals('Accepted')}"
-                               class="btn btn-outline-dark"
-                               th:href="@{/scheduleinterview/{id}(id=${link.id})}">
-                                Schedule Interview
+                        <div class="col-md-2 img-square-wrapper img-download">
+                            <a data-toggle="collapse" th:href="'#collapse_'+${link.id}" role="button"
+                               aria-expanded="false"
+                               aria-controls="collapseExample">
+                                <span style="font-size:1.25em; color: #cb52bf;"><i class="fas fa-cog"></i></span>
                             </a>
-
-                            <!-- CASE :: INTERVIEW SCHEDULED -->
-                            <h6 class="card-text"
-                                th:if="${link.status.equals('Interview Scheduled')}">
-                                Date: [[${interview.dateScheduled}]] <br>
-                                Time: [[${interview.timeWindowStart}]]
-                            </h6>
-                            <br>
-                            <h6 class="card-text"
-                                th:if="${link.status.equals('Interview Scheduled')}">
-                                Be sure to log in during your scheduled interview time.
-                            </h6>
-
-                            <!-- CASE :: TAKE INTERVIEW -->
-                            <h6 class="card-text"
-                                th:if="${link.status.equals('Take Interview')}">
-                                Date: [[${interview.dateScheduled}]] <br>
-                                Time: [[${interview.timeWindowStart}]]
-                            </h6>
-                            <br>
-                            <h6 class="card-text"
-                                th:if="${link.status.equals('Take Interview')}">
-                                Be sure to start your interview before [[${interview.timeWindowEnd}]].
-                            </h6>
-                            <br><br>
-                            <a th:if="${link.status.equals('Take Interview')}"
-                               class="btn btn-outline-dark"
-                               th:href="@{/takeinterview/{id}(id=${interview.id})}">
-                                Take Interview
-                            </a>
-
-                            <!-- CASE :: DID NOT SCHEDULE / MISSED INTERVIEW -->
-                            <a th:if="${link.status.equals('Did Not Schedule') or link.status.equals('Missed Interview')}"
-                               class="btn btn-outline-dark"
-                               th:href="@{/appeal/{id}(id=${link.id})}">
-                                Appeal
-                            </a>
-
-                            <!-- CASE :: APPEAL PENDING -->
-                            <h6 class="card-text"
-                                th:if="${link.status.equals('Appeal Pending')}">
-                                You should hear back from the hiring manager in 5-10 business days.
-                            </h6>
+                            <div class="collapse" th:id="'collapse_'+${link.id}">
+                                <div class="card card-body card-menu card-body-collapse">
+                                    <a th:if="${link.status.equals('Accepted')}" class="nav-link" role="button"
+                                       th:href="@{/scheduleinterview/{id}(id=${link.id})}">Schedule Interview</a>
+                                    <a th:if="${link.status.equals('Take Interview')}"
+                                       class="nav-link" role="button"
+                                       th:href="@{/takeinterview/{id}(id=${interview.id})}">Take Interview</a>
+                                    <!-- commented out ! this makes a new tab -->
+                                    <!--                                    th:target="_blank"-->
+                                    <a th:if="${link.status.equals('Did Not Schedule') or link.status.equals('Missed Interview')}"
+                                       class="nav-link" role="button"
+                                       th:href="@{/appeal/{id}(id=${link.id})}">Appeal</a>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-        <!-- end my applications list -->
-
     </div>
 </div>
 
