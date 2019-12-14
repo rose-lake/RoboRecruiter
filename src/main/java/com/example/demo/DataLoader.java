@@ -40,7 +40,7 @@ public class DataLoader implements CommandLineRunner {
 
 
     @Override
-    public void run(String ... strings) throws Exception{
+    public void run(String... strings) throws Exception {
 
         //*******************************************
         // Making Roles :: for Security Layer
@@ -54,7 +54,7 @@ public class DataLoader implements CommandLineRunner {
         // Making Users :: for Security Layer
         //*******************************************
         passwordEncoder = new BCryptPasswordEncoder();
-        User user =  new User("user@user.com", passwordEncoder.encode("user"),
+        User user = new User("user@user.com", passwordEncoder.encode("user"),
                 "UserFirstName", "UserLastName",
                 true, "user");
         user.setRoles(Arrays.asList(userRole));
@@ -81,7 +81,7 @@ public class DataLoader implements CommandLineRunner {
                 new ArrayList<>(Arrays.asList("What is SDLC OR Software Development Life Cycle?",
                         "What are the different types of models available in SDLC?",
                         "Explain the role of a Software Project Manager?"))));
-        Job jobSE = jobRepository.findByTitleContains("Software Engineer");
+        Job jobSoftwareEng = jobRepository.findByTitleContains("Software Engineer");
 
         jobRepository.save(new Job("Web Developer",
                 "From intuitive information architecture to visually appealing UI, we implement streamlined, " +
@@ -94,16 +94,16 @@ public class DataLoader implements CommandLineRunner {
                 new ArrayList<>(Arrays.asList("What is Functional programming",
                         "What is the difference between classical inheritance and prototypal inheritance",
                         "What are the pros and cons of functional programming vs object-oriented programming?"))));
-        Job jobWD = jobRepository.findByTitleContains("Web Developer");
+        Job jobWebDev = jobRepository.findByTitleContains("Web Developer");
 
         jobRepository.save(new Job("Database Developer",
                 "The Database Developer will be responsible for managing company data infrastructure and " +
                         "assets, assisting in the planning, design and implementation of company data interfaces and " +
                         "data management components.",
                 LocalDate.of(2019, 10, 12),
-                new ArrayList<>(Arrays.asList("database coding", "performance tuning", "troubleshooting","ETL Technologies",
+                new ArrayList<>(Arrays.asList("database coding", "performance tuning", "troubleshooting", "ETL Technologies",
                         "C", "C++", "Python", "Java", "PostgreSQL", "Oracle SQL", "NoSQL", "Scylla", "Apache Cassandra", "Redis", "analytical")),
-                new ArrayList<>(Arrays.asList("What are DMVs?"," How are transactions used?",
+                new ArrayList<>(Arrays.asList("What are DMVs?", " How are transactions used?",
                         "What are DBCC commands?"))));
         Job jobDatabase = jobRepository.findByTitleContains("Database Developer");
 
@@ -112,7 +112,7 @@ public class DataLoader implements CommandLineRunner {
                 "We're looking for a developer who is passionate about building high quality Android apps. " +
                         "The ideal candidate will work closely with other developers to bring designs to life.",
                 LocalDate.of(2019, 10, 13),
-                new ArrayList<>(Arrays.asList("Java","Kotlin", "Android Studio", "Objective-C", "Swift", "XCode",
+                new ArrayList<>(Arrays.asList("Java", "Kotlin", "Android Studio", "Objective-C", "Swift", "XCode",
                         "mobile product development", "visual Studio App Center", "typing", "collaborative")),
                 new ArrayList<>(Arrays.asList("What’s the difference between an implicit and an explicit intent?",
                         " When should you use a Fragment, rather than an Activity?",
@@ -129,61 +129,54 @@ public class DataLoader implements CommandLineRunner {
                 new ArrayList<>(Arrays.asList("Explain how you distinguish a symptom vs. a cause when testing.",
                         "What testing methods are you familiar with? Do you have a favorite?",
                         "What is a ThreadPool? Can you explain the SDLC and Agile methodology"))));
-        Job jobQT = jobRepository.findByTitleContains("QA Tester");
+        Job jobQATester = jobRepository.findByTitleContains("QA Tester");
 
 
         //*******************************************
         // Making Resumes ::
         // be sure to give them UNIQUE TITLES
         //*******************************************
-        Resume android100 = new Resume("Android100", "Java”,”Kotlin”, “Android Studio”, “Objective-C”, “Swift”, “XCode”, \"mobile product development”, “Visual Studio App Center\"\n");
-        resumeRepository.save(android100);
+        resumeRepository.save(new Resume("Android100", "Java”,”Kotlin”, “Android Studio”, “Objective-C”, “Swift”, “XCode”, \"mobile product development”, “Visual Studio App Center\"\n"));
+        Resume android100 = resumeRepository.findByNameContains("Android100");
         android100.setUser(user);
         resumeRepository.save(android100);
         user.addResume(android100);
         userRepository.save(user);
-        android100 = resumeRepository.findByNameContains("Android100");
 
-
-        Resume android75 = new Resume("Android75", "Java”,”Kotlin”, “Android Studio”, “Objective-C”, “Swift”, “XCode”");
-        resumeRepository.save(android75);
+        resumeRepository.save(new Resume("Android75", "Java”,”Kotlin”, “Android Studio”, “Objective-C”, “Swift”, “XCode”"));
+        Resume android75 = resumeRepository.findByNameContains("Android75");
         android75.setUser(user);
         resumeRepository.save(android75);
         user.addResume(android75);
         userRepository.save(user);
-        android75 = resumeRepository.findByNameContains("Android75");
 
-        Resume qa100 = new Resume("QA100", "\"SDLC\", \"UFT\", \"VBScripts\", \"Agile\", \"Scrum\", \"JIRA\", \"qTest\", \"SQL\", \"test strategies\", \"test plans\", \"fast-paced\", \"presentation\", \"interpersonal\", \"team player\"");
-        resumeRepository.save(qa100);
+        resumeRepository.save(new Resume("QATester100", "\"SDLC\", \"UFT\", \"VBScripts\", \"Agile\", \"Scrum\", \"JIRA\", \"qTest\", \"SQL\", \"test strategies\", \"test plans\", \"fast-paced\", \"presentation\", \"interpersonal\", \"team player\""));
+        Resume qa100 = resumeRepository.findByNameContains("QATester100");
         qa100.setUser(user);
         resumeRepository.save(qa100);
         user.addResume(qa100);
         userRepository.save(user);
-        qa100 = resumeRepository.findByNameContains("QA100");
 
-        Resume se100 = new Resume("SE100", "\"Responsive Design\", \"HTML\", \"CSS\", \"JavaScript\", \"JSON\", \"REST\", \"SOAP\", \"Cloud Configuration Management\", \"full systems development lifecycle\", \"API interfaces\", \"analytical\", \"communication\", \"AngularJS\"");
-        resumeRepository.save(se100);
+        resumeRepository.save(new Resume("SoftwareEng100", "\"Responsive Design\", \"HTML\", \"CSS\", \"JavaScript\", \"JSON\", \"REST\", \"SOAP\", \"Cloud Configuration Management\", \"full systems development lifecycle\", \"API interfaces\", \"analytical\", \"communication\", \"AngularJS\""));
+        Resume se100 = resumeRepository.findByNameContains("SoftwareEng100");
         se100.setUser(user);
         resumeRepository.save(se100);
         user.addResume(se100);
         userRepository.save(user);
-        se100 = resumeRepository.findByNameContains("SE100");
 
-        Resume webDev100 = new Resume("WebDev100", "\"HTML5\", \"CSS3\", \"LESS\", \"SASS\", \"AngularJS\", \"Angular\", \"Git\", \"AWS\", \"Python\", \"D3\", \"Agile/Scrum\", \"cyber security\", \"multitask\"");
-        resumeRepository.save(webDev100);
+        resumeRepository.save(new Resume("WebDev100", "\"HTML5\", \"CSS3\", \"LESS\", \"SASS\", \"AngularJS\", \"Angular\", \"Git\", \"AWS\", \"Python\", \"D3\", \"Agile/Scrum\", \"cyber security\", \"multitask\""));
+        Resume webDev100 = resumeRepository.findByNameContains("WebDev100");
         webDev100.setUser(user);
         resumeRepository.save(webDev100);
         user.addResume(webDev100);
         userRepository.save(user);
-        webDev100 = resumeRepository.findByNameContains("WebDev100");
 
-        Resume database100 = new Resume("Database100", "\"database coding\", \"performance tuning\", \"troubleshooting\",\"ETL Technologies\", \"C\", \"C++\", \"Python\", \"Java\", \"PostgreSQL\", \"Oracle SQL\", \"NoSQL\", \"Scylla\", \"Apache Cassandra\", \"Redis\", \"analytical\"");
-        resumeRepository.save(database100);
+        resumeRepository.save(new Resume("Database100", "\"database coding\", \"performance tuning\", \"troubleshooting\",\"ETL Technologies\", \"C\", \"C++\", \"Python\", \"Java\", \"PostgreSQL\", \"Oracle SQL\", \"NoSQL\", \"Scylla\", \"Apache Cassandra\", \"Redis\", \"analytical\""));
+        Resume database100 = resumeRepository.findByNameContains("Database100");
         database100.setUser(user);
         resumeRepository.save(database100);
         user.addResume(database100);
         userRepository.save(user);
-        database100 = resumeRepository.findByNameContains("Database100");
 
 
         //*******************************************
@@ -191,52 +184,62 @@ public class DataLoader implements CommandLineRunner {
         // be sure to give them UNIQUE TITLES
         //*******************************************
 
-        // create one that's LATE TO SCHEDULE
-        Link androidLateToSchedule = new Link(LocalDate.of(2019, 10, 31),
+        // SCHEDULE INTERVIEW
+        linkRepository.save(new Link(LocalDate.of(2019, 12, 10),
                 "Accepted",
-                "AndroidLateToSchedule");
-        linkRepository.save(androidLateToSchedule);
-        androidLateToSchedule.setUser(user);
-        androidLateToSchedule.setResume(android100);
-        androidLateToSchedule.setJob(jobAndroid);
-        linkRepository.save(androidLateToSchedule);
-        androidLateToSchedule = linkRepository.findByNameContains("AndroidLateToSchedule");
+                "linkAndroid"));
+        Link linkAndroid = linkRepository.findByNameContains("linkAndroid");
+        linkAndroid.setUser(user);
+        linkAndroid.setResume(android100);
+        linkAndroid.setJob(jobAndroid);
+        linkRepository.save(linkAndroid);
 
-        // TAKE INTERVIEW test
+        // TAKE INTERVIEW
         Link linkDB = new Link(LocalDate.of(2019, 12, 13),
                 "Interview Scheduled",
                 "linkDB");
         linkRepository.save(linkDB);
         linkDB = linkRepository.findByNameContains("linkDB");
-
         linkDB.setUser(user);
-        userRepository.save(user);
+//        userRepository.save(user);
         linkDB.setResume(database100);
-        resumeRepository.save(database100);
+//        resumeRepository.save(database100);
         linkDB.setJob(jobDatabase);
-        jobRepository.save(jobDatabase);
+//        jobRepository.save(jobDatabase);
         linkRepository.save(linkDB);
-
+        
         Interview interviewDB = new Interview(LocalDate.of(2019, 12, 13),
-                LocalTime.of(16, 15),
-                LocalTime.of(16, 45));
+                LocalTime.of(20, 30),
+                LocalTime.of(21, 0));
         interviewRepository.save(interviewDB);
         interviewDB.setLink(linkDB);
         interviewRepository.save(interviewDB);
-
         interviewDB = interviewRepository.findByLink(linkDB);
         linkDB.setInterview(interviewDB);
         linkRepository.save(linkDB);
 
-//        System.out.println("******* at bottom of data loader");
-//        System.out.println("interviewDB's id = " + interviewDB.getId());
-//        Interview interview = interviewRepository.findById(interviewDB.getId()).get();
-//        if (interview != null) {
-//            System.out.println("fetched from repository by id! id = " + interviewDB.getId());
-//        } else
-//        {
-//            System.out.println("result from findById was null!!!!");
-//        }
+        // TAKE ANOTHER INTERVIEW
+        linkRepository.save(new Link(LocalDate.of(2019, 12, 13),
+                "Interview Scheduled",
+                "linkWebDev"));
+        Link linkWebDev = linkRepository.findByNameContains("linkWebDev");
+        linkWebDev.setJob(jobWebDev);
+//        jobRepository.save(jobWebDev);
+        linkWebDev.setResume(webDev100);
+//        resumeRepository.save(webDev100);
+        linkWebDev.setUser(user);
+//        userRepository.save(user);
+        linkRepository.save(linkWebDev);
+
+        Interview interviewWebDev = new Interview(LocalDate.of(2019, 12, 13),
+                LocalTime.of(20, 30),
+                LocalTime.of(21, 0));
+        interviewRepository.save(interviewWebDev);
+        interviewWebDev.setLink(linkWebDev);
+        interviewRepository.save(interviewWebDev);
+        interviewWebDev = interviewRepository.findByLink(linkWebDev);
+        linkWebDev.setInterview(interviewWebDev);
+        linkRepository.save(linkWebDev);
 
     }
 
