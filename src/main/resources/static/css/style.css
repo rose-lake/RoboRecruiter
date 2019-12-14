@@ -50,7 +50,8 @@ p {
  Jumbotron and Hero Image
 ***************************/
 .jumbotron{
-    background: url(https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Minimalist-Crumpled-Paper-Simple-Background-Image.jpg)
+    background-color: white;
+    /*background: url(https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Minimalist-Crumpled-Paper-Simple-Background-Image.jpg)*/
 }
 .hero {
     width: 100vw;
@@ -98,7 +99,7 @@ p {
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
-    overflow: scroll;
+    /*overflow: scroll;*/
     background-color: #ffffff;
     /* font-family: 'Montserrat', sans-serif; */
     font-family:'Josefin Sans', sans-serif;
