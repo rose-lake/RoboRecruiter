@@ -1,19 +1,47 @@
-h3 {
-    text-align: center;
-    padding-top: 1em;
+/***************************
+ All tag-based CSS
+***************************/
+
+body {
+    background: #cb52bf;
+    background: linear-gradient(to right, #d36ac7, #C23bb6);
     font-family: 'Josefin Sans', sans-serif;
 }
+h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+    /*padding-top: 1em;*/
+    font-family: 'Josefin Sans', sans-serif;
+}
+p {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+
+/***************************
+ all CLASS-BASED CSS
+***************************/
+
+/***************************
+ the nav bar and page footer
+***************************/
+
+.navbar{
+    font-family: 'Josefin Sans', sans-serif;
+    background-color: black!important;
+}
+.nav-link {
+    color: #cb52bf;
+}
+
+.page-footer{
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+/***************************
+ Jumbotron and Hero Image
+***************************/
 .jumbotron{
     background: url(https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Minimalist-Crumpled-Paper-Simple-Background-Image.jpg)
-}
-.list-group-item {
-    font-family: 'Josefin Sans', sans-serif;
-}
-.card-horizontal {
-    display: flex;
-    flex: 1 1 auto;
-    padding-right: 0;
-    width:100%;
 }
 .hero {
     width: 100vw;
@@ -49,11 +77,34 @@ h3 {
     margin-top: 0;
     margin-bottom: 0.5em;
 }
-.card-header {
-    font-size: 1.25em;
+
+/***************************
+ The List-y CARDS
+***************************/
+.card-list {
+    min-height:200px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    overflow: scroll;
+    background-color: #fff;
+    font-family:'Josefin Sans', sans-serif;
+}
+.background-muted {
+    background-color: #e2e2e2;
+}
+.card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+    padding-right: 0;
+    width:100%;
+    font-family:'Josefin Sans', sans-serif;
+}
+.list-group-item {
     font-family: 'Josefin Sans', sans-serif;
 }
-.page-footer{
+.card-header {
+    font-size: 1.25em;
     font-family: 'Josefin Sans', sans-serif;
 }
 .card-horizontal .img-square-wrapper {
@@ -63,38 +114,19 @@ h3 {
 .card-body-collapse{
     padding: 0;
 }
-.card-list {
-    height: 200px;
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-    overflow: scroll;
-    background-color: #fff;
-    font-family: 'Montserrat', sans-serif;
-}
 .card img {
     display: block;
     width: 100%;
     height: 200px;
     object-fit: cover;
 }
-h1 {
-    text-align: center;
-    padding-top: 1em;
-    font-family: 'Josefin Sans', sans-serif;
-}
-.navbar{
-    font-family: 'Josefin Sans', sans-serif;
-    background-color: black!important;
-}
-.nav-link {
-    color: #cb52bf;
-}
-p {
-    font-family: 'Josefin Sans', sans-serif;
-}
 .img-download {
     position: relative;
+}
+.img-download > a {
+    position: absolute;
+    top: 2px;
+    right: 5px;
 }
 .collapse {
     position: absolute;
@@ -105,11 +137,6 @@ p {
     position: absolute;
     top: 27px;
     right: 0;
-}
-.img-download > a {
-    position: absolute;
-    top: 2px;
-    right: 5px;
 }
 @media (min-width:576px) {
     .card-columns {
@@ -136,11 +163,10 @@ p {
     --input-padding-y: .75rem;
 }
 
-body {
-    background: #cb52bf;
-    background: linear-gradient(to right, #d36ac7, #C23bb6);
-}
-
+/***************************
+ We use this for the sign-in
+ and also on forms
+****************************/
 .card-signin {
     border: 0;
     border-radius: 1rem;
