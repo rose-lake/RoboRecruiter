@@ -35,58 +35,68 @@
             <div th:if="${links.size()}==0">
                 <h1>No Applications to display</h1>
             </div>
+
+            <!-- START :: each application box :: horizontal card -->
             <div th:each="link : ${links}">
                 <div th:with="job=${link.job}, interview=${link.interview}"
                      class="card card-list mb-3 animated fadeInUp">
                     <div class="card-horizontal">
-                        <div class="card-header col-md-3 d-flex flex-column justify-content-around">
+                        <div class="card-header col-md-4 d-flex flex-column justify-content-around">
                             <h4>[[${job.title}]]</h4>
                             <h6>Applied<br>[[${link.dateApplied}]]</h6>
                         </div>
-                        <div class="card-body col-md-4 d-flex flex-column justify-content-around">
+                        <div class="card-body col-md-5 d-flex flex-column justify-content-around">
                             <div>
                                 <h4>[[${link.status}]]</h4>
                                 <h6>[[${link.resume.name}]]</h6>
                             </div>
                             <h6>...status message here...</h6>
+                            <h6 th:if="${link.status.equals('Accepted')}">
+                                Schedule Interview!
+                            </h6>
+                            <h6 th:if="${link.status.equals('Interview Scheduled')}">
+                                Date: [[${interview.dateScheduled}]], Time: [[${interview.timeWindowStart}]]
+                            </h6>
+                            <h6 th:if="${link.status.equals('Take Interview')}">
+                                Date: [[${interview.dateScheduled}]], Time: [[${interview.timeWindowStart}]]<br>
+                            </h6>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card-body">
-                                <p class="card-text">Status: [[${link.status}]]</p>
-                                <p class="card-text" th:if="${link.status.equals('Accepted')}">Schedule
-                                    Interview!</p>
-                                <p class="card-text"
-                                   th:if="${link.status.equals('Interview Scheduled') or link.status.equals('Take Interview')}">
-                                    Date: [[${interview.dateScheduled}]], Time: [[${interview.timeWindowStart}]]
-                                </p>
-                                <p class="card-text" th:if="${link.status.equals('Take Interview')}">Take
-                                    Interview!</p>
-                            </div>
-                        </div>
-                        <div class="col-md-2 img-square-wrapper img-download">
-                            <a data-toggle="collapse" th:href="'#collapse_'+${link.id}" role="button"
-                               aria-expanded="false"
-                               aria-controls="collapseExample">
-                                <span style="font-size:1.25em; color: #cb52bf;"><i class="fas fa-cog"></i></span>
-                            </a>
-                            <div class="collapse" th:id="'collapse_'+${link.id}">
-                                <div class="card card-body card-menu card-body-collapse">
-                                    <a th:if="${link.status.equals('Accepted')}" class="nav-link" role="button"
-                                       th:href="@{/scheduleinterview/{id}(id=${link.id})}">Schedule Interview</a>
-                                    <a th:if="${link.status.equals('Take Interview')}"
-                                       class="nav-link" role="button"
-                                       th:href="@{/takeinterview/{id}(id=${interview.id})}">Take Interview</a>
-                                    <!-- commented out ! this makes a new tab -->
-                                    <!--                                    th:target="_blank"-->
-                                    <a th:if="${link.status.equals('Did Not Schedule') or link.status.equals('Missed Interview')}"
-                                       class="nav-link" role="button"
-                                       th:href="@{/appeal/{id}(id=${link.id})}">Appeal</a>
-                                </div>
-                            </div>
+                        <div class="card-body col-md-3 d-flex flex-column justify-content-center">
+<!--                            <a class="btn btn-secondary"-->
+<!--                               data-toggle="collapse" th:href="'#collapse_'+${link.id}"-->
+<!--                               aria-expanded="false"-->
+<!--                               aria-controls="collapseExample">-->
+<!--                                Take Action-->
+<!--                                &lt;!&ndash;<span style="font-size:1.25em; color: #cb52bf;"><i class="fas fa-cog"></i></span>&ndash;&gt;-->
+<!--                            </a>-->
+                            <!--                            <div class="collapse" th:id="'collapse_'+${link.id}">-->
+                            <!--                                <div class="card card-body card-menu card-body-collapse">-->
+<!--                            <div class="card card-body card-menu card-body-collapse">-->
+                                <a th:if="${link.status.equals('Accepted')}"
+                                   class="btn btn-outline-dark"
+                                   th:href="@{/scheduleinterview/{id}(id=${link.id})}">
+                                    Schedule Interview
+                                </a>
+                                <a th:if="${link.status.equals('Take Interview')}"
+                                   class="btn btn-outline-dark"
+                                   th:href="@{/takeinterview/{id}(id=${interview.id})}">
+                                    Take Interview
+                                </a>
+                                <!-- commented out ! this makes a new tab -->
+                                <!--                                    th:target="_blank"-->
+                                <a th:if="${link.status.equals('Did Not Schedule') or link.status.equals('Missed Interview')}"
+                                   class="btn btn-outline-dark"
+                                   th:href="@{/appeal/{id}(id=${link.id})}">
+                                    Appeal
+                                </a>
+<!--                            </div>-->
+                            <!--                            </div>-->
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- END :: each application box :: horizontal card -->
+
         </div>
     </div>
 </div>
