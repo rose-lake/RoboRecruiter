@@ -145,6 +145,8 @@ li i {
 .card-header {
     font-size: 1.25em;
     font-family: 'Quicksand', sans-serif;
+    border-bottom: 0px;
+    /*border-bottom: 1px solid rgba(0,0,0,.125);*/
 }
 .card-horizontal .img-square-wrapper {
     flex-basis: 20%;
