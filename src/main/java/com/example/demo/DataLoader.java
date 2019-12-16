@@ -148,7 +148,7 @@ public class DataLoader implements CommandLineRunner {
             userRepository.save(user);
 
             // ANDROID RESUME
-            resumeRepository.save(new Resume("Android100", "Java”,”Kotlin”, “Android Studio”, “Objective-C”, “Swift”, “XCode”, \"mobile product development”, “Visual Studio App Center\"\n"));
+            resumeRepository.save(new Resume("Android100", "Java”,”Kotlin”, “Android Studio”, “Objective-C”, “Swift”, “XCode”, mobile product development”, “Visual Studio App Center typing collaborative"));
             Resume android100 = resumeRepository.findByNameContains("Android100");
             android100.setUser(user);
             resumeRepository.save(android100);
@@ -156,14 +156,14 @@ public class DataLoader implements CommandLineRunner {
             userRepository.save(user);
 
             // WEB DEV RESUME
-            resumeRepository.save(new Resume("WebDev100", "\"HTML5\", \"CSS3\", \"LESS\", \"SASS\", \"AngularJS\", \"Angular\", \"Git\", \"AWS\", \"Python\", \"D3\", \"Agile/Scrum\", \"cyber security\", \"multitask\""));
+            resumeRepository.save(new Resume("WebDev100", "HTML5, CSS3, LESS, SASS, AngularJS, Angular, Git, AWS, Python, D3, Agile/Scrum, cyber security, multitask collaborative typing"));
             Resume webDev100 = resumeRepository.findByNameContains("WebDev100");
             webDev100.setUser(user);
             resumeRepository.save(webDev100);
             user.addResume(webDev100);
             userRepository.save(user);
 
-//            resumeRepository.save(new Resume("Android75", "Java”,”Kotlin”, “Android Studio”, “Objective-C”, “Swift”, “XCode”"));
+//            resumeRepository.save(new Resume("Android75", "Java”,”Kotlin”, “Android Studio”, “Objective-C”, “Swift”, “XCode”"typing""));
 //            Resume android75 = resumeRepository.findByNameContains("Android75");
 //            android75.setUser(user);
 //            resumeRepository.save(android75);
@@ -215,8 +215,8 @@ public class DataLoader implements CommandLineRunner {
             linkRepository.save(linkAndroid);
 
             Interview interviewAndroid = new Interview(LocalDate.of(2019, 12, 16),
-                    LocalTime.of(12, 15),
-                    LocalTime.of(12, 45));
+                    LocalTime.of(12, 45),
+                    LocalTime.of(13, 15));
 
             interviewRepository.save(interviewAndroid);
             interviewAndroid.setLink(linkAndroid);
@@ -239,8 +239,8 @@ public class DataLoader implements CommandLineRunner {
             linkRepository.save(linkWebDev);
 
             Interview interviewWebDev = new Interview(LocalDate.of(2019, 12, 16),
-                    LocalTime.of(11, 50),
-                    LocalTime.of(12, 20));
+                    LocalTime.of(12, 45),
+                    LocalTime.of(13, 15));
             interviewRepository.save(interviewWebDev);
             interviewWebDev.setLink(linkWebDev);
             interviewRepository.save(interviewWebDev);

@@ -10,6 +10,7 @@
         <div class="mx-auto">
             <h1 class="display-5">Schedule Time</h1>
             <h6 class="display-5">Please select an interview time for <span th:text="${interview.link.job.title}"></span> position.</h6>
+            <br/>
         </div>
         <form class="form-signin mx-auto"action="#" th:action="@{/processinterviewform}" th:object="${interview}" method="post" enctype="multipart/form-data">
             <input type="hidden" th:field="*{id}" />
