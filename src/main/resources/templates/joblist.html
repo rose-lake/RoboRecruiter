@@ -24,16 +24,15 @@
             </div>
 
             <div class="card-body col-md-7 d-flex flex-column justify-content-around text-left">
-
                     <p class="card-text" th:text="${job.description}"></p>
-<!--                    <div th:if="${user.links.size()==0}">-->
-<!--                        <a class="card-text" th:href="@{/applytojob/{id}(id=${job.id})}">Apply</a>-->
-<!--                    </div>-->
-<!--                    <div th:if="${user.links.size()>0}">-->
-<!--                        <a th:each="link : ${user.getLinks()}" th:unless="${link.job} == ${job}" class="card-text" th:href="@{/applytojob/{id}(id=${job.id})}">Apply</a>-->
-<!--                        <p th:each="link : ${user.getLinks()}" th:if="${link.job} == ${job}">Applied!</p>-->
-<!--                    </div>-->
-                    <a class="card-text" th:href="@{/applytojob/{id}(id=${job.id})}">Apply</a>
+                    <div th:if="${user.links.size()==0}">
+                        <a class="card-text" th:href="@{/applytojob/{id}(id=${job.id})}">Apply</a>
+                    </div>
+                    <div th:if="${user.links.size()>0}">
+                        <a th:each="link : ${user.getLinks()}" th:unless="${link.job} == ${job}" class="card-text" th:href="@{/applytojob/{id}(id=${job.id})}">Apply</a>
+                        <p th:each="link : ${user.getLinks()}" th:if="${link.job} == ${job}">Applied!</p>
+                    </div>
+<!--                    <a class="card-text" th:href="@{/applytojob/{id}(id=${job.id})}">Apply</a>-->
             </div>
         </div>
     </div>
