@@ -126,7 +126,15 @@
         <div class="modal-dialog modal-dialog-centered w-50" role="document">
             <div class="modal-content text-center">
                 <div class="modal-header w-100">
+                    <!-- invisible button so that title stays centered-->
+                    <button type="button" class="invisible close" data-dismiss="" aria-label="">
+                        <span aria-hidden="true">×</span>
+                    </button>
                     <h5 class="modal-title mx-auto take-interview-text" id="myModalLabel">Time To Interview!</h5>
+                    <!-- visible close button -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     It's time to take your interview for
@@ -136,9 +144,6 @@
                             [[${takeInterviewLink.job.title}]]
                         </a>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary mx-auto" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
