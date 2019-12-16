@@ -24,6 +24,7 @@
             <div class="card card-resume">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" th:each="resume: ${user.resumes}" th:text="${resume.name}"></li>
+                    <li class="list-group-item"><a href="/addresume">Add Resume <i class="fas fa-plus"></i></a></li>
                 </ul>
             </div>
         </div>

@@ -33,6 +33,9 @@ p{
     font-weight: 600;
     color: #343434;
 }
+li i {
+    -webkit-text-stroke: 1.5px white;
+}
 
 
 /***************************
