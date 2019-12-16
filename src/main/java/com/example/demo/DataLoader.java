@@ -208,9 +208,9 @@ public class DataLoader implements CommandLineRunner {
 //        jobRepository.save(jobDatabase);
         linkRepository.save(linkDB);
         
-        Interview interviewDB = new Interview(LocalDate.of(2019, 12, 13),
-                LocalTime.of(20, 30),
-                LocalTime.of(21, 0));
+        Interview interviewDB = new Interview(LocalDate.of(2019, 12, 15),
+                LocalTime.of(21, 35),
+                LocalTime.of(22, 05));
         interviewRepository.save(interviewDB);
         interviewDB.setLink(linkDB);
         interviewRepository.save(interviewDB);
@@ -231,9 +231,9 @@ public class DataLoader implements CommandLineRunner {
 //        userRepository.save(user);
         linkRepository.save(linkWebDev);
 
-        Interview interviewWebDev = new Interview(LocalDate.of(2019, 12, 13),
-                LocalTime.of(20, 30),
-                LocalTime.of(21, 0));
+        Interview interviewWebDev = new Interview(LocalDate.of(2019, 12, 15),
+                LocalTime.of(21, 30),
+                LocalTime.of(22, 00));
         interviewRepository.save(interviewWebDev);
         interviewWebDev.setLink(linkWebDev);
         interviewRepository.save(interviewWebDev);

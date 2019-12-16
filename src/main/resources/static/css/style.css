@@ -46,11 +46,19 @@ p {
     font-family: 'Josefin Sans', sans-serif;
 }
 
+.take-interview-text{
+    color: #b76bab;
+}
+.take-interview-background{
+    background-color: #b76bab;
+}
+
 /***************************
  Jumbotron and Hero Image
 ***************************/
 .jumbotron{
     background-color: white;
+    box-shadow: 0 10px 20px 0 rgba(0,0,0,.19), 0 2px 15px 0 rgba(0,0,0,.23);
     /*background: url(https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Minimalist-Crumpled-Paper-Simple-Background-Image.jpg)*/
 }
 .hero {
