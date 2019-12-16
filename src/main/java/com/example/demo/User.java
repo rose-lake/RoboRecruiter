@@ -147,6 +147,21 @@ public class User {
 
     public void addLink(Link link) { this.links.add(link); }
 
+    public boolean linksContainJob(Job job) {
+        if (links == null) {
+            return false;
+        }
+        if (links.size() == 0) {
+            return false;
+        }
+        for (Link link : links) {
+            if (link.getJob() == job){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<Resume> getResumes() {
         return resumes;
     }

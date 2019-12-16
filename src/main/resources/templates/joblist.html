@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th= "http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="base :: headstuff">
     <title id="headTitle">Jobs</title>
 </head>
@@ -19,25 +19,47 @@
 
             <div class="card-header col-md-5 d-flex flex-column justify-content-around">
                 <h4>[[${job.title}]]</h4>
-                <h6>Posted <span th:text="${#temporals.format(job.postedDate, 'MMM d, yyyy')}"></span>
+            </div>
+
+            <div class="card-body col-md-7 d-flex flex-column justify-content-around">
+                <!-- the posted date -->
+                <h6 class="text-muted text-left mb-3">
+                    Posted <span th:text="${#temporals.format(job.postedDate, 'MMM d, yyyy')}"></span>
                 </h6>
-            </div>
 
-            <div class="card-body col-md-7 d-flex flex-column justify-content-around text-left">
+                <!-- display the JOB DESCRIPTION -->
+                <p class="card-text" th:text="${job.description}"></p>
 
-                    <p class="card-text" th:text="${job.description}"></p>
-<!--                    <div th:if="${user.links.size()==0}">-->
-<!--                        <a class="card-text" th:href="@{/applytojob/{id}(id=${job.id})}">Apply</a>-->
-<!--                    </div>-->
-<!--                    <div th:if="${user.links.size()>0}">-->
-<!--                        <a th:each="link : ${user.getLinks()}" th:unless="${link.job} == ${job}" class="card-text" th:href="@{/applytojob/{id}(id=${job.id})}">Apply</a>-->
-<!--                        <p th:each="link : ${user.getLinks()}" th:if="${link.job} == ${job}">Applied!</p>-->
-<!--                    </div>-->
-                    <a class="card-text" th:href="@{/applytojob/{id}(id=${job.id})}">Apply</a>
+                <!-- if the USER has NO job applications yet -->
+                <div class="mx-auto"
+                     th:if="${user.links.size()==0}">
+                    <a class="btn btn-outline-dark"
+                       th:href="@{/applytojob/{id}(id=${job.id})}">
+                        Apply
+                    </a>
+                </div>
+
+                <!-- if the USER has already applied to ANY jobs -->
+                <div th:if="${user.linksContainJob(job)}">
+                    <p class="card-text text-center">
+                        Already Applied!
+                    </p>
+                </div>
+                <div class="mx-auto"
+                     th:unless="${user.linksContainJob(job)}">
+                    <a class="btn btn-outline-dark"
+                       th:href="@{/applytojob/{id}(id=${job.id})}">
+                        Apply
+                    </a>
+                </div>
             </div>
+            <!-- end of the SECTION within the HORIZONTAL CARD which displays the description + application link -->
         </div>
+        <!-- end of HORIZONTAL CARD -->
     </div>
+    <!-- end of for each job -->
 </div>
+<!-- end of CONTAINER -->
 <footer th:replace="base :: footer"></footer>
 <div th:replace="base :: jslinks"></div>
 </body>
