@@ -21,7 +21,7 @@
     <div class="row">
         <div class="col-md-3 mt-4">
             <h3>My Resumes</h3>
-            <div class="card-resume">
+            <div class="card card-resume">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" th:each="resume: ${user.resumes}" th:text="${resume.name}"></li>
                 </ul>
@@ -40,46 +40,71 @@
             <div th:each="link : ${links}">
                 <div th:with="job=${link.job}, interview=${link.interview}"
                      class="card card-list mb-3 animated fadeInUp">
-                    <div class="card-horizontal">
-                        <div class="card-header col-md-4 d-flex flex-column justify-content-around">
-                            <h4>[[${job.title}]]</h4>
-                            <h6>Applied<br>[[${link.dateApplied}]]</h6>
-                        </div>
-                        <div class="card-body col-md-5 d-flex flex-column justify-content-around">
-                            <div>
-                                <h4>[[${link.status}]]</h4>
-                                <h6>[[${link.resume.name}]]</h6>
-                            </div>
 
-                            <!-- STATUS MESSAGES -->
-                            <h6 th:if="${link.status.equals('Accepted')}">
-                                Be sure to schedule your interview within two weeks of [[${link.dateApplied}]]
-                            </h6>
-                            <h6 th:if="${link.status.equals('Interview Scheduled')}">
-                                Date: [[${interview.dateScheduled}]], Time: [[${interview.timeWindowStart}]]<br>
-                                Be sure to log in during your interview time.
-                            </h6>
-                            <h6 th:if="${link.status.equals('Take Interview')}">
-                                Date: [[${interview.dateScheduled}]], Time: [[${interview.timeWindowStart}]]<br>
-                                Please take your interview within 30 minutes of [[${interview.timeWindowStart}]]!
+                    <div class="card-horizontal">
+
+                        <div class="card-header col-md-5 d-flex flex-column justify-content-around">
+                            <h4>[[${job.title}]]</h4>
+                            <h6>Applied <span th:text="${#temporals.format(link.dateApplied, 'MMM d, yyyy')}"></span>
                             </h6>
                         </div>
-                        <div class="card-body col-md-3 d-flex flex-column justify-content-center">
+
+                        <div class="card-body col-md-7 d-flex flex-column justify-content-around text-center">
+
+                            <!-- STATUS -->
+                            <h4 th:if="${link.status.equals('Take Interview')}"
+                                class="take-interview-text">
+                                [[${link.status}]]
+                            </h4>
+                            <h4 th:unless="${link.status.equals('Take Interview')}">
+                                [[${link.status}]]
+                            </h4>
+
+                            <!-- INFO MESSAGE -->
+                            <h6 th:if="${link.status.equals('Accepted')}">
+                                Schedule your interview within two weeks of
+                                <br>
+                                <span th:text="${#temporals.format(link.dateApplied, 'MMM d, yyyy')}"></span>
+                            </h6>
+
+                            <h6 th:if="${link.status.equals('Interview Scheduled')}">
+                                Log in during your interview time on
+                                <br>
+                                <span th:text="${#temporals.format(link.dateApplied, 'MMM d, yyyy')}"></span>
+                                at <span th:text="${#temporals.format(link.interview.timeWindowStart, 'h:mm a')}"></span>
+                            </h6>
+
+                            <h6 th:if="${link.status.equals('Take Interview')}">
+                                Begin your interview by <span th:text="${#temporals.format(link.interview.timeWindowEnd, 'h:mm a')}"></span>
+                            </h6>
+                            <h6 th:if="${link.status.equals('Missed Interview')}">
+                                Interview was scheduled for
+                                <br>
+                                <span th:text="${#temporals.format(link.dateApplied, 'MMM d, yyyy')}"></span> at
+                                <span th:text="${#temporals.format(link.interview.timeWindowStart, 'h:mm a')}"></span>
+                            </h6>
+                            <h6 th:if="${link.status.equals('Pending Offer')}">
+                                Interviewed <span th:text="${#temporals.format(interview.dateScheduled, 'MMM d, yyyy')}"></span>
+                            </h6>
+
+                            <!-- ACTION LINKS -->
                             <a th:if="${link.status.equals('Accepted')}"
-                               class="btn btn-outline-dark"
+                               class="btn btn-outline-dark mx-auto"
                                th:href="@{/scheduleinterview/{id}(id=${link.id})}">
                                 Schedule Interview
                             </a>
                             <a th:if="${link.status.equals('Take Interview')}"
-                               class="btn btn-outline-dark"
+                               class="btn btn-outline-dark mx-auto"
                                th:href="@{/takeinterview/{id}(id=${interview.id})}">
                                 Take Interview
                             </a>
-                            <a th:if="${link.status.equals('Did Not Schedule Interview') or link.status.equals('Missed Interview')}"
-                               class="btn btn-outline-dark"
+                            <a th:if="${link.status.equals('Did Not Schedule Interview')
+                                            or link.status.equals('Missed Interview')}"
+                               class="btn btn-outline-dark mx-auto"
                                th:href="@{/appeal/{id}(id=${link.id})}">
                                 Appeal
                             </a>
+
                         </div>
                     </div>
                 </div>
@@ -98,10 +123,15 @@
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">Time To Interview!</h5>
+        <div class="modal-dialog modal-dialog-centered w-50" role="document">
+            <div class="modal-content text-center">
+                <div class="modal-header w-100">
+                    <!-- invisible button so that title stays centered-->
+                    <button type="button" class="invisible close" data-dismiss="" aria-label="">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h5 class="modal-title mx-auto take-interview-text" id="myModalLabel">Time To Interview!</h5>
+                    <!-- visible close button -->
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -109,14 +139,11 @@
                 <div class="modal-body">
                     It's time to take your interview for
                     <div th:each="takeInterviewLink : ${takeInterviewLinks}">
-                        <a class="btn btn-primary my-2"
+                        <a class="btn btn-dark my-2"
                            th:href="@{/takeinterview/{id}(id=${takeInterviewLink.interview.id})}">
                             [[${takeInterviewLink.job.title}]]
                         </a>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
