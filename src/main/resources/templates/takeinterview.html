@@ -12,14 +12,15 @@
         </div>
         <form class="form-signin mx-auto" action="#" th:action="@{/processtakeinterview/{id}(id=${interview.id})}" th:object="${list}"
               method="post">
-            <div class="form-label-group" th:each="qa, stat: *{list}">
+            <div th:each="qa, stat: *{list}">
                 <input type="hidden" name="app" th:field="*{list[__${stat.index}__].question}" />
+                <label class="mt-3 ml-1 interview-label" for="'question_'+*{qa.id}" th:inline="text">[[${stat.index+1}]]. [[*{list[__${stat.index}__].question}]]</label>
                 <textarea type="text" class="form-control" id="'question_'+*{qa.id}" name="'question_'+*{qa.id}" th:field="*{list[__${stat.index}__].answer}"
-                          th:placeholder="*{list[__${stat.index}__].question}" required autofocus></textarea>
+                          required autofocus></textarea>
 <!--                <input class="form-control" id="'question_'+*{qa.id}" name="'question_'+*{qa.id}" th:field="*{list[__${stat.index}__].answer}"/>-->
 <!--                <label for="'question_'+*{qa.id}" th:text="*{list[__${stat.index}__].question}"></label>-->
             </div>
-            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Submit</button>
+            <button class="btn btn-lg btn-primary btn-block text-uppercase mt-5" type="submit">Submit</button>
         </form>
     </div>
 </div>

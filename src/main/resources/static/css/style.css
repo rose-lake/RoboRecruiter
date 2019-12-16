@@ -26,7 +26,7 @@ h2, h4, h6 {
 h5{
     text-align: center;
 }
-p{
+p , .interview-label{
     font-family: 'Quicksand', sans-serif;
 }
 .card-header h4 {
