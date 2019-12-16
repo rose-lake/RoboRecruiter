@@ -7,9 +7,20 @@
 <nav th:replace="base :: navbar"></nav>
 <br/>
 <div class="container col-md-8">
+
     <h1 class="my-4">Jobs</h1>
-    <div th:if="${jobs}==null">
-        <h1>No Jobs to display</h1>
+
+    <div class="flex-column d-flex justify-content-center"
+         th:if="${jobs}==null">
+        <h4 class="pt-0">There's nothing here</h4>
+        <h3 class="pt-1 mt-2"><img th:src="@{/images/favicon.png}" width="100" height="100"/></h3>
+        <h4 class="pt-1 pb-3">Click to return <a th:href="@{/}">home</a></h4>
+    </div>
+    <div class="flex-column d-flex justify-content-center"
+         th:if="${jobs.size()==0}">
+        <h4 class="pt-0">There's nothing here</h4>
+        <h3 class="pt-1 mt-2"><img th:src="@{/images/favicon.png}" width="100" height="100"/></h3>
+        <h4 class="pt-1 pb-3">Click to return <a th:href="@{/}">home</a></h4>
     </div>
 
     <!-- START :: each job box :: horizontal card -->

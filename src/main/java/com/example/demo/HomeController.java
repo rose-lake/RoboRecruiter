@@ -9,6 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Controller
@@ -61,7 +63,14 @@ public class HomeController {
 
     @PostMapping("/search")
     public String search(@RequestParam("search") String s, Model model) {
-        model.addAttribute("jobs", jobRepository.findByDescriptionContainingIgnoreCaseOrTitleContainingIgnoreCase(s,s));
+
+        Iterable<Job> jobs = jobRepository.findByDescriptionContainingIgnoreCaseOrTitleContainingIgnoreCase(s, s);
+        ArrayList<Job> myjobs = new ArrayList<>();
+        for ( Job job : jobs ) {
+            myjobs.add(job);
+        }
+
+        model.addAttribute("jobs", myjobs);
         model.addAttribute("user", userService.getAuthenticatedUser());
         return "joblist";
     }
