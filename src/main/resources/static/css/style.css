@@ -29,7 +29,10 @@ h5{
 p{
     font-family: 'Quicksand', sans-serif;
 }
-
+.card-header h4 {
+    font-weight: 600;
+    color: #343434;
+}
 
 
 /***************************
