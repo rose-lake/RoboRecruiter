@@ -7,23 +7,25 @@
 <nav th:replace="base :: navbar"></nav>
 <br/>
 <div class="container col-md-8">
-    <div th:each="job : ${jobs}" class="card card-list mb-3 animated fadeInUp">
+    <h1>Jobs</h1>
+    <div th:if="${jobs}==null">
+        <h1>No Jobs to display</h1>
+    </div>
+
+    <!-- START :: each job box :: horizontal card -->
+    <div th:each="job : ${jobs}"
+         class="card card-list mb-3 animated fadeInUp">
         <div class="card-horizontal">
-            <div class="card-header col-md-3">
-                <strong>[[${job.title}]]</strong>
+
+            <div class="card-header col-md-5 d-flex flex-column justify-content-around">
+                <h4>[[${job.title}]]</h4>
+                <h6>Posted <span th:text="${#temporals.format(job.postedDate, 'MMM d, yyyy')}"></span>
+                </h6>
             </div>
-            <div class="col-md-5">
-                <div class="card-body">
+
+            <div class="card-body col-md-7 d-flex flex-column justify-content-around text-left">
+
                     <p class="card-text" th:text="${job.description}"></p>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="card-body">
-                    <p class="card-text"><small th:text="${job.postedDate}" class="text-muted"></small></p>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="card-body">
 <!--                    <div th:if="${user.links.size()==0}">-->
 <!--                        <a class="card-text" th:href="@{/applytojob/{id}(id=${job.id})}">Apply</a>-->
 <!--                    </div>-->
@@ -32,7 +34,6 @@
 <!--                        <p th:each="link : ${user.getLinks()}" th:if="${link.job} == ${job}">Applied!</p>-->
 <!--                    </div>-->
                     <a class="card-text" th:href="@{/applytojob/{id}(id=${job.id})}">Apply</a>
-                </div>
             </div>
         </div>
     </div>
