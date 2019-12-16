@@ -35,7 +35,7 @@ public class Interview {
     private static final ArrayList<String> behavioralQuestions= new ArrayList<>(Arrays.asList(
             "Describe a situation in which you met a major obstacle in order to complete a project. How did you deal with it? What steps did you take?",
             "Tell me about a time you had to work on several projects at once. How did you handle this?",
-            "Describe a time when you made a suggestion to improve something on the project that you were working on.",
+            "Describe a time when you made a suggestion to improve something on the project that you were working on...",
             "Give an example of a time when you didn’t agree with other programmer. Did you stand up for something that you believed was right?",
             "Tell me about when you had to deal with conflict within your team. How was the conflict solved? How did you handle that? How would you deal with it now?"));
 

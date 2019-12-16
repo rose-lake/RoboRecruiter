@@ -56,14 +56,14 @@ public class DataLoader implements CommandLineRunner {
             // Making Users :: for Security Layer
             //*******************************************
             passwordEncoder = new BCryptPasswordEncoder();
-            User user = new User("user@user.com", passwordEncoder.encode("user"),
-                    "UserFirstName", "UserLastName",
+            User user = new User("jane@doe.com", passwordEncoder.encode("user"),
+                    "Jane", "Doe",
                     true, "user");
             user.setRoles(Arrays.asList(userRole));
             userRepository.save(user);
 
             User admin = new User("admin@admin.com", passwordEncoder.encode("admin"),
-                    "AdminFirstName", "AdminLastName",
+                    "Octocat", "Git",
                     true, "admin");
             admin.setRoles(Arrays.asList(adminRole));
             userRepository.save(admin);
@@ -93,8 +93,8 @@ public class DataLoader implements CommandLineRunner {
                     LocalDate.of(2019, 10, 11),
                     new ArrayList<>(Arrays.asList("HTML5", "CSS3", "LESS", "SASS", "AngularJS", "Angular", "Git", "AWS",
                             "Python", "D3", "Agile/Scrum", "cyber security", "multitask", "collaborative", "typing")),
-                    new ArrayList<>(Arrays.asList("What is Functional programming",
-                            "What is the difference between classical inheritance and prototypal inheritance",
+                    new ArrayList<>(Arrays.asList("What is Functional programming?",
+                            "What is the difference between classical inheritance and prototypal inheritance?",
                             "What are the pros and cons of functional programming vs object-oriented programming?"))));
             Job jobWebDev = jobRepository.findByTitleContains("Web Developer");
 
@@ -105,7 +105,8 @@ public class DataLoader implements CommandLineRunner {
                     LocalDate.of(2019, 10, 12),
                     new ArrayList<>(Arrays.asList("database coding", "performance tuning", "troubleshooting", "ETL Technologies",
                             "C", "C++", "Python", "Java", "PostgreSQL", "Oracle SQL", "NoSQL", "Scylla", "Apache Cassandra", "Redis", "analytical")),
-                    new ArrayList<>(Arrays.asList("What are DMVs?", " How are transactions used?",
+                    new ArrayList<>(Arrays.asList("What are DMVs?",
+                            " How are transactions used?",
                             "What are DBCC commands?"))));
             Job jobDatabase = jobRepository.findByTitleContains("Database Developer");
 
@@ -117,8 +118,8 @@ public class DataLoader implements CommandLineRunner {
                     new ArrayList<>(Arrays.asList("Java", "Kotlin", "Android Studio", "Objective-C", "Swift", "XCode",
                             "mobile product development", "visual Studio App Center", "typing", "collaborative")),
                     new ArrayList<>(Arrays.asList("What’s the difference between an implicit and an explicit intent?",
-                            " When should you use a Fragment, rather than an Activity?",
-                            " What is a ThreadPool? And is it more effective than using several separate Threads?"))));
+                            "When should you use a Fragment, rather than an Activity?",
+                            "What is a ThreadPool, and is it more effective than using several separate Threads?"))));
             Job jobAndroid = jobRepository.findByTitleContains("Android Developer");
 
 
@@ -128,9 +129,9 @@ public class DataLoader implements CommandLineRunner {
                     LocalDate.of(2019, 10, 14),
                     new ArrayList<>(Arrays.asList("SDLC", "UFT", "VBScripts", "Agile", "Scrum", "JIRA", "qTest", "SQL",
                             "test strategies", "test plans", "fast-paced", "presentation", "interpersonal", "team player")),
-                    new ArrayList<>(Arrays.asList("Explain how you distinguish a symptom vs. a cause when testing.",
+                    new ArrayList<>(Arrays.asList("Explain how you distinguish a symptom vs. a cause when testing...",
                             "What testing methods are you familiar with? Do you have a favorite?",
-                            "What is a ThreadPool? Can you explain the SDLC and Agile methodology"))));
+                            "Can you explain the SDLC and Agile methodology"))));
             Job jobQATester = jobRepository.findByTitleContains("QA Tester");
 
 
@@ -190,8 +191,8 @@ public class DataLoader implements CommandLineRunner {
             // be sure to give them UNIQUE TITLES
             //*******************************************
 
-            // create a DID NOT SCHEDULE, use QA RESUME
-            linkRepository.save(new Link(LocalDate.of(2019, 12, 10),
+            // create a MISSED TWO WEEK WINDOW, use QA RESUME
+            linkRepository.save(new Link(LocalDate.of(2019, 12, 01),
                     "Accepted",
                     "linkQA"));
             Link linkQA = linkRepository.findByNameContains("linkQA");
@@ -200,7 +201,7 @@ public class DataLoader implements CommandLineRunner {
             linkQA.setJob(jobQATester);
             linkRepository.save(linkQA);
 
-            // create a SCHEDULED INTERVIEW, use ANDROID RESUME
+            // create a MISSED INTERVIEW, use ANDROID RESUME
             Link linkAndroid = new Link(LocalDate.of(2019, 12, 13),
                     "Interview Scheduled",
                     "linkAndroid");
@@ -225,28 +226,29 @@ public class DataLoader implements CommandLineRunner {
             linkAndroid.setInterview(interviewAndroid);
             linkRepository.save(linkAndroid);
 
-            // create a SCHEDULED INTERVIEW, use WEB DEV RESUME
-            linkRepository.save(new Link(LocalDate.of(2019, 12, 13),
-                    "Interview Scheduled",
-                    "linkWebDev"));
-            Link linkWebDev = linkRepository.findByNameContains("linkWebDev");
-            linkWebDev.setJob(jobWebDev);
-//        jobRepository.save(jobWebDev);
-            linkWebDev.setResume(webDev100);
-//        resumeRepository.save(webDev100);
-            linkWebDev.setUser(user);
-//        userRepository.save(user);
-            linkRepository.save(linkWebDev);
+//            // create a SCHEDULED INTERVIEW, use WEB DEV RESUME
+//            linkRepository.save(new Link(LocalDate.of(2019, 12, 13),
+//                    "Interview Scheduled",
+//                    "linkWebDev"));
+//            Link linkWebDev = linkRepository.findByNameContains("linkWebDev");
+//            linkWebDev.setJob(jobWebDev);
+////        jobRepository.save(jobWebDev);
+//            linkWebDev.setResume(webDev100);
+////        resumeRepository.save(webDev100);
+//            linkWebDev.setUser(user);
+////        userRepository.save(user);
+//            linkRepository.save(linkWebDev);
+//
+//            Interview interviewWebDev = new Interview(LocalDate.of(2019, 12, 16),
+//                    LocalTime.of(12, 45),
+//                    LocalTime.of(13, 15));
+//            interviewRepository.save(interviewWebDev);
+//            interviewWebDev.setLink(linkWebDev);
+//            interviewRepository.save(interviewWebDev);
+//            interviewWebDev = interviewRepository.findByLink(linkWebDev);
+//            linkWebDev.setInterview(interviewWebDev);
+//            linkRepository.save(linkWebDev);
 
-            Interview interviewWebDev = new Interview(LocalDate.of(2019, 12, 16),
-                    LocalTime.of(12, 45),
-                    LocalTime.of(13, 15));
-            interviewRepository.save(interviewWebDev);
-            interviewWebDev.setLink(linkWebDev);
-            interviewRepository.save(interviewWebDev);
-            interviewWebDev = interviewRepository.findByLink(linkWebDev);
-            linkWebDev.setInterview(interviewWebDev);
-            linkRepository.save(linkWebDev);
         }
     }
 }
