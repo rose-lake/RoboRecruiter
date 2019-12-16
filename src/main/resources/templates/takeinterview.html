@@ -14,8 +14,9 @@
               method="post">
             <div class="form-label-group" th:each="qa, stat: *{list}">
                 <input type="hidden" name="app" th:field="*{list[__${stat.index}__].question}" />
+                <label for="'question_'+*{qa.id}" th:text="*{list[__${stat.index}__].question}"></label>
                 <textarea type="text" class="form-control" id="'question_'+*{qa.id}" name="'question_'+*{qa.id}" th:field="*{list[__${stat.index}__].answer}"
-                          th:placeholder="*{list[__${stat.index}__].question}" required autofocus></textarea>
+                          required autofocus></textarea>
 <!--                <input class="form-control" id="'question_'+*{qa.id}" name="'question_'+*{qa.id}" th:field="*{list[__${stat.index}__].answer}"/>-->
 <!--                <label for="'question_'+*{qa.id}" th:text="*{list[__${stat.index}__].question}"></label>-->
             </div>

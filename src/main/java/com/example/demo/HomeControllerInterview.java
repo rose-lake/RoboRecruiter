@@ -161,7 +161,7 @@ public class HomeControllerInterview {
         String subject = "Interview for " + interview.getLink().getJob().getTitle();
         String content = "Attached is the interview chat history for a recently conducted interview\n" +
                 "Job title: " + interview.getLink().getJob().getTitle() + "\n" +
-                "Applicant: " + interview.getLink().getUser().getFirstName() + interview.getLink().getUser().getLastName();
+                "Applicant: " + interview.getLink().getUser().getFirstName() + " " + interview.getLink().getUser().getLastName();
 
         EmailService mailer = new EmailService();
         try {
