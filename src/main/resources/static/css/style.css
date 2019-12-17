@@ -12,6 +12,7 @@ body {
     background: #dcdcdc;
     /*background: linear-gradient(to right, #d36ac7, #C23bb6);*/
     /*font-family: 'Josefin Sans', sans-serif;*/
+    padding-bottom: 2rem;
 }
 h1, h3 {
     text-align: center;
@@ -56,6 +57,7 @@ li i {
 
 .page-footer{
     font-family: 'Quicksand', sans-serif;
+    margin-top: 2rem;
 }
 
 .take-interview-text{
