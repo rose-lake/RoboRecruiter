@@ -1,48 +1,51 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th= "http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="base :: headstuff">
     <title id="headTitle">Resumes</title>
 </head>
 <body>
-<nav th:replace="base :: navbar"></nav>
-<div class="container col-md-8">
-
-    <!-- this is where we say :: Successfully deleted Resume 'resume name ' ! -->
-    <div th:if="${infoMessage}!=null" class="alert alert-info mx-auto mt-3 w-50" role="alert">
-        <span th:text="${infoMessage}"></span>
+<div class="wrapper">
+    <div class="page-header">
+        <nav th:replace="base :: navbar"></nav>
     </div>
+    <div class="container col-md-8 page-content">
 
-    <!-- list of resume cards -->
-    <div th:each="resume : ${resumes}" class="card card-list mb-3 animated fadeInUp">
-        <div class="card-horizontal">
-            <div class="card-header col-md-3">
-                <strong>[[${resume.name}]]</strong>
-            </div>
-            <div class="col-md-5">
-                <div class="card-body">
-                    <p class="card-text" th:text="${resume.content}"></p>
+        <!-- this is where we say :: Successfully deleted Resume 'resume name ' ! -->
+        <div th:if="${infoMessage}!=null" class="alert alert-info mx-auto mt-3 w-50" role="alert">
+            <span th:text="${infoMessage}"></span>
+        </div>
+
+        <!-- list of resume cards -->
+        <div th:each="resume : ${resumes}" class="card card-list mb-3 animated fadeInUp">
+            <div class="card-horizontal">
+                <div class="card-header col-md-3">
+                    <strong>[[${resume.name}]]</strong>
                 </div>
-            </div>
-            <div class="col-md-2">
-                <div class="card-body">
-                    <p class="card-text">Id: <small th:text="${resume.id}" class="text-muted"></small></p>
+                <div class="col-md-5">
+                    <div class="card-body">
+                        <p class="card-text" th:text="${resume.content}"></p>
+                    </div>
                 </div>
+                <div class="col-md-2">
+                    <div class="card-body">
+                        <p class="card-text">Id: <small th:text="${resume.id}" class="text-muted"></small></p>
+                    </div>
+                </div>
+
+                <!-- do not show DELETE option because it DOES NOT WORK PROPERLY, yet! -->
+                <!-- this can be added after all other requirements are working -->
+                <!-- this should not be called "delete" but ARCHIVE, -->
+                <!-- as you should never actually delete a resume if it was used to apply for a job... -->
+                <!--            <div class="col-md-2">-->
+                <!--                <div class="card-body">-->
+                <!--                    <a class="card-text" th:href="@{/deleteresume/{id}(id=${resume.id})}">Delete</a>-->
+                <!--                </div>-->
+                <!--            </div>-->
+
             </div>
-
-            <!-- do not show DELETE option because it DOES NOT WORK PROPERLY, yet! -->
-            <!-- this can be added after all other requirements are working -->
-            <!-- this should not be called "delete" but ARCHIVE, -->
-            <!-- as you should never actually delete a resume if it was used to apply for a job... -->
-<!--            <div class="col-md-2">-->
-<!--                <div class="card-body">-->
-<!--                    <a class="card-text" th:href="@{/deleteresume/{id}(id=${resume.id})}">Delete</a>-->
-<!--                </div>-->
-<!--            </div>-->
-
         </div>
     </div>
+    <footer th:replace="base :: footer"></footer>
 </div>
-<footer th:replace="base :: footer"></footer>
-<div th:replace="base :: jslinks"></div>
 </body>
 </html>
