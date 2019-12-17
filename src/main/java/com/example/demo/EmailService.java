@@ -14,6 +14,7 @@ public class EmailService {
     private String host = "smtp.gmail.com";
     private String port = "587";
     private String mailFrom = "hiringmanagerdev@gmail.com";
+    // must enable setting in your email client to allow third-party apps to send email from your account
     private String password = "Yu$ufr98";
     private String mailTo = "yusufreyazuddin@gmail.com";
     // sets SMTP server properties
