@@ -4,27 +4,34 @@
     <title id="headTitle">Take Interview</title>
 </head>
 <body>
-<nav th:replace="base :: navbar"></nav>
-<div class="container">
-    <div class="jumbotron col-md-8 mx-auto" style="margin-top: 20px; padding-top: 2rem">
-        <div class="mx-auto">
-            <h1 class="display-5">Interview Questions</h1>
-        </div>
-        <form class="form-signin mx-auto" action="#" th:action="@{/processtakeinterview/{id}(id=${interview.id})}" th:object="${list}"
-              method="post">
-            <div th:each="qa, stat: *{list}">
-                <input type="hidden" name="app" th:field="*{list[__${stat.index}__].question}" />
-                <label class="mt-3 ml-1 interview-label" for="'question_'+*{qa.id}" th:inline="text">[[${stat.index+1}]]. [[*{list[__${stat.index}__].question}]]</label>
-                <textarea type="text" class="form-control" id="'question_'+*{qa.id}" name="'question_'+*{qa.id}" th:field="*{list[__${stat.index}__].answer}"
-                          required autofocus></textarea>
-<!--                <input class="form-control" id="'question_'+*{qa.id}" name="'question_'+*{qa.id}" th:field="*{list[__${stat.index}__].answer}"/>-->
-<!--                <label for="'question_'+*{qa.id}" th:text="*{list[__${stat.index}__].question}"></label>-->
-            </div>
-            <button class="btn btn-lg btn-primary btn-block text-uppercase mt-5 w-50 mx-auto" type="submit">Submit</button>
-        </form>
+<div class="wrapper">
+    <div class="page-header">
+        <nav th:replace="base :: navbar"></nav>
     </div>
+    <div class="container page-content">
+        <div class="jumbotron col-md-8 mx-auto" style="margin-top: 20px; padding-top: 2rem">
+            <div class="mx-auto">
+                <h1 class="display-5">Interview Questions</h1>
+            </div>
+            <form class="form-signin mx-auto" action="#" th:action="@{/processtakeinterview/{id}(id=${interview.id})}"
+                  th:object="${list}"
+                  method="post">
+                <div th:each="qa, stat: *{list}">
+                    <input type="hidden" name="app" th:field="*{list[__${stat.index}__].question}"/>
+                    <label class="mt-3 ml-1 interview-label" for="'question_'+*{qa.id}" th:inline="text">[[${stat.index+1}]].
+                        [[*{list[__${stat.index}__].question}]]</label>
+                    <textarea type="text" class="form-control" id="'question_'+*{qa.id}" name="'question_'+*{qa.id}"
+                              th:field="*{list[__${stat.index}__].answer}"
+                              required autofocus></textarea>
+                    <!--                <input class="form-control" id="'question_'+*{qa.id}" name="'question_'+*{qa.id}" th:field="*{list[__${stat.index}__].answer}"/>-->
+                    <!--                <label for="'question_'+*{qa.id}" th:text="*{list[__${stat.index}__].question}"></label>-->
+                </div>
+                <button class="btn btn-lg btn-primary btn-block text-uppercase mt-5 w-50 mx-auto" type="submit">Submit
+                </button>
+            </form>
+        </div>
+    </div>
+    <footer th:replace="base :: footer"></footer>
 </div>
-<footer th:replace="base :: footer"></footer>
 </body>
-<th:block th:replace="base :: jslinks"></th:block>
 </html>

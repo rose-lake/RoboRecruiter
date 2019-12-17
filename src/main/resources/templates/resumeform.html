@@ -1,50 +1,54 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th ="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="base :: headstuff">
     <title id="headTitle">Resume</title>
 </head>
 <body>
-<nav th:replace="base :: navbar"></nav>
-<div class="container">
-    <div class="card card-signin col-md-6 mx-auto" style="margin-top: 5em; padding-top: 2rem">
-
-        <form class="card-body form-signin mx-auto" action="#"
-              th:action="@{/processresume}" th:object="${resume}"
-              method="post" enctype="multipart/form-data">
-            <h5 class="card-title text-center">Add a Resume</h5>
-            <!-- id -->
-            <input type="hidden" th:field="*{id}" />
-
-            <!-- name -->
-            <div class="form-label-group">
-                <input type="text" required autofocus
-                       class="form-control"
-                       id="name" name="name"
-                       th:field="*{name}"
-                       placeholder="Resume Name" />
-                <label for="name">Resume Name</label>
-            </div>
-
-            <!-- this is where we say the file type can only be 'text/plain' ! -->
-            <div th:if="${fileTypeMessage}!=null" class="alert alert-info mx-auto mt-3" role="alert">
-                <span th:text="${fileTypeMessage}"></span>
-            </div>
-
-            <!-- input FILE -->
-            <div class="form-label-group">
-                <input type="file" required
-                       id="file" name="file"
-                       class="form-control-file">
-                <label for="file">Upload Resume as text (.txt) file, only</label>
-            </div>
-
-            <!-- submit -->
-            <button class="btn btn-lg btn-primary btn-block text-uppercase w-50 mx-auto" type="submit">Submit</button>
-
-        </form>
+<div class="wrapper">
+    <div class="page-header">
+        <nav th:replace="base :: navbar"></nav>
     </div>
+    <div class="container page-content">
+        <div class="card card-signin col-md-6 mx-auto" style="margin-top: 5em; padding-top: 2rem">
+
+            <form class="card-body form-signin mx-auto" action="#"
+                  th:action="@{/processresume}" th:object="${resume}"
+                  method="post" enctype="multipart/form-data">
+                <h5 class="card-title text-center">Add a Resume</h5>
+                <!-- id -->
+                <input type="hidden" th:field="*{id}"/>
+
+                <!-- name -->
+                <div class="form-label-group">
+                    <input type="text" required autofocus
+                           class="form-control"
+                           id="name" name="name"
+                           th:field="*{name}"
+                           placeholder="Resume Name"/>
+                    <label for="name">Resume Name</label>
+                </div>
+
+                <!-- this is where we say the file type can only be 'text/plain' ! -->
+                <div th:if="${fileTypeMessage}!=null" class="alert alert-info mx-auto mt-3" role="alert">
+                    <span th:text="${fileTypeMessage}"></span>
+                </div>
+
+                <!-- input FILE -->
+                <div class="form-label-group">
+                    <input type="file" required
+                           id="file" name="file"
+                           class="form-control-file">
+                    <label for="file">Text (.txt) only</label>
+                </div>
+
+                <!-- submit -->
+                <button class="btn btn-lg btn-primary btn-block text-uppercase w-50 mx-auto" type="submit">Submit
+                </button>
+
+            </form>
+        </div>
+    </div>
+    <footer th:replace="base :: footer"></footer>
 </div>
-<footer th:replace="base :: footer"></footer>
-<div th:replace="base :: jslinks"></div>
 </body>
 </html>
