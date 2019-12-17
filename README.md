@@ -3,11 +3,11 @@
 Our application is a job board that automates some of the preliminary aspects of the interview process(resume screening, preliminary 
 interview questions) in an effort to save both employers and prospective employees time and money.
 
-![RoboRecruiter Logo](src/main/resources/static/images/Screenshot(1).png)
+![RoboRecruiter Logo](src/main/resources/static/images/Screenshot (1).png)
 
 In our application users first are allowed to submit one or many text resumes. They can then search through the available jobs and apply to those they want to with one of the resumes they submitted. Once they apply, their resume is scanned for keywords and if there is an 80% match from the corresponding job's keyword list, their applicaton is accepted and they are allowed to schedule an online interview. If their resume does not contain enough keywords they are rejected immediately.
 
-![RoboRecruiter Logo](src/main/resources/static/images/Screenshot(2).png)
+![RoboRecruiter Logo](src/main/resources/static/images/Screenshot (2).png)
 
 The applicant is given a 2 week window in which they must schedule and take the interview. Should they login within the designated interview time, a pop-up will appear letting them know it is time to conduct the interview. Once the applicant completes the interview, the responses are sent to the hiring manager via email.
 
