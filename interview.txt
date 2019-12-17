@@ -1,24 +1,24 @@
-What is Functional programming
-k
+What is Functional programming?
+I
 
-What is the difference between classical inheritance and prototypal inheritance
-k
+What is the difference between classical inheritance and prototypal inheritance?
+really
 
 What are the pros and cons of functional programming vs object-oriented programming?
-k
+hope 
 
 Describe a situation in which you met a major obstacle in order to complete a project. How did you deal with it? What steps did you take?
-k
+to 
 
 Tell me about a time you had to work on several projects at once. How did you handle this?
-k
+get
 
-Describe a time when you made a suggestion to improve something on the project that you were working on.
-k
+Describe a time when you made a suggestion to improve something on the project that you were working on...
+this
 
 Give an example of a time when you didn’t agree with other programmer. Did you stand up for something that you believed was right?
-k
+job
 
 Tell me about when you had to deal with conflict within your team. How was the conflict solved? How did you handle that? How would you deal with it now?
-k
+thanks!
 

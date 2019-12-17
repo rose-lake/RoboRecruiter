@@ -148,12 +148,12 @@ public class DataLoader implements CommandLineRunner {
             user.addResume(qa100);
             userRepository.save(user);
 
-            // ANDROID RESUME
-            resumeRepository.save(new Resume("Android100", "Java”,”Kotlin”, “Android Studio”, “Objective-C”, “Swift”, “XCode”, mobile product development”, “Visual Studio App Center typing collaborative"));
-            Resume android100 = resumeRepository.findByNameContains("Android100");
-            android100.setUser(user);
-            resumeRepository.save(android100);
-            user.addResume(android100);
+            // DATABASE RESUME
+            resumeRepository.save(new Resume("Database100", "\"database coding\", \"performance tuning\", \"troubleshooting\",\"ETL Technologies\", \"C\", \"C++\", \"Python\", \"Java\", \"PostgreSQL\", \"Oracle SQL\", \"NoSQL\", \"Scylla\", \"Apache Cassandra\", \"Redis\", \"analytical\""));
+            Resume database100 = resumeRepository.findByNameContains("Database100");
+            database100.setUser(user);
+            resumeRepository.save(database100);
+            user.addResume(database100);
             userRepository.save(user);
 
             // WEB DEV RESUME
@@ -178,12 +178,14 @@ public class DataLoader implements CommandLineRunner {
 //            user.addResume(se100);
 //            userRepository.save(user);
 
-//            resumeRepository.save(new Resume("Database100", "\"database coding\", \"performance tuning\", \"troubleshooting\",\"ETL Technologies\", \"C\", \"C++\", \"Python\", \"Java\", \"PostgreSQL\", \"Oracle SQL\", \"NoSQL\", \"Scylla\", \"Apache Cassandra\", \"Redis\", \"analytical\""));
-//            Resume database100 = resumeRepository.findByNameContains("Database100");
-//            database100.setUser(user);
-//            resumeRepository.save(database100);
-//            user.addResume(database100);
+//            // ANDROID RESUME
+//            resumeRepository.save(new Resume("Android100", "Java”,”Kotlin”, “Android Studio”, “Objective-C”, “Swift”, “XCode”, mobile product development”, “Visual Studio App Center typing collaborative"));
+//            Resume android100 = resumeRepository.findByNameContains("Android100");
+//            android100.setUser(user);
+//            resumeRepository.save(android100);
+//            user.addResume(android100);
 //            userRepository.save(user);
+
 
 
             //*******************************************
@@ -201,30 +203,25 @@ public class DataLoader implements CommandLineRunner {
             linkQA.setJob(jobQATester);
             linkRepository.save(linkQA);
 
-            // create a MISSED INTERVIEW, use ANDROID RESUME
-            Link linkAndroid = new Link(LocalDate.of(2019, 12, 13),
+            // create a MISSED INTERVIEW, use DATABASE RESUME
+            Link linkDatabase = new Link(LocalDate.of(2019, 12, 13),
                     "Interview Scheduled",
-                    "linkAndroid");
-            linkRepository.save(linkAndroid);
-            linkAndroid = linkRepository.findByNameContains("linkAndroid");
-            linkAndroid.setUser(user);
-//        userRepository.save(user);
-            linkAndroid.setResume(android100);
-//        resumeRepository.save(database100);
-            linkAndroid.setJob(jobDatabase);
-//        jobRepository.save(jobDatabase);
-            linkRepository.save(linkAndroid);
-
+                    "linkDatabase");
+            linkRepository.save(linkDatabase);
+            linkDatabase = linkRepository.findByNameContains("linkDatabase");
+            linkDatabase.setUser(user);
+            linkDatabase.setResume(database100);
+            linkDatabase.setJob(jobDatabase);
+            linkRepository.save(linkDatabase);
             Interview interviewAndroid = new Interview(LocalDate.of(2019, 12, 16),
                     LocalTime.of(12, 45),
                     LocalTime.of(13, 15));
-
             interviewRepository.save(interviewAndroid);
-            interviewAndroid.setLink(linkAndroid);
+            interviewAndroid.setLink(linkDatabase);
             interviewRepository.save(interviewAndroid);
-            interviewAndroid = interviewRepository.findByLink(linkAndroid);
-            linkAndroid.setInterview(interviewAndroid);
-            linkRepository.save(linkAndroid);
+            interviewAndroid = interviewRepository.findByLink(linkDatabase);
+            linkDatabase.setInterview(interviewAndroid);
+            linkRepository.save(linkDatabase);
 
 //            // create a SCHEDULED INTERVIEW, use WEB DEV RESUME
 //            linkRepository.save(new Link(LocalDate.of(2019, 12, 13),
@@ -238,7 +235,6 @@ public class DataLoader implements CommandLineRunner {
 //            linkWebDev.setUser(user);
 ////        userRepository.save(user);
 //            linkRepository.save(linkWebDev);
-//
 //            Interview interviewWebDev = new Interview(LocalDate.of(2019, 12, 16),
 //                    LocalTime.of(12, 45),
 //                    LocalTime.of(13, 15));
