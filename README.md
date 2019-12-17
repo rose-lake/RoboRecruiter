@@ -1,6 +1,6 @@
 # RoboRecruiter
 
-![RoboRecruiter Logo](RoboInterview/src/main/resources/static/images/logo.png)
+![RoboRecruiter Logo](src/main/resources/static/images/logo.png)
 
 
 Our application is a job board that automates some of the preliminary aspects of the interview process(resume screening, preliminary 
