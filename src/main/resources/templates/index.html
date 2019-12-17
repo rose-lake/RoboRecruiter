@@ -4,156 +4,168 @@
     <title id="headTitle">Home</title>
 </head>
 <body>
-<nav th:replace="base :: navbar"></nav>
+<div class="wrapper">
 
-<section class="hero">
-    <div class="hero-inner">
-        <h1>Your job search ends here!</h1>
-        <form class="form form-inline form-hero mx-auto" th:action="@{/search}" method="post">
-            <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search for Jobs..."
-                   aria-label="Search">
-            <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-        </form>
+    <div class="page-header">
+        <nav th:replace="base :: navbar"></nav>
+
+        <section class="hero">
+            <div class="hero-inner">
+                <h1>Your job search ends here!</h1>
+                <form class="form form-inline form-hero mx-auto" th:action="@{/search}" method="post">
+                    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search for Jobs..."
+                           aria-label="Search">
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
     </div>
-</section>
 
-<div class="container col-md-10">
-    <div class="row">
-        <div class="col-md-3 mt-4">
-            <h3>My Resumes</h3>
-            <div class="card card-resume">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item" th:each="resume: ${user.resumes}" th:text="${resume.name}"></li>
-                    <li class="list-group-item"><a href="/addresume">Add Resume <i class="fas fa-plus"></i></a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-9">
-            <h1>Applications</h1>
-            <div th:if="${links}==null">
-                <h1>No Applications to display</h1>
-            </div>
-            <div th:if="${links.size()}==0">
-                <h1>No Applications to display</h1>
-            </div>
+    <div class="page-content">
+        <div class="container col-md-10">
+            <div class="row">
+                <div class="col-md-3 mt-4">
+                    <h3>My Resumes</h3>
+                    <div class="card card-resume">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" th:each="resume: ${user.resumes}" th:text="${resume.name}"></li>
+                            <li class="list-group-item"><a href="/addresume">Add Resume <i class="fas fa-plus"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <h1>Applications</h1>
+                    <div th:if="${links}==null">
+                        <h1>No Applications to display</h1>
+                    </div>
+                    <div th:if="${links.size()}==0">
+                        <h1>No Applications to display</h1>
+                    </div>
 
-            <!-- START :: each application box :: horizontal card -->
-            <div th:each="link : ${links}">
-                <div th:with="job=${link.job}, interview=${link.interview}"
-                     class="card card-list mb-3 animated fadeInUp">
+                    <!-- START :: each application box :: horizontal card -->
+                    <div th:each="link : ${links}">
+                        <div th:with="job=${link.job}, interview=${link.interview}"
+                             class="card card-list mb-3 animated fadeInUp">
 
-                    <div class="card-horizontal">
+                            <div class="card-horizontal">
 
-                        <div class="card-header col-md-5 d-flex flex-column justify-content-around">
-                            <h4>[[${job.title}]]</h4>
-                            <h6>Applied <span th:text="${#temporals.format(link.dateApplied, 'MMM d, yyyy')}"></span>
-                            </h6>
-                        </div>
+                                <div class="card-header col-md-5 d-flex flex-column justify-content-around">
+                                    <h4>[[${job.title}]]</h4>
+                                    <h6>Applied <span
+                                            th:text="${#temporals.format(link.dateApplied, 'MMM d, yyyy')}"></span>
+                                    </h6>
+                                </div>
 
-                        <div class="card-body col-md-7 d-flex flex-column justify-content-around text-center">
+                                <div class="card-body col-md-7 d-flex flex-column justify-content-around text-center">
 
-                            <!-- STATUS -->
-                            <h4 th:if="${link.status.equals('Take Interview')}"
-                                class="take-interview-text">
-                                [[${link.status}]]
-                            </h4>
-                            <h4 th:unless="${link.status.equals('Take Interview')}">
-                                [[${link.status}]]
-                            </h4>
+                                    <!-- STATUS -->
+                                    <h4 th:if="${link.status.equals('Take Interview')}"
+                                        class="take-interview-text">
+                                        [[${link.status}]]
+                                    </h4>
+                                    <h4 th:unless="${link.status.equals('Take Interview')}">
+                                        [[${link.status}]]
+                                    </h4>
 
-                            <!-- INFO MESSAGE -->
-                            <h6 th:if="${link.status.equals('Accepted')}">
-                                Schedule your interview within two weeks of
-                                <br>
-                                <span th:text="${#temporals.format(link.dateApplied, 'MMM d, yyyy')}"></span>
-                            </h6>
+                                    <!-- INFO MESSAGE -->
+                                    <h6 th:if="${link.status.equals('Accepted')}">
+                                        Schedule your interview within two weeks of
+                                        <br>
+                                        <span th:text="${#temporals.format(link.dateApplied, 'MMM d, yyyy')}"></span>
+                                    </h6>
 
-                            <h6 th:if="${link.status.equals('Interview Scheduled')}">
-                                Log in during your interview time on
-                                <br>
-                                <span th:text="${#temporals.format(link.dateApplied, 'MMM d, yyyy')}"></span>
-                                at <span th:text="${#temporals.format(link.interview.timeWindowStart, 'h:mm a')}"></span>
-                            </h6>
+                                    <h6 th:if="${link.status.equals('Interview Scheduled')}">
+                                        Log in during your interview time on
+                                        <br>
+                                        <span th:text="${#temporals.format(link.dateApplied, 'MMM d, yyyy')}"></span>
+                                        at <span
+                                            th:text="${#temporals.format(link.interview.timeWindowStart, 'h:mm a')}"></span>
+                                    </h6>
 
-                            <h6 th:if="${link.status.equals('Take Interview')}">
-                                Begin your interview by <span th:text="${#temporals.format(link.interview.timeWindowEnd, 'h:mm a')}"></span>
-                            </h6>
-                            <h6 th:if="${link.status.equals('Missed Interview')}">
-                                Interview was scheduled for
-                                <br>
-                                <span th:text="${#temporals.format(link.dateApplied, 'MMM d, yyyy')}"></span> at
-                                <span th:text="${#temporals.format(link.interview.timeWindowStart, 'h:mm a')}"></span>
-                            </h6>
-                            <h6 th:if="${link.status.equals('Pending Offer')}">
-                                Interviewed <span th:text="${#temporals.format(interview.dateScheduled, 'MMM d, yyyy')}"></span>
-                            </h6>
+                                    <h6 th:if="${link.status.equals('Take Interview')}">
+                                        Begin your interview by <span
+                                            th:text="${#temporals.format(link.interview.timeWindowEnd, 'h:mm a')}"></span>
+                                    </h6>
+                                    <h6 th:if="${link.status.equals('Missed Interview')}">
+                                        Interview was scheduled for
+                                        <br>
+                                        <span th:text="${#temporals.format(link.dateApplied, 'MMM d, yyyy')}"></span> at
+                                        <span th:text="${#temporals.format(link.interview.timeWindowStart, 'h:mm a')}"></span>
+                                    </h6>
+                                    <h6 th:if="${link.status.equals('Pending Offer')}">
+                                        Interviewed <span
+                                            th:text="${#temporals.format(interview.dateScheduled, 'MMM d, yyyy')}"></span>
+                                    </h6>
 
-                            <!-- ACTION LINKS -->
-                            <a th:if="${link.status.equals('Accepted')}"
-                               class="btn btn-outline-dark mx-auto"
-                               th:href="@{/scheduleinterview/{id}(id=${link.id})}">
-                                Schedule Interview
-                            </a>
-                            <a th:if="${link.status.equals('Take Interview')}"
-                               class="btn btn-outline-dark mx-auto"
-                               th:href="@{/takeinterview/{id}(id=${interview.id})}">
-                                Take Interview
-                            </a>
-                            <a th:if="${link.status.equals('Did Not Schedule Interview')
+                                    <!-- ACTION LINKS -->
+                                    <a th:if="${link.status.equals('Accepted')}"
+                                       class="btn btn-outline-dark mx-auto"
+                                       th:href="@{/scheduleinterview/{id}(id=${link.id})}">
+                                        Schedule Interview
+                                    </a>
+                                    <a th:if="${link.status.equals('Take Interview')}"
+                                       class="btn btn-outline-dark mx-auto"
+                                       th:href="@{/takeinterview/{id}(id=${interview.id})}">
+                                        Take Interview
+                                    </a>
+                                    <a th:if="${link.status.equals('Did Not Schedule Interview')
                                             or link.status.equals('Missed Interview')}"
-                               class="btn btn-outline-dark mx-auto"
-                               th:href="@{/appeal/{id}(id=${link.id})}">
-                                Appeal
-                            </a>
+                                       class="btn btn-outline-dark mx-auto"
+                                       th:href="@{/appeal/{id}(id=${link.id})}">
+                                        Appeal
+                                    </a>
 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END :: each application box :: horizontal card -->
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- start Modal -->
+        <!-- if the modal markup is in the page when it loads, then it will load the modal. -->
+        <!-- hence the surrounding th:if -->
+        <div th:if="${takeInterviewLinks.size()>0}">
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered w-50" role="document">
+                    <div class="modal-content text-center">
+                        <div class="modal-header w-100">
+                            <!-- invisible button so that title stays centered-->
+                            <button type="button" class="invisible close" data-dismiss="" aria-label="">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <h5 class="modal-title mx-auto take-interview-text" id="myModalLabel">Time To
+                                Interview!</h5>
+                            <!-- visible close button -->
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            It's time to take your interview for
+                            <div th:each="takeInterviewLink : ${takeInterviewLinks}">
+                                <a class="btn btn-dark my-2"
+                                   th:href="@{/takeinterview/{id}(id=${takeInterviewLink.interview.id})}">
+                                    [[${takeInterviewLink.job.title}]]
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- END :: each application box :: horizontal card -->
-
         </div>
+        <!-- end Modal -->
     </div>
+
+    <footer th:replace="base :: footer"></footer>
 </div>
-
-
-<!-- start Modal -->
-<!-- if the modal markup is in the page when it loads, then it will load the modal. -->
-<!-- hence the surrounding th:if -->
-<div th:if="${takeInterviewLinks.size()>0}">
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered w-50" role="document">
-            <div class="modal-content text-center">
-                <div class="modal-header w-100">
-                    <!-- invisible button so that title stays centered-->
-                    <button type="button" class="invisible close" data-dismiss="" aria-label="">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                    <h5 class="modal-title mx-auto take-interview-text" id="myModalLabel">Time To Interview!</h5>
-                    <!-- visible close button -->
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    It's time to take your interview for
-                    <div th:each="takeInterviewLink : ${takeInterviewLinks}">
-                        <a class="btn btn-dark my-2"
-                           th:href="@{/takeinterview/{id}(id=${takeInterviewLink.interview.id})}">
-                            [[${takeInterviewLink.job.title}]]
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end Modal -->
-
-<footer th:replace="base :: footer"></footer>
-<div th:replace="base :: jslinks"></div>
 </body>
-<!--<th:block th:replace="base :: jslinks"></th:block>-->
 </html>

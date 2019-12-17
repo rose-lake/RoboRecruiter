@@ -1,47 +1,53 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th ="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="base :: headstuff">
     <title id="headTitle">Schedule Interview</title>
 </head>
 <body>
-<nav th:replace="base :: navbar"></nav>
-<div class="container">
-    <div class="jumbotron col-md-6 mx-auto" style="margin-top: 5em; padding-top: 2rem">
-        <div class="mx-auto">
-            <h1 class="display-5">Schedule Time</h1>
-            <h6 class="display-5">Please select an interview time for <span th:text="${interview.link.job.title}"></span> position.</h6>
-            <br/>
-        </div>
-        <form class="form-signin mx-auto"action="#" th:action="@{/processinterviewform}" th:object="${interview}" method="post" enctype="multipart/form-data">
-            <input type="hidden" th:field="*{id}" />
-
-            <!--example-->
-            <!--<p th:text="${link.user.firstName}"></p>-->
-            <input type="hidden" th:field="*{link}" />
-
-            <div class="form-label-group">
-                <input type="date" class="form-control" id="interview-date" name="selected-date"
-                       th:min="${currentDate}" th:max="*{link.getDateApplied().plusDays(14)}"
-                       placeholder="Date" required autofocus/>
-                <label for="interview-date">Select a date</label>
-            </div>
-
-            <!-- this is where we say the TIME can only be greater or equal to current time ! -->
-            <div th:if="${timeMessage}!=null" class="alert alert-info mx-auto mt-3" role="alert">
-                <span th:text="${timeMessage}"></span>
-            </div>
-
-            <div class="form-label-group">
-                <input type="time" class="form-control" id="interview-time" name="selected-time"
-                        placeholder="Time"
-                       required autofocus/>
-                <label for="interview-time">Select a time</label>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block text-uppercase w-50 mx-auto" type="submit">Submit</button>
-        </form>
+<div class="wrapper">
+    <div class="page-header">
+        <nav th:replace="base :: navbar"></nav>
     </div>
+    <div class="container page-content">
+        <div class="jumbotron col-md-6 mx-auto" style="margin-top: 5em; padding-top: 2rem">
+            <div class="mx-auto">
+                <h1 class="display-5">Schedule Time</h1>
+                <h6 class="display-5">Please select an interview time for <span
+                        th:text="${interview.link.job.title}"></span> position.</h6>
+                <br/>
+            </div>
+            <form class="form-signin mx-auto" action="#" th:action="@{/processinterviewform}" th:object="${interview}"
+                  method="post" enctype="multipart/form-data">
+                <input type="hidden" th:field="*{id}"/>
+
+                <!--example-->
+                <!--<p th:text="${link.user.firstName}"></p>-->
+                <input type="hidden" th:field="*{link}"/>
+
+                <div class="form-label-group">
+                    <input type="date" class="form-control" id="interview-date" name="selected-date"
+                           th:min="${currentDate}" th:max="*{link.getDateApplied().plusDays(14)}"
+                           placeholder="Date" required autofocus/>
+                    <label for="interview-date">Select a date</label>
+                </div>
+
+                <!-- this is where we say the TIME can only be greater or equal to current time ! -->
+                <div th:if="${timeMessage}!=null" class="alert alert-info mx-auto mt-3" role="alert">
+                    <span th:text="${timeMessage}"></span>
+                </div>
+
+                <div class="form-label-group">
+                    <input type="time" class="form-control" id="interview-time" name="selected-time"
+                           placeholder="Time"
+                           required autofocus/>
+                    <label for="interview-time">Select a time</label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block text-uppercase w-50 mx-auto" type="submit">Submit
+                </button>
+            </form>
+        </div>
+    </div>
+    <footer th:replace="base :: footer"></footer>
 </div>
-<footer th:replace="base :: footer"></footer>
-<div th:replace="base :: jslinks"></div>
 </body>
 </html>
