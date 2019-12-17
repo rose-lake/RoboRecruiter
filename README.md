@@ -16,7 +16,7 @@ If the applicant fails to conduct the interview or misses the interview time fra
 
 The main technologies we used to develop our applicaton are Java, Thymeleaf, Spring MVC, HTML/CSS, Bootstrap, and H2/SQL.
 
->Further Expansion/Testing
+##Further Expansion/Testing
 Some features we talked about but haven't yet implemented are hiring manager functionality, allowing them to login, view relevant applications, and make decisions about appeals/offers. One way we could do this is to implement an in-application inbox that allows them to view all the relevant information inside the apllication itself.
 
 Our program is currently written with H2 but it is able to run using MySQL given one changes the application.properties file.
