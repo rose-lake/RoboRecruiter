@@ -76,7 +76,7 @@ public class DataLoader implements CommandLineRunner {
                     "The Software Engineer position is the core role within the Software Development Group. " +
                             "Members of this role are responsible for creation and maintenance of the majority of company's " +
                             "product code bases.",
-                    LocalDate.of(2019, 10, 10),
+                    LocalDate.of(2020, 4, 7),
                     new ArrayList<>(Arrays.asList("Responsive Design", "HTML", "CSS", "JavaScript", "JSON", "REST", "SOAP",
                             "Cloud Configuration Management", "full systems development lifecycle", "API interfaces",
                             "analytical", "communication", "AngularJS")),
@@ -90,7 +90,7 @@ public class DataLoader implements CommandLineRunner {
                             "functional, and responsive websites for the best user experience and successful ROI. " +
                             "Together our team of strategists, designers, developers, and marketers work with our clients " +
                             "to ensure our end result is the start of a new and engaging online presence for their business.",
-                    LocalDate.of(2019, 10, 11),
+                    LocalDate.of(2020, 4, 7),
                     new ArrayList<>(Arrays.asList("HTML5", "CSS3", "LESS", "SASS", "AngularJS", "Angular", "Git", "AWS",
                             "Python", "D3", "Agile/Scrum", "cyber security", "multitask", "collaborative", "typing")),
                     new ArrayList<>(Arrays.asList("What is Functional programming?",
@@ -102,7 +102,7 @@ public class DataLoader implements CommandLineRunner {
                     "The Database Developer will be responsible for managing company data infrastructure and " +
                             "assets, assisting in the planning, design and implementation of company data interfaces and " +
                             "data management components.",
-                    LocalDate.of(2019, 10, 12),
+                    LocalDate.of(2020, 3, 7),
                     new ArrayList<>(Arrays.asList("database coding", "performance tuning", "troubleshooting", "ETL Technologies",
                             "C", "C++", "Python", "Java", "PostgreSQL", "Oracle SQL", "NoSQL", "Scylla", "Apache Cassandra", "Redis", "analytical")),
                     new ArrayList<>(Arrays.asList("What are DMVs?",
@@ -114,7 +114,7 @@ public class DataLoader implements CommandLineRunner {
             jobRepository.save(new Job("Android Developer",
                     "We're looking for a developer who is passionate about building high quality Android apps. " +
                             "The ideal candidate will work closely with other developers to bring designs to life.",
-                    LocalDate.of(2019, 10, 13),
+                    LocalDate.of(2020, 4, 7),
                     new ArrayList<>(Arrays.asList("Java", "Kotlin", "Android Studio", "Objective-C", "Swift", "XCode",
                             "mobile product development", "visual Studio App Center", "typing", "collaborative")),
                     new ArrayList<>(Arrays.asList("What’s the difference between an implicit and an explicit intent?",
@@ -126,7 +126,7 @@ public class DataLoader implements CommandLineRunner {
             jobRepository.save(new Job("QA Tester",
                     "We are looking for a passionate, experienced engineer with a strong background in programming" +
                             " combined with a passion for software quality and test automation.",
-                    LocalDate.of(2019, 10, 14),
+                    LocalDate.of(2020, 3, 7),
                     new ArrayList<>(Arrays.asList("SDLC", "UFT", "VBScripts", "Agile", "Scrum", "JIRA", "qTest", "SQL",
                             "test strategies", "test plans", "fast-paced", "presentation", "interpersonal", "team player")),
                     new ArrayList<>(Arrays.asList("Explain how you distinguish a symptom vs. a cause when testing...",
@@ -201,7 +201,7 @@ public class DataLoader implements CommandLineRunner {
             //*******************************************
 
             // create a MISSED TWO WEEK WINDOW, use QA RESUME
-            linkRepository.save(new Link(LocalDate.of(2019, 12, 01),
+            linkRepository.save(new Link(LocalDate.of(2020, 3, 8),
                     "Accepted",
                     "linkQA"));
             Link linkQA = linkRepository.findByNameContains("linkQA");
@@ -211,7 +211,7 @@ public class DataLoader implements CommandLineRunner {
             linkRepository.save(linkQA);
 
             // create a MISSED INTERVIEW, use DATABASE RESUME
-            Link linkDatabase = new Link(LocalDate.of(2019, 12, 13),
+            Link linkDatabase = new Link(LocalDate.of(2020, 3, 8),
                     "Interview Scheduled",
                     "linkDatabase");
             linkRepository.save(linkDatabase);
@@ -220,7 +220,7 @@ public class DataLoader implements CommandLineRunner {
             linkDatabase.setResume(database100);
             linkDatabase.setJob(jobDatabase);
             linkRepository.save(linkDatabase);
-            Interview interviewAndroid = new Interview(LocalDate.of(2019, 12, 16),
+            Interview interviewAndroid = new Interview(LocalDate.of(2020, 4, 11),
                     LocalTime.of(12, 45),
                     LocalTime.of(13, 15));
             interviewRepository.save(interviewAndroid);
