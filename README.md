@@ -7,7 +7,7 @@ To test the application, please follow this workflow for a smooth and interestin
 3. apply to a job
     - navigate to `All Jobs` (upper right)
     - first, click `Apply` for the `Android Developer` job. To experience the app behavior when your resume *does not pass* the initial screen, select the `Android75` resume. Scroll down on the home screen to see the result.
-    - second, go back to `All Jobs` and `Apply` for another available job. This time, be sure to select a resume with a *matching name*. Scroll down on the home screen to see that you were *accepted*.
+    - second, go back to `All Jobs` and `Apply` for another available job. Be sure to select a resume with a *matching name*. Scroll down on the home screen to see that you were *accepted*.
 4. schedule an interview
     - scroll down to the job where you *accepted*, and click on `Schedule Interview`
     - if you wish, experience some data validation by...
