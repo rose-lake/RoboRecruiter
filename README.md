@@ -30,6 +30,12 @@ To test the application, please follow this workflow for a smooth and interestin
 
 That's all, folks!
 
+## Caveat Emptor
+
+This heroku-hosted application is relatively stateful, so if you 'use up' all the pre-loaded data by applying with the 'wrong' resumes and get rejected from all possible jobs, you'll need to wait approximately one day before trying this workflow again, as heroku automatically resets the application about once each day.
+
+On the other hand, you can always clone the repo and run it locally!
+
 ## Application Overview
 
 Our application is a job board that automates some of the preliminary aspects of the interview process (resume screening, preliminary
