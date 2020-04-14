@@ -26,7 +26,7 @@ To test the application, please follow this workflow for a smooth and interestin
 7. add some resumes
     - add some .txt files to your resume bank, and experience some data validation if you attempt to add a file without a .txt extension.
 8. play with the search function
-    - be sure to enter an impossible search, such as `asdf`, to see our meet our **cute mascot** redirecting you home.
+    - be sure to enter an impossible search, such as `asdf`, to meet our **cute mascot** redirecting you home.
 
 That's all, folks!
 
