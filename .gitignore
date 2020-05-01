@@ -1,6 +1,7 @@
 HELP.md
 notes.md
 target/
+design_whiteboards/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
